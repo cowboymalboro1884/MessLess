@@ -12,11 +12,11 @@ int main() {
     const string msg = "zalupa!\n";
     boost::system::error_code error;
     boost::asio::write(socket, boost::asio::buffer(msg), error);
-//    if (!error) {
-//        std::cout << "Client sent hello message!" << std::endl;
-//    } else {
-//        std::cout << "send failed: " << error.message() << std::endl;
-//    }
+    if (!error) {
+        std::cout << "Client sent message!" << std::endl;
+    } else {
+        std::cout << "send failed: " << error.message() << std::endl;
+    }
     // getting response from server
     boost::asio::streambuf receive_buffer;
     boost::asio::read(
