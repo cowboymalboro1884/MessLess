@@ -13,11 +13,12 @@ int main() {
     /* CONNECTION IS ESTABLISHED */
 
     // read operation
+    std::cout << "waiting for message" << std::endl;
     string message = server.read_(socket_);
     std::cout << message << std::endl;
 
     // send
     server.send_(socket_, message);
-
     std::cout << "succesfully send" << std::endl;
+    socket_.close();
 }

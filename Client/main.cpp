@@ -18,13 +18,13 @@ int main() {
     std::cout << ">";
     std::getline(std::cin, msg, '\n');
     std::strcpy(buf, msg.c_str());
-
+    std::cout << "got:" << msg << std::endl;
     boost::system::error_code error;
     boost::asio::write(socket, boost::asio::buffer(msg), error);
 
     // request/message from client
     if (!error) {
-        std::cout << "Client sent hello message!" << std::endl;
+        std::cout << "message is delivered" << std::endl;
     } else {
         std::cout << "send failed: " << error.message() << std::endl;
     }
