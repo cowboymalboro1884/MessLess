@@ -13,6 +13,5 @@ int main() {
     string message = server.read_(socket_);
     std::cout << message << std::endl;
     // write operation
-    server.send_(socket_, "Hello From Server!");
-    std::cout << "Servent sent Hello message to Client!" << std::endl;
+    server.send_(socket_, message);
 }
