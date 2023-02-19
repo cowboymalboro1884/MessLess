@@ -1,14 +1,11 @@
-//
-// Created by dneyk on 18.02.2023.
-//
-
 #ifndef CPP_PROJECT_CLIENT_H
 #define CPP_PROJECT_CLIENT_H
 
+#include <boost/asio.hpp>
+#include <iostream>
 
-class client {
+using namespace boost::asio;
+using std::string;
+using ip::tcp;
 
-};
-
-
-#endif //CPP_PROJECT_CLIENT_H
+#endif  // CPP_PROJECT_CLIENT_H
