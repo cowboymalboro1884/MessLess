@@ -9,10 +9,15 @@ int main() {
     tcp::socket socket_(io_service);
     // waiting for connection
     acceptor_.accept(socket_);
+
+    /* CONNECTION IS ESTABLISHED */
+
     // read operation
     string message = server.read_(socket_);
     std::cout << message << std::endl;
-    // write operation
-    server.send_(socket_, "Hello From Server!");
-    std::cout << "Servent sent Hello message to Client!" << std::endl;
+
+    // send
+    server.send_(socket_, message);
+
+    std::cout << "succesfully send" << std::endl;
 }

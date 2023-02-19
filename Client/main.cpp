@@ -8,15 +8,27 @@ int main() {
     socket.connect(tcp::endpoint(
         boost::asio::ip::address::from_string("194.87.210.109"), 1234
     ));
-    // request/message from client
-    const string msg = "Hello from Client!\n";
+
+    /* CONNECTION IS ESTABLISHED */
+
+    // read from input stream
+    char buf[4096];
+    string msg;
+    std::memset(buf, 0, 4096);
+    std::cout << ">";
+    std::getline(std::cin, msg, '\n');
+    std::strcpy(buf, msg.c_str());
+
     boost::system::error_code error;
     boost::asio::write(socket, boost::asio::buffer(msg), error);
+
+    // request/message from client
     if (!error) {
         std::cout << "Client sent hello message!" << std::endl;
     } else {
         std::cout << "send failed: " << error.message() << std::endl;
     }
+
     // getting response from server
     boost::asio::streambuf receive_buffer;
     boost::asio::read(
@@ -29,5 +41,6 @@ int main() {
             boost::asio::buffer_cast<const char *>(receive_buffer.data());
         std::cout << data << std::endl;
     }
+
     return 0;
 }
