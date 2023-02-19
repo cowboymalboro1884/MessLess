@@ -11,8 +11,8 @@ int main() {
     acceptor_.accept(socket_);
     // read operation
     string message = server.read_(socket_);
-//    std::cout << message << std::endl;
+    std::cout << message << std::endl;
     // write operation
-    server.send_(socket_, message);
-    std::cout << "Servent sent his message to Client!" << std::endl;
+    server.send_(socket_, "Hello From Server!");
+    std::cout << "Servent sent Hello message to Client!" << std::endl;
 }
