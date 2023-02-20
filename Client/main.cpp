@@ -30,9 +30,7 @@ int main() {
 
     // getting response from server
     boost::asio::streambuf receive_buffer;
-    boost::asio::read(
-        socket, receive_buffer, boost::asio::transfer_all(), error
-    );
+    boost::asio::read_until(socket, receive_buffer, "\n", error);
     if (error && error != boost::asio::error::eof) {
         std::cout << "receive failed: " << error.message() << std::endl;
     } else {
