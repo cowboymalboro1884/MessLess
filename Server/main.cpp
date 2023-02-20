@@ -3,6 +3,7 @@
 int main() {
     server::Server server;
     boost::asio::io_service io_service;
+
     // listen for new connection
     tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 1234));
     // socket creation
@@ -13,12 +14,30 @@ int main() {
     /* CONNECTION IS ESTABLISHED */
 
     // read operation
-    std::cout << "waiting for message" << std::endl;
-    string message = server.read_(socket_);
-    std::cout << message << std::endl;
+    std::cout << "!Connection is established!" << std::endl;
+    std::string message;
+    while (true) {
+        try {
+            message = server.read_(socket_);
+            std::cout << "succesfully red >> ";
+            std::cout << message << std::endl;
+            if (message.empty() || message == "exit") {
+                std::cout << "Got exit command, terminating server..."
+                          << std::endl;
+                socket_.close();
+                break;
+            }
 
-    // send
-    server.send_(socket_, message);
-    std::cout << "succesfully send" << std::endl;
-    socket_.close();
+            boost::asio::streambuf bf;
+            server.send_(socket_, message);
+            std::cout << "succesfully send" << std::endl;
+
+        } catch (boost::system::system_error &e) {
+            std::cout << "smth wrong>> " << std::endl;
+            std::cout << e.code() << std::endl;
+            socket_.close();
+            throw e;
+        }
+    }
+    //    socket_.close();
 }

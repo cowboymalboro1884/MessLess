@@ -12,20 +12,21 @@ int main() {
     /* CONNECTION IS ESTABLISHED */
 
     // read from input stream
+
     char buf[4096];
     string msg;
-    std::memset(buf, 0, 4096);
     std::cout << ">";
     std::getline(std::cin, msg, '\n');
     std::strcpy(buf, msg.c_str());
-    std::cout << "got:" << msg << std::endl;
+
     boost::system::error_code error;
-    boost::asio::write(socket, boost::asio::buffer(msg), error);
+    socket.send(boost::asio::buffer(buf));
+    std::cout << "delivered: " << msg << std::endl;
 
     // request/message from client
-    if (!error) {
-        std::cout << "message is delivered" << std::endl;
-    } else {
+    if (error) {
+        //        std::cout << "message is delivered" << std::endl;
+        //    } else {
         std::cout << "send failed: " << error.message() << std::endl;
     }
 
@@ -39,7 +40,7 @@ int main() {
     } else {
         const char *data =
             boost::asio::buffer_cast<const char *>(receive_buffer.data());
-        std::cout << data << std::endl;
+        std::cout << "recieved: " << data << std::endl;
     }
 
     return 0;
