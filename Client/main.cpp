@@ -20,7 +20,7 @@ int main() {
     std::strcpy(buf, msg.c_str());
 
     boost::system::error_code error;
-    socket.send(boost::asio::buffer(buf));
+    boost::asio::write(socket, boost::asio::buffer(buf), error);
     std::cout << "delivered: " << msg << std::endl;
 
     // request/message from client
