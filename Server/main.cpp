@@ -16,17 +16,17 @@ int main() {
     // read operation
     std::cout << "!Connection is established!" << std::endl;
     std::string message;
-    while (true) {
+//    while (true) {
         try {
             message = server.read_(socket_);
             std::cout << "succesfully red >> ";
             std::cout << message << std::endl;
-            if (message.empty() || message == "exit") {
-                std::cout << "Got exit command, terminating server..."
-                          << std::endl;
-                socket_.close();
-                break;
-            }
+//            if (message.empty() || message == "exit") {
+//                std::cout << "Got exit command, terminating server..."
+//                          << std::endl;
+//                socket_.close();
+//                break;
+//            }
 
             boost::asio::streambuf bf;
             server.send_(socket_, message);
@@ -38,6 +38,6 @@ int main() {
             socket_.close();
             throw e;
         }
-    }
+//    }
     //    socket_.close();
 }
