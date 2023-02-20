@@ -6,7 +6,7 @@ int main() {
     tcp::socket socket(io_service);
     // connection
     socket.connect(tcp::endpoint(
-        boost::asio::ip::address::from_string("194.87.210.109"), 1234
+        boost::asio::ip::address::from_string("194.87.210.109"), 1111
     ));
 
     /* CONNECTION IS ESTABLISHED */
