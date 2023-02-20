@@ -6,7 +6,7 @@ int main() {
     tcp::socket socket(io_service);
     // connection
     socket.connect(tcp::endpoint(
-        boost::asio::ip::address::from_string("194.87.210.109"), 1111
+        boost::asio::ip::address::from_string("194.87.210.109"), 1234
     ));
 
     /* CONNECTION IS ESTABLISHED */
@@ -20,7 +20,7 @@ int main() {
     std::strcpy(buf, msg.c_str());
 
     boost::system::error_code error;
-    boost::asio::write(socket, boost::asio::buffer(buf), error);
+    socket.send(boost::asio::buffer(buf));
     std::cout << "delivered: " << msg << std::endl;
 
     // request/message from client
@@ -29,7 +29,6 @@ int main() {
     }
 
     // getting response from server
-
     boost::asio::streambuf receive_buffer;
     boost::asio::read(
         socket, receive_buffer, boost::asio::transfer_all(), error
@@ -41,6 +40,6 @@ int main() {
             boost::asio::buffer_cast<const char *>(receive_buffer.data());
         std::cout << "recieved: " << data << std::endl;
     }
-    socket.close();
+
     return 0;
 }
