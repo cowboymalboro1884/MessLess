@@ -25,8 +25,6 @@ int main() {
 
     // request/message from client
     if (error) {
-        //        std::cout << "message is delivered" << std::endl;
-        //    } else {
         std::cout << "send failed: " << error.message() << std::endl;
     }
 
