@@ -29,6 +29,7 @@ int main() {
     }
 
     // getting response from server
+
     boost::asio::streambuf receive_buffer;
     boost::asio::read(
         socket, receive_buffer, boost::asio::transfer_all(), error
@@ -40,6 +41,6 @@ int main() {
             boost::asio::buffer_cast<const char *>(receive_buffer.data());
         std::cout << "recieved: " << data << std::endl;
     }
-
+    socket.close();
     return 0;
 }
