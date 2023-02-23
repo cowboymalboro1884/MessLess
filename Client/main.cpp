@@ -14,13 +14,15 @@ int main() {
     // read from input stream
 
 //    char buf[4096];
-//    string msg;
-//    std::cout << ">";
-//    std::getline(std::cin, msg, '\n');
+    string msg;
+    std::cout << ">";
+    std::getline(std::cin, msg, '\n');
 //    std::strcpy(buf, msg.c_str());
 //
-    boost::system::error_code error;
 //    socket.send(boost::asio::buffer(buf));
+    boost::system::error_code error;
+    const string message = msg + "\n";
+    boost::asio::write(socket, boost::asio::buffer(message));
 //    std::cout << "delivered: " << msg << std::endl;
 
     // request/message from client

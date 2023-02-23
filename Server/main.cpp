@@ -16,10 +16,10 @@ int main() {
     // read operation
     std::cout << "Connection is established!" << std::endl;
     try {
-//        message = server.read_(socket_);
-//        std::cout << "succesfully red >> ";
-//        std::cout << message << std::endl;
-        const std::string message = "hello from server \n";
+        std::string message = server.read_(socket_);
+        std::cout << "succesfully red >> ";
+        std::cout << message << std::endl;
+
         boost::asio::streambuf bf;
         server.send_(socket_, message);
         std::cout << "succesfully send" << std::endl;
