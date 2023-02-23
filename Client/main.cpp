@@ -13,19 +13,16 @@ int main() {
 
     // read from input stream
     string msg;
+    std::cout << ">";
     while (std::getline(std::cin, msg, '\n')) {
-        std::cout << ">";
-
         boost::system::error_code error;
         const string message = msg + "\n";
         boost::asio::write(socket, boost::asio::buffer(message), error);
-        if(msg == "stop"){
+        if (msg == "stop") {
             std::cout << "got \"stop\" command ==> closing the socket...\n";
             socket.close();
             return 0;
         }
-        std::cout << "delivered: " << msg << std::endl;
-
         // request/message from client
         if (error) {
             std::cout << "send failed: " << error.message() << std::endl;
@@ -41,6 +38,7 @@ int main() {
                 boost::asio::buffer_cast<const char *>(receive_buffer.data());
             std::cout << "recieved: " << data << std::endl;
         }
+        std::cout << ">";
     }
     return 0;
 }

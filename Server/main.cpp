@@ -1,27 +1,29 @@
 #include "server.h"
 
+const int PORT = 1234;
+
 int main() {
     server::Server server;
     boost::asio::io_service io_service;
-
+    std::cout << "Server is started, waiting for connection...\n";
     // listen for new connection
-    tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 1234));
+    tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), PORT));
     // socket creation
     tcp::socket socket_(io_service);
     // waiting for connection
     acceptor_.accept(socket_);
 
     /* CONNECTION IS ESTABLISHED */
-    std::cout << "Connection is established!" << std::endl;
-
+    std::cout << "Connection is established! Listening on port..." << PORT
+              << std::endl;
     // read operation
     while (true) {
         try {
             std::string message = server.read_(socket_);
-            std::cout << "succesfully red >> ";
-            std::cout << message << std::endl;
+            std::cout << "succesfully red : " << message << "\n";
             if (message == "stop\n") {
-                std::cout << "got \"stop\" command ==> closing the socket...\n";
+                std::cout << "got \"stop\" command ==> closing the socket..."
+                          << std::endl;
                 socket_.close();
                 break;
             }
@@ -33,8 +35,7 @@ int main() {
             std::cout << "smth wrong>> " << std::endl;
             std::cout << e.what() << std::endl;
             socket_.close();
-
+            throw;
         }
     }
-//    socket_.close();
 }
