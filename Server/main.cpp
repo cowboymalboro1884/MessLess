@@ -14,13 +14,13 @@ int main() {
     acceptor_.accept(socket_);
 
     /* CONNECTION IS ESTABLISHED */
-    std::cout << "Connection is established! Listening on port..." << PORT
+    std::cout << "Connection is established! Listening on port... " << PORT
               << std::endl;
     // read operation
     while (true) {
         try {
             std::string message = server.read_(socket_);
-            std::cout << "succesfully red : " << message << "\n";
+            std::cout << "succesfully red : " << message;
             if (message == "stop\n") {
                 std::cout << "got \"stop\" command ==> closing the socket..."
                           << std::endl;
@@ -30,7 +30,7 @@ int main() {
 
             boost::asio::streambuf bf;
             server.send_(socket_, message);
-            std::cout << "succesfully send" << std::endl;
+            std::cout << "succesfully send\n" << std::endl;
         } catch (boost::system::system_error &e) {
             std::cout << "smth wrong>> " << std::endl;
             std::cout << e.what() << std::endl;
