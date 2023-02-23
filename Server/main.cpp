@@ -20,7 +20,7 @@ int main() {
             std::string message = server.read_(socket_);
             std::cout << "succesfully red >> ";
             std::cout << message << std::endl;
-            if (message == "stop") {
+            if (message == "stop\n") {
                 std::cout << "got \"stop\" command ==> closing the socket...\n";
                 socket_.close();
                 break;
@@ -31,8 +31,9 @@ int main() {
             std::cout << "succesfully send" << std::endl;
         } catch (boost::system::system_error &e) {
             std::cout << "smth wrong>> " << std::endl;
-            std::cout << e.code() << std::endl;
+            std::cout << e.what() << std::endl;
             socket_.close();
+
         }
     }
 //    socket_.close();
