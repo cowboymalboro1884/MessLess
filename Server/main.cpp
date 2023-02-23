@@ -33,8 +33,7 @@ int main() {
             std::cout << "smth wrong>> " << std::endl;
             std::cout << e.code() << std::endl;
             socket_.close();
-            throw;
         }
     }
-    socket_.close();
+//    socket_.close();
 }
