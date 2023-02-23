@@ -12,22 +12,29 @@ int main() {
     acceptor_.accept(socket_);
 
     /* CONNECTION IS ESTABLISHED */
+    std::cout << "Connection is established!" << std::endl;
 
     // read operation
-    std::cout << "Connection is established!" << std::endl;
-    try {
-        std::string message = server.read_(socket_);
-        std::cout << "succesfully red >> ";
-        std::cout << message << std::endl;
+    while (true) {
+        try {
+            std::string message = server.read_(socket_);
+            std::cout << "succesfully red >> ";
+            std::cout << message << std::endl;
+            if (message == "stop") {
+                std::cout << "got \"stop\" command ==> closing the socket...\n";
+                socket_.close();
+                break;
+            }
 
-        boost::asio::streambuf bf;
-        server.send_(socket_, message);
-        std::cout << "succesfully send" << std::endl;
-        socket_.close();
-    } catch (boost::system::system_error &e) {
-        std::cout << "smth wrong>> " << std::endl;
-        std::cout << e.code() << std::endl;
-        socket_.close();
-        throw e;
+            boost::asio::streambuf bf;
+            server.send_(socket_, message);
+            std::cout << "succesfully send" << std::endl;
+        } catch (boost::system::system_error &e) {
+            std::cout << "smth wrong>> " << std::endl;
+            std::cout << e.code() << std::endl;
+            socket_.close();
+            throw;
+        }
     }
+    socket_.close();
 }

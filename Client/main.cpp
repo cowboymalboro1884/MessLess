@@ -12,34 +12,35 @@ int main() {
     /* CONNECTION IS ESTABLISHED */
 
     // read from input stream
-
-//    char buf[4096];
     string msg;
-    std::cout << ">";
-    std::getline(std::cin, msg, '\n');
-//    std::strcpy(buf, msg.c_str());
-//
-//    socket.send(boost::asio::buffer(buf));
-    boost::system::error_code error;
-    const string message = msg + "\n";
-    boost::asio::write(socket, boost::asio::buffer(message));
-//    std::cout << "delivered: " << msg << std::endl;
+    while (std::getline(std::cin, msg, '\n')) {
+        std::cout << ">";
 
-    // request/message from client
-//    if (error) {
-//        std::cout << "send failed: " << error.message() << std::endl;
-//    }
+        boost::system::error_code error;
+        const string message = msg + "\n";
+        boost::asio::write(socket, boost::asio::buffer(message), error);
+        if(msg == "stop"){
+            std::cout << "got \"stop\" command ==> closing the socket...\n";
+            socket.close();
+            return 0;
+        }
+        std::cout << "delivered: " << msg << std::endl;
 
-    // getting response from server
-    boost::asio::streambuf receive_buffer;
-    boost::asio::read_until(socket, receive_buffer, "\n", error);
-    if (error && error != boost::asio::error::eof) {
-        std::cout << "receive failed: " << error.message() << std::endl;
-    } else {
-        const char *data =
-            boost::asio::buffer_cast<const char *>(receive_buffer.data());
-        std::cout << "recieved: " << data << std::endl;
+        // request/message from client
+        if (error) {
+            std::cout << "send failed: " << error.message() << std::endl;
+        }
+
+        // getting response from server
+        boost::asio::streambuf receive_buffer;
+        boost::asio::read_until(socket, receive_buffer, "\n", error);
+        if (error && error != boost::asio::error::eof) {
+            std::cout << "receive failed: " << error.message() << std::endl;
+        } else {
+            const char *data =
+                boost::asio::buffer_cast<const char *>(receive_buffer.data());
+            std::cout << "recieved: " << data << std::endl;
+        }
     }
-
     return 0;
 }
