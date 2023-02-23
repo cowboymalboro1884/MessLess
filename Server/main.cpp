@@ -14,13 +14,12 @@ int main() {
     /* CONNECTION IS ESTABLISHED */
 
     // read operation
-    std::cout << "!Connection is established!" << std::endl;
-    std::string message;
+    std::cout << "Connection is established!" << std::endl;
     try {
-        message = server.read_(socket_);
-        std::cout << "succesfully red >> ";
-        std::cout << message << std::endl;
-
+//        message = server.read_(socket_);
+//        std::cout << "succesfully red >> ";
+//        std::cout << message << std::endl;
+        const std::string message = "hello from server \n";
         boost::asio::streambuf bf;
         server.send_(socket_, message);
         std::cout << "succesfully send" << std::endl;
@@ -31,6 +30,4 @@ int main() {
         socket_.close();
         throw e;
     }
-
-    //    socket_.close();
 }

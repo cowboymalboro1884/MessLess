@@ -13,20 +13,20 @@ int main() {
 
     // read from input stream
 
-    char buf[4096];
-    string msg;
-    std::cout << ">";
-    std::getline(std::cin, msg, '\n');
-    std::strcpy(buf, msg.c_str());
-
+//    char buf[4096];
+//    string msg;
+//    std::cout << ">";
+//    std::getline(std::cin, msg, '\n');
+//    std::strcpy(buf, msg.c_str());
+//
     boost::system::error_code error;
-    socket.send(boost::asio::buffer(buf));
-    std::cout << "delivered: " << msg << std::endl;
+//    socket.send(boost::asio::buffer(buf));
+//    std::cout << "delivered: " << msg << std::endl;
 
     // request/message from client
-    if (error) {
-        std::cout << "send failed: " << error.message() << std::endl;
-    }
+//    if (error) {
+//        std::cout << "send failed: " << error.message() << std::endl;
+//    }
 
     // getting response from server
     boost::asio::streambuf receive_buffer;
