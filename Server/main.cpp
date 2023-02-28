@@ -17,25 +17,27 @@ int main() {
     std::cout << "Connection is established! Listening on port... " << PORT
               << std::endl;
     // read operation
-    while (true) {
-        try {
-            std::string message = server.read_(socket_);
-            std::cout << "succesfully red : " << message;
-            if (message == "stop\n") {
-                std::cout << "got \"stop\" command ==> closing the socket..."
-                          << std::endl;
-                socket_.close();
-                break;
-            }
+    //    while (true) {
+    try {
+        std::string message = server.read_(socket_);
+        std::cout << "succesfully red : " << message;
+        //            if (message == "stop\n") {
+        //                std::cout << "got \"stop\" command ==> closing the
+        //                socket..."
+        //                          << std::endl;
+        //                socket_.close();
+        //                break;
+        //            }
 
-            boost::asio::streambuf bf;
-            server.send_(socket_, message);
-            std::cout << "succesfully send\n" << std::endl;
-        } catch (boost::system::system_error &e) {
-            std::cout << "smth wrong>> " << std::endl;
-            std::cout << e.what() << std::endl;
-            socket_.close();
-            throw;
-        }
+        boost::asio::streambuf bf;
+        server.send_(socket_, message);
+        std::cout << "succesfully send\n" << std::endl;
+        socket_.close();
+    } catch (boost::system::system_error &e) {
+        std::cout << "smth wrong>> " << std::endl;
+        std::cout << e.what() << std::endl;
+        socket_.close();
+        throw;
     }
+    //    }
 }
