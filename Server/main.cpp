@@ -29,9 +29,9 @@ int main() {
         //                break;
         //            }
 
-        boost::asio::streambuf bf;
-        server.send_(socket_, message);
-        std::cout << "succesfully send\n" << std::endl;
+//        boost::asio::streambuf bf;
+//        server.send_(socket_, message);
+//        std::cout << "succesfully send\n" << std::endl;
         socket_.close();
     } catch (boost::system::system_error &e) {
         std::cout << "smth wrong>> " << std::endl;
