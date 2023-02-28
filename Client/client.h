@@ -5,7 +5,13 @@
 #include <iostream>
 
 using namespace boost::asio;
-using std::string;
 using ip::tcp;
+using std::string;
+
+namespace client {
+struct TCPClient {
+    string read_(tcp::socket &socket);
+};
+}  // namespace client
 
 #endif  // CPP_PROJECT_CLIENT_H

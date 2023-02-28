@@ -13,6 +13,7 @@ int main() {
     );
 
     /* CONNECTION IS ESTABLISHED */
+
     std::cout << "You just connected to server with IP " << IP_ADDRESS
               << " and port " << PORT << "\n";
     std::cout << "To disconnect from server type \"stop\".\n" << std::endl;
@@ -32,6 +33,7 @@ int main() {
         // request/message from client
         if (error) {
             std::cout << "send failed: " << error.message() << std::endl;
+            continue;
         }
 
         // getting response from server
