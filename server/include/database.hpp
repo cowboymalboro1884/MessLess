@@ -8,6 +8,11 @@
 #include<iostream>
 
 namespace messless {
+class UserInfo{
+public:
+    std::string email;
+    std::string password;
+};
 class Database : private boost::noncopyable {
     pqxx::connection connection{};
     pqxx::work worker{};
@@ -26,7 +31,7 @@ public:
 
 class DatabaseUser {
 public:
-    static unsigned int login_user(
+    static UserInfo login_user(
         Database &db,
         const std::string &email,
         const std::string &password
@@ -35,12 +40,12 @@ public:
 
 class DatabaseCompany {
 public:
-    static unsigned int create_company(
+    static void create_company(
         Database &db,
         const std::string &company_name,
         const std::string &company_bio
     );  // returns company id
-    static unsigned int create_user(
+    static UserInfo create_user(
         Database &db,
         const std::string &email,
         const std::string &password,
