@@ -3,6 +3,7 @@
 
 #include "../include/database.hpp"
 
+//TODO make without available SQL-injections
 namespace messless {
 Database::Database(const std::string &config_file) {
     std::ifstream input(config_file);
@@ -33,20 +34,23 @@ void Database::do_queries_without_answer(std::vector<const std::string> &queries
     }
 }
 
+std::string Database::shield_string(const std::string & unprotected_string) {
+    return connection.esc(unprotected_string);
+}
+
 UserInfo DatabaseUser::login_user(
     Database &db,
     const std::string &email,
     const std::string &password
 ) {
-    try {
-        auto id = db.worker.query1<int>(
-            "SELECT id FROM users WHERE email='" + email + "' AND password='" +
-            password + "';"
+    pqxx::result id = db.worker.exec(
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) + "' AND password='" +
+        db.shield_string(password) + "';"
         );
-        return {email, password};
-    } catch (std::exception &) {
-        return {"NONE", "NONE"};
+    if (id.empty()){
+        return {"",""};
     }
+    return {email, password};
 }
 
 void DatabaseCompany::create_company(
@@ -54,9 +58,10 @@ void DatabaseCompany::create_company(
     const std::string &company_name,
     const std::string &company_bio
 ) {
+    //TODO make without available SQL-injections
     db.do_query_without_answer(
-        "INSERT INTO companies (company_name,bio)('" + company_name + "','" +
-        company_bio + "')"
+        "INSERT INTO companies (company_name,bio)('" + db.shield_string(company_name) + "','" +
+        db.shield_string(company_bio) + "')"
     );
 }
 
@@ -69,11 +74,12 @@ UserInfo DatabaseCompany::create_user(
     unsigned int company_id,
     const std::string &user_role
 ) {
+    //TODO make without available SQL-injections
     db.do_query_without_answer(
         "INSERT INTO users "
         "(first_name,second_name,company_id,email,password)('" +
-        name + "','" + surname + "','" + std::to_string(company_id) + "','" +
-        email + "','" + password + "')"
+        db.shield_string(name) + "','" + db.shield_string(surname) + "','" + db.shield_string(std::to_string(company_id)) + "','" +
+        db.shield_string(email) + "','" + db.shield_string(password) + "')"
     );
     return {email, password};
 }
