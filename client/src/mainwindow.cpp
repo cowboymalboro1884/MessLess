@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "include/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "auth_window.h"
-#include "reg_window.h"
+#include "include/auth_window.h"
+#include "include/reg_window.h"
 #include <QtDebug>
 
 

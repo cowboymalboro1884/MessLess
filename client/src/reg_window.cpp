@@ -1,12 +1,14 @@
-#include "reg_window.h"
+#include "include/reg_window.h"
 #include "ui_reg_window.h"
 #include <QWidget>
+#include <QtDebug>
 
 reg_window::reg_window(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::reg_window)
 {
     ui->setupUi(this);
+    setWindowTitle("Registration");
 }
 
 reg_window::~reg_window()
