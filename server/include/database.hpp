@@ -1,5 +1,6 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
+#include "encrypting.hpp"
 #include <boost/noncopyable.hpp>
 #include <fstream>
 #include <pqxx/pqxx>
@@ -18,6 +19,7 @@ public:
 class Database : private boost::noncopyable {
     pqxx::connection connection;
     pqxx::work worker;
+    messless::Encrypting crypt;
     void do_query_without_answer(const std::string& query);
     void do_queries_without_answer(std::vector<const std::string> &queries);
     std::string shield_string(const std::string& unprotected_string);

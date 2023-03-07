@@ -1,5 +1,6 @@
 #include "../include/encrypting.hpp"
 
+namespace messless {
 std::string messless::Encrypting::get_hash(std::string &str) {
     std::string new_string;
     CryptoPP::SHA256 hash;
@@ -17,17 +18,28 @@ std::string messless::Encrypting::get_hash(std::string &str) {
 
 std::string messless::Encrypting::get_password_hash(
     const std::string &password,
-    const std::string &first_salt,
-    const std::string &second_salt
+    const std::string &personal_salt
 ) {
-    std::string result = password + second_salt + first_salt;
+    std::string result = password + personal_salt + private_salt;
     for (int i = 0; i < 1024; ++i) {
         result = get_hash(result);
     }
     return result;
 }
 
-messless::Encrypting::Encrypting(const std::string &config_file) {
-    std::ifstream input(config_file);
-    std::getline(input, private_salt);
+messless::Encrypting::Encrypting(std::string salt)
+    : private_salt(std::move(salt)) {
 }
+
+messless::Encrypting::Encrypting() : private_salt() {
+}
+
+std::string messless::Encrypting::get_random_string() {
+    static CryptoPP::RandomPool current;
+    // TODO
+    return CryptoPP::WordToString(current.GenerateWord32()) +
+           CryptoPP::WordToString(current.GenerateWord32()) +
+           CryptoPP::WordToString(current.GenerateWord32()) +
+           CryptoPP::WordToString(current.GenerateWord32());
+}
+}  // namespace messless

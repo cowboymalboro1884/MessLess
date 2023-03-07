@@ -11,6 +11,10 @@ Database::Database(const std::string &config_file) {
     std::getline(input, connection_string);
     connection(connection_string.c_str());
     worker(connection);
+    std::string salt;
+    std::getline(input,salt);
+    crypt = std::move(Encrypting(salt));
+    input.close();
 }
 
 void Database::do_query_without_answer(const std::string &query) {
@@ -75,11 +79,13 @@ UserInfo DatabaseCompany::create_user(
     const std::string &user_role
 ) {
     //TODO make without available SQL-injections
+    //TODO make in database column "salt" in "users"
+    std::string new_salt = db.crypt.get_random_string();
     db.do_query_without_answer(
         "INSERT INTO users "
         "(first_name,second_name,company_id,email,password)('" +
         db.shield_string(name) + "','" + db.shield_string(surname) + "','" + db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(email) + "','" + db.shield_string(password) + "')"
+        db.shield_string(email) + "','" + db.shield_string(db.crypt.get_password_hash(password,new_salt)) + "')"
     );
     return {email, password};
 }
