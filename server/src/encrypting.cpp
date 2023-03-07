@@ -1,4 +1,5 @@
 #include "../include/encrypting.hpp"
+#include <iostream>
 
 namespace messless {
 std::string messless::Encrypting::get_hash(std::string &str) {
@@ -36,10 +37,11 @@ messless::Encrypting::Encrypting() : private_salt() {
 
 std::string messless::Encrypting::get_random_string() {
     static CryptoPP::RandomPool current;
-    // TODO
-    return CryptoPP::WordToString(current.GenerateWord32()) +
-           CryptoPP::WordToString(current.GenerateWord32()) +
-           CryptoPP::WordToString(current.GenerateWord32()) +
-           CryptoPP::WordToString(current.GenerateWord32());
+    static std::string str;
+    str = CryptoPP::WordToString(current.GenerateWord32()) +
+          CryptoPP::WordToString(current.GenerateWord32()) +
+          CryptoPP::WordToString(current.GenerateWord32()) +
+          CryptoPP::WordToString(current.GenerateWord32());
+    return get_hash(str);
 }
 }  // namespace messless

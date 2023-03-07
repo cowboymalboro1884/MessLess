@@ -21,7 +21,8 @@ int main() {
                         company_id bigint NOT NULL,
                         email character varying(32) NOT NULL UNIQUE,
                         password character varying(256) NOT NULL,
-                        biography character varying(256)
+                        biography character varying(256),
+                        salt character varying(128)
                         ) WITH (
                         OIDS=FALSE
                         );)sql"); // create users

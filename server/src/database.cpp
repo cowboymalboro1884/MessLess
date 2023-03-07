@@ -47,9 +47,17 @@ UserInfo DatabaseUser::login_user(
     const std::string &email,
     const std::string &password
 ) {
+    static std::string personal_salt;
+    //TODO may not work
+    personal_salt = pqxx::to_string(db.worker.exec("SELECT salt FROM users WHERE email='"+db.shield_string(email))+"';");
+    if (personal_salt.empty()){
+        return {"",""};
+    }
+    static std::string password_hash;
+    password_hash = db.crypt.get_password_hash(password,personal_salt);
     pqxx::result id = db.worker.exec(
         "SELECT id FROM users WHERE email='" + db.shield_string(email) + "' AND password='" +
-        db.shield_string(password) + "';"
+        db.shield_string(password_hash) + "';"
         );
     if (id.empty()){
         return {"",""};
@@ -62,7 +70,6 @@ void DatabaseCompany::create_company(
     const std::string &company_name,
     const std::string &company_bio
 ) {
-    //TODO make without available SQL-injections
     db.do_query_without_answer(
         "INSERT INTO companies (company_name,bio)('" + db.shield_string(company_name) + "','" +
         db.shield_string(company_bio) + "')"
@@ -78,16 +85,17 @@ UserInfo DatabaseCompany::create_user(
     unsigned int company_id,
     const std::string &user_role
 ) {
-    //TODO make without available SQL-injections
-    //TODO make in database column "salt" in "users"
-    std::string new_salt = db.crypt.get_random_string();
+    static std::string new_salt;
+    static std::string password_hash;
+    new_salt = messless::Encrypting::get_random_string();
+    password_hash = db.crypt.get_password_hash(password,new_salt);
     db.do_query_without_answer(
         "INSERT INTO users "
-        "(first_name,second_name,company_id,email,password)('" +
+        "(first_name,second_name,company_id,email,password,salt)('" +
         db.shield_string(name) + "','" + db.shield_string(surname) + "','" + db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(email) + "','" + db.shield_string(db.crypt.get_password_hash(password,new_salt)) + "')"
+        db.shield_string(email) + "','" + db.shield_string(password_hash) + "','"+db.shield_string(new_salt)+"');"
     );
-    return {email, password};
+    return {email, password_hash};
 }
 }  // namespace messless
 #endif
