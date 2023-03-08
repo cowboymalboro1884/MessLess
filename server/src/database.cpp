@@ -2,6 +2,7 @@
 #define DATABASE_CPP
 
 #include "../include/database.hpp"
+#include<iostream>
 
 // TODO make without available SQL-injections
 namespace messless {
@@ -9,13 +10,11 @@ Database::Database(const std::string &connection_string, const std::string &priv
 }
 
 void Database::do_query_without_answer(const std::string &query) {
-    try {
+    
         pqxx::work worker(connection);
         worker.exec(query);
         worker.commit();
-    } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
+    
 }
 
 void Database::do_queries_without_answer(std::vector< std::string> &queries
@@ -42,7 +41,6 @@ UserInfo DatabaseUser::login_user(
     const std::string &password
 ) {
     static std::string personal_salt;
-    // TODO may not work
     pqxx::work worker(db.connection);
     try {
         personal_salt = worker.query_value<std::string>(
@@ -75,6 +73,7 @@ UserInfo DatabaseUser::login_user(
     catch(std::exception&){
         return {"","",""};
     }
+            return {"","",""};
 }
 
 void DatabaseCompany::create_company(
@@ -98,7 +97,7 @@ UserInfo DatabaseCompany::create_user(
     unsigned int company_id,
     const std::string &user_role
 ) {
-    int employee_user_role_id = 100;
+    int employee_user_role_id = 3;
     if (user_role=="admin"){
         employee_user_role_id=1;
     }
@@ -123,8 +122,8 @@ UserInfo DatabaseCompany::create_user(
             db.shield_string(std::to_string(employee_user_role_id)) + "');"
         );
     }
-    catch(std::exception&e){
-        return {"","",""};
+    catch(...){
+	return {"","",""};
     }
     return {email, password_hash,user_role};
 }
