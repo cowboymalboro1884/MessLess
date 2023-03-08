@@ -3,7 +3,7 @@
 #include <pqxx/pqxx>
 #include <string>
 int main() {
-    std::ifstream input("database.config");
+    std::ifstream input("../../database.config");
 
     std::string connectionString;
 
@@ -11,11 +11,9 @@ int main() {
     try {
         pqxx::connection connectionObject(connectionString.c_str());
 
-        pqxx::work worker(connectionObject);
-        worker.exec(R"sql(DROP TABLE users)sql");
-
-        worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users (
-                        id bigint  PRIMARY KEY,
+        pqxx::work worker(connectionObject);	
+	worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users (
+                        id serial  PRIMARY KEY,
                         first_name character varying(32) NOT NULL,
                         second_name character varying(32) NOT NULL,
                         avatar_link character varying(64),
@@ -38,20 +36,20 @@ int main() {
 
         worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
-                        (1,'admin'))sql");
+                        VALUES (1,'admin'))sql");
         worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
-                        (2,'moderator'))sql");
+                        VALUES (2,'moderator'))sql");
         worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
-                        (3,'employee'))sql");
-
+                        VALUES (3,'employee'))sql");
+	//TODO general_chat_id with NOT NULL, because company have chat
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS companies (
-                        id bigint PRIMARY KEY,
+                        id serial PRIMARY KEY,
                         company_name character varying(32) NOT NULL,
                         bio character varying(256),
                         logo_link character varying(64),
-                        general_chat_id bigint NOT NULL
+                        general_chat_id bigint
                         ) WITH (
                         OIDS=FALSE
                         );)sql"); // create companies

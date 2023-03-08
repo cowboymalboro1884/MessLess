@@ -5,19 +5,7 @@
 
 // TODO make without available SQL-injections
 namespace messless {
-Database::Database(const std::string &config_file) {
-    std::ifstream input(config_file);
-    std::string connection_string;
-    std::getline(input, connection_string);
-    pqxx::connection curcon(connection_string.c_str());
-    connection = std::move(curcon);//TODO
-    pqxx::work curwork(connection);
-    worker= std::move(curwork);//TODO
-    std::string salt;
-    std::getline(input, salt);
-    Encrypting cur(salt);//TODO
-    crypt = std::move(cur);//TODO
-    input.close();
+Database::Database(const std::string &connection_string, const std::string &private_salt):connection(connection_string.c_str()),worker(connection),crypt(private_salt) {
 }
 
 void Database::do_query_without_answer(const std::string &query) {
@@ -29,7 +17,7 @@ void Database::do_query_without_answer(const std::string &query) {
     }
 }
 
-void Database::do_queries_without_answer(std::vector<const std::string> &queries
+void Database::do_queries_without_answer(std::vector< std::string> &queries
 ) {
     try {
         for (auto &current_query : queries) {
@@ -86,7 +74,7 @@ void DatabaseCompany::create_company(
     const std::string &company_bio
 ) {
     db.do_query_without_answer(
-        "INSERT INTO companies (company_name,bio)('" +
+        "INSERT INTO companies (company_name,bio) VALUES('" +
         db.shield_string(company_name) + "','" + db.shield_string(company_bio) +
         "')"
     );
@@ -118,7 +106,7 @@ UserInfo DatabaseCompany::create_user(
     password_hash = db.crypt.get_password_hash(password, new_salt);
     db.do_query_without_answer(
         "INSERT INTO users "
-        "(first_name,second_name,company_id,email,password,salt,employee_role_id)('" +
+        "(first_name,second_name,company_id,email,password,salt,employee_role_id) VALUES('" +
         db.shield_string(name) + "','" + db.shield_string(surname) + "','" +
         db.shield_string(std::to_string(company_id)) + "','" +
         db.shield_string(email) + "','" + db.shield_string(password_hash) +

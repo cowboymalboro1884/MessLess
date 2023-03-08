@@ -18,14 +18,14 @@ public:
     std::string user_role;
 };
 class Database : private boost::noncopyable {
-    pqxx::connection connection{};
-    pqxx::work worker{};
+    pqxx::connection connection;
+    pqxx::work worker;
     messless::Encrypting crypt;
     void do_query_without_answer(const std::string& query);
-    void do_queries_without_answer(std::vector<const std::string> &queries);
+    void do_queries_without_answer(std::vector< std::string> &queries);
     std::string shield_string(const std::string& unprotected_string);
 public:
-    explicit Database(const std::string &config_file);
+    explicit Database(const std::string &connection_string,const std::string &private_salt);
     friend class DatabaseGeneral;
     friend class DatabaseUser;
     friend class DatabaseCompany;

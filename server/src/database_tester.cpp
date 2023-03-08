@@ -1,7 +1,15 @@
 #include"database.hpp"
+#include<fstream>
+#include<iostream>
 
 int main(){
-    messless::Database db("../../../database.config");
+	
+	std::ifstream input("../../../database.config");
+    std::string private_salt,connection_string;
+    std::getline(input,connection_string);
+    std::getline(input,private_salt);
+    messless::Database db(connection_string,private_salt);
     messless::DatabaseCompany::create_company(db,"ababa","we are good company");
+    std::cout<<"1"<<std::endl;
     messless::DatabaseCompany::create_user(db,"amogus@gmail.com","quwuqewq!!!","Mikhail","Ivanov",1,"admin");
 }
