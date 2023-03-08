@@ -2,6 +2,7 @@
 #include <iostream>
 #include <pqxx/pqxx>
 #include <string>
+
 int main() {
     std::ifstream input("../../database.config");
 
@@ -11,8 +12,8 @@ int main() {
     try {
         pqxx::connection connectionObject(connectionString.c_str());
 
-        pqxx::work worker(connectionObject);	
-	worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users (
+        pqxx::work worker(connectionObject);
+        worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users (
                         id serial  PRIMARY KEY,
                         first_name character varying(32) NOT NULL,
                         second_name character varying(32) NOT NULL,
@@ -25,7 +26,7 @@ int main() {
                         employee_role_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create users
+                        );)sql");  // create users
 
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS employee_roles(
                         id int PRIMARY KEY,
@@ -43,7 +44,7 @@ int main() {
         worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
                         VALUES (3,'employee'))sql");
-	//TODO general_chat_id with NOT NULL, because company have chat
+        // TODO general_chat_id with NOT NULL, because company have chat
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS companies (
                         id serial PRIMARY KEY,
                         company_name character varying(32) NOT NULL,
@@ -52,7 +53,7 @@ int main() {
                         general_chat_id bigint
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create companies
+                        );)sql");  // create companies
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id bigint PRIMARY KEY,
                         company_id bigint NOT NULL,
@@ -61,14 +62,16 @@ int main() {
                         desk_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create projects
-        worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users_projects_relationship (
+                        );)sql");  // create projects
+        worker.exec(
+            R"sql(CREATE TABLE IF NOT EXISTS users_projects_relationship (
                         user_id bigint NOT NULL,
                         project_id bigint NOT NULL,
                         project_role_id int NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create
+                        );)sql"
+        );  // create
         // user-projects
         // relationship
 
@@ -80,21 +83,21 @@ int main() {
                         sender_id bigint NOT NULL
                         ) WITH (
                           OIDS=FALSE
-                         );)sql");                          // create messages
+                         );)sql");  // create messages
 
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
                         id bigint NOT NULL,
                         project_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql");         // create desk
+                        );)sql");  // create desk
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS chats (
                         id bigint PRIMARY KEY,
                         company_id bigint NOT NULL,
                         project_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create chats
+                        );)sql");  // create chats
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
                         id bigint PRIMARY KEY,
                         desk_id bigint NOT NULL,
@@ -105,44 +108,36 @@ int main() {
                         type character varying(32)
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create tasks
+                        );)sql");  // create tasks
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS condition (
                         id int PRIMARY KEY,
                         condition_description character varying(32) NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create task  conditions
+                        );)sql");  // create task  conditions
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users_tasks_relationship (
                         user_id bigint NOT NULL,
                         task_id bigint NOT NULL,
                         role int NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                       );)sql"); // create user-tasks
+                       );)sql");   // create user-tasks
         // relationship
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS roles (
                         id character varying NOT NULL,
                         role_description character varying(32) NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql"); // create roles in tasks
+                        );)sql");  // create roles in tasks
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS project_roles(
                         id int PRIMARY KEY,
                         role_description character varying(32) NOT NULL
                         )WITH (
                         OIDS=FALSE
-                        );)sql");                 // create project roles
+                        );)sql");  // create project roles
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
 }
-
-
-
-
-
-
-
-

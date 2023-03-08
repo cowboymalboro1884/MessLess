@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace messless {
-std::string messless::Encrypting::get_hash(std::string& str) {
+std::string messless::Encrypting::get_hash(std::string &str) {
     std::string new_string;
     CryptoPP::SHA256 hash;
 

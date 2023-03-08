@@ -2,25 +2,25 @@
 #define DATABASE_CPP
 
 #include "../include/database.hpp"
-#include<iostream>
+#include <iostream>
 
 // TODO make without available SQL-injections
 namespace messless {
-Database::Database(const std::string &connection_string, const std::string &private_salt):connection(connection_string.c_str()),crypt(private_salt) {
+Database::Database(
+    const std::string &connection_string,
+    const std::string &private_salt
+)
+    : connection(connection_string.c_str()), crypt(private_salt) {
 }
 
 void Database::do_query_without_answer(const std::string &query) {
-    
-        pqxx::work worker(connection);
-        worker.exec(query);
-        worker.commit();
-    
+    pqxx::work worker(connection);
+    worker.exec(query);
+    worker.commit();
 }
 
-void Database::do_queries_without_answer(std::vector< std::string> &queries
-) {
+void Database::do_queries_without_answer(std::vector<std::string> &queries) {
     try {
-
         pqxx::work worker(connection);
         for (auto &current_query : queries) {
             worker.exec(current_query);
@@ -47,9 +47,8 @@ UserInfo DatabaseUser::login_user(
             "SELECT salt FROM users WHERE email='" + db.shield_string(email) +
             "';"
         );
-    }
-    catch(std::exception&){
-        return {"","",""};
+    } catch (std::exception &) {
+        return {"", "", ""};
     }
     static std::string password_hash;
     password_hash = db.crypt.get_password_hash(password, personal_salt);
@@ -60,20 +59,19 @@ UserInfo DatabaseUser::login_user(
             db.shield_string(email) + "' AND password='" +
             db.shield_string(password_hash) + "';"
         );
-        if (employee_role_id==1){
-            return {email, password_hash,"admin"};
+        if (employee_role_id == 1) {
+            return {email, password_hash, "admin"};
         }
-        if (employee_role_id==2){
-            return {email, password_hash,"moderator"};
+        if (employee_role_id == 2) {
+            return {email, password_hash, "moderator"};
         }
-        if (employee_role_id==3){
-            return {email,password_hash,"employee"};
+        if (employee_role_id == 3) {
+            return {email, password_hash, "employee"};
         }
+    } catch (std::exception &) {
+        return {"", "", ""};
     }
-    catch(std::exception&){
-        return {"","",""};
-    }
-            return {"","",""};
+    return {"", "", ""};
 }
 
 void DatabaseCompany::create_company(
@@ -98,14 +96,14 @@ UserInfo DatabaseCompany::create_user(
     const std::string &user_role
 ) {
     int employee_user_role_id = 3;
-    if (user_role=="admin"){
-        employee_user_role_id=1;
+    if (user_role == "admin") {
+        employee_user_role_id = 1;
     }
-    if (user_role=="moderator"){
-        employee_user_role_id=2;
+    if (user_role == "moderator") {
+        employee_user_role_id = 2;
     }
-    if (user_role=="employee"){
-        employee_user_role_id=3;
+    if (user_role == "employee") {
+        employee_user_role_id = 3;
     }
     static std::string new_salt;
     static std::string password_hash;
@@ -114,18 +112,18 @@ UserInfo DatabaseCompany::create_user(
     try {
         db.do_query_without_answer(
             "INSERT INTO users "
-            "(first_name,second_name,company_id,email,password,salt,employee_role_id) VALUES('" +
+            "(first_name,second_name,company_id,email,password,salt,employee_"
+            "role_id) VALUES('" +
             db.shield_string(name) + "','" + db.shield_string(surname) + "','" +
             db.shield_string(std::to_string(company_id)) + "','" +
             db.shield_string(email) + "','" + db.shield_string(password_hash) +
             "','" + db.shield_string(new_salt) + "','" +
             db.shield_string(std::to_string(employee_user_role_id)) + "');"
         );
+    } catch (...) {
+        return {"", "", ""};
     }
-    catch(...){
-	return {"","",""};
-    }
-    return {email, password_hash,user_role};
+    return {email, password_hash, user_role};
 }
 }  // namespace messless
 #endif

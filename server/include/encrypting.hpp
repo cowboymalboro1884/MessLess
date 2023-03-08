@@ -13,7 +13,7 @@ namespace messless {
 
 class Encrypting {
     std::string private_salt;
-    static std::string get_hash(std::string& str);
+    static std::string get_hash(std::string &str);
 
 public:
     static std::string get_random_string();

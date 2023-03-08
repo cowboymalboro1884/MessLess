@@ -1,31 +1,36 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
-#include "encrypting.hpp"
 #include <boost/noncopyable.hpp>
+#include <exception>
 #include <fstream>
+#include <iostream>
 #include <pqxx/pqxx>
 #include <string>
 #include <vector>
-#include<iostream>
-#include <exception>
-//TODO make without available SQL-injections
+#include "encrypting.hpp"
+
+// TODO make without available SQL-injections
 
 namespace messless {
-class UserInfo{
+class UserInfo {
 public:
     std::string email;
     std::string password;
     std::string user_role;
 };
-class Database : private boost::noncopyable {
 
+class Database : private boost::noncopyable {
     pqxx::connection connection;
     messless::Encrypting crypt;
-    void do_query_without_answer(const std::string& query);
-    void do_queries_without_answer(std::vector< std::string> &queries);
-    std::string shield_string(const std::string& unprotected_string);
+    void do_query_without_answer(const std::string &query);
+    void do_queries_without_answer(std::vector<std::string> &queries);
+    std::string shield_string(const std::string &unprotected_string);
+
 public:
-    explicit Database(const std::string &connection_string,const std::string &private_salt);
+    explicit Database(
+        const std::string &connection_string,
+        const std::string &private_salt
+    );
     friend class DatabaseGeneral;
     friend class DatabaseUser;
     friend class DatabaseCompany;
