@@ -15,6 +15,7 @@ class UserInfo{
 public:
     std::string email;
     std::string password;
+    std::string user_role;
 };
 class Database : private boost::noncopyable {
     pqxx::connection connection;

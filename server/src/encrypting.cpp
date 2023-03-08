@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace messless {
-std::string messless::Encrypting::get_hash(std::string &str) {
+std::string messless::Encrypting::get_hash(std::string& str) {
     std::string new_string;
     CryptoPP::SHA256 hash;
 
@@ -13,7 +13,6 @@ std::string messless::Encrypting::get_hash(std::string &str) {
             new CryptoPP::Base64Encoder(new CryptoPP::StringSink(new_string))
         )
     );
-
     return new_string;
 }
 

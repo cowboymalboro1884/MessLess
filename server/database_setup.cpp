@@ -12,6 +12,7 @@ int main() {
         pqxx::connection connectionObject(connectionString.c_str());
 
         pqxx::work worker(connectionObject);
+        worker.exec(R"sql(DROP TABLE users)sql");
 
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users (
                         id bigint  PRIMARY KEY,
@@ -22,10 +23,28 @@ int main() {
                         email character varying(32) NOT NULL UNIQUE,
                         password character varying(256) NOT NULL,
                         biography character varying(256),
-                        salt character varying(128)
+                        salt character varying(128),
+                        employee_role_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
                         );)sql"); // create users
+
+        worker.exec(R"sql(CREATE TABLE IF NOT EXISTS employee_roles(
+                        id int PRIMARY KEY,
+                        role_description character varying(32) NOT NULL
+                        )WITH (
+                        OIDS=FALSE
+                        );)sql");
+
+        worker.exec(R"sql(INSERT INTO employee_roles
+                        (id,role_description)
+                        (1,'admin'))sql");
+        worker.exec(R"sql(INSERT INTO employee_roles
+                        (id,role_description)
+                        (2,'moderator'))sql");
+        worker.exec(R"sql(INSERT INTO employee_roles
+                        (id,role_description)
+                        (3,'employee'))sql");
 
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS companies (
                         id bigint PRIMARY KEY,
