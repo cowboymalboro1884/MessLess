@@ -12,5 +12,7 @@ int main(){
     messless::DatabaseCompany::create_company(db,"ababa","we are good company");
     std::cout<<"1"<<std::endl;
     //messless::DatabaseCompany::create_user(db,"amogus@gmail.com","quwuqewq!!!","Mikhail","Ivanov",1,"admin");
-    std::cout<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").email<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").password<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").user_role;
+    std::cout<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!1").email<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!1").password<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!1").user_role<<'\n';
+    std::cout<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").email<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").password<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com","quwuqewq!!!").user_role<<'\n';
+    std::cout<<messless::DatabaseUser::login_user(db,"amogus@gmail.com1","quwuqewq!!!").email<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com1","quwuqewq!!!").password<<' '<<messless::DatabaseUser::login_user(db,"amogus@gmail.com1","quwuqewq!!!").user_role<<'\n';
 }
