@@ -39,6 +39,7 @@ private slots:
     void authorizeUser(); // пользовательские слоты
     void registerWindowShow();
     void registerUser();
+    void showMainWindow();
 };
 
 #endif // MAINWINDOW_H

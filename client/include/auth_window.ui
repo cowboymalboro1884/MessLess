@@ -28,22 +28,12 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Password:</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Login:</string>
        </property>
       </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit"/>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="labelWelcome">
@@ -66,12 +56,8 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0" colspan="2">
-      <widget class="QPushButton" name="loginPushButton">
-       <property name="text">
-        <string>Log In</string>
-       </property>
-      </widget>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit"/>
      </item>
      <item row="6" column="0" colspan="2">
       <widget class="QPushButton" name="registerPushButton">
@@ -80,16 +66,41 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_2"/>
+     <item row="5" column="0" colspan="2">
+      <widget class="QPushButton" name="loginPushButton">
+       <property name="text">
+        <string>Log In</string>
+       </property>
+      </widget>
      </item>
      <item row="4" column="0" colspan="2">
       <widget class="QLabel" name="errorMessage">
        <property name="text">
-        <string>eeee</string>
+        <string>error</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Password:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit_2">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="showPass">
+       <property name="text">
+        <string>show</string>
        </property>
       </widget>
      </item>

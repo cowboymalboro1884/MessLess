@@ -11,12 +11,15 @@ auth_window::auth_window(QWidget *parent) :
     setWindowTitle("Authorization");
 //    setWindowIcon("icon.ico");
     ui->errorMessage->hide();
+
+    ui->lineEdit_2->setEchoMode(QLineEdit::EchoMode::Password);
 //    QRect screenRect = QApplication::screens().at(0)->geometry();
 //    this->resize(screenRect.width() * (70/100), screenRect.height() * (25/100));
 }
 
 auth_window::~auth_window()
 {
+    qDebug() << "Окно удалилось";
     delete ui;
 }
 
@@ -59,12 +62,22 @@ void auth_window::on_loginPushButton_clicked()
     }
     else{
         qDebug() << getLogin();
+        qDebug() << getPass();
+        if(true){
+           emit successfullAuth();
+        }
     }
 }
+
 
 void auth_window::on_registerPushButton_clicked()
 {
     emit register_button_clicked();
+}
+
+void auth_window::on_showPass_clicked()
+{
+        ui->lineEdit_2->setEchoMode(QLineEdit::EchoMode::Normal);
 }
 
 

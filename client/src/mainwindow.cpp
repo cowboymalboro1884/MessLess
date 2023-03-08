@@ -21,6 +21,8 @@ QMainWindow(parent),
             this,SLOT(registerUser()));
     connect(&ui_Reg,SIGNAL(destroyed()),
             &ui_Auth, SLOT(show()));
+    connect(&ui_Auth,SIGNAL(successfullAuth()),
+            this, SLOT(showMainWindow()));
 
     ui_Main->setupUi(this);
 }
@@ -35,6 +37,10 @@ void MainWindow::registerUser()
     /// TODO
 }
 
+void MainWindow::showMainWindow(){
+    ui_Auth.close();
+    this->show();
+}
 void MainWindow::display()
 {
     ui_Auth.show();
