@@ -40,6 +40,7 @@ private slots:
     void registerWindowShow();
     void registerUser();
     void showMainWindow();
+    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

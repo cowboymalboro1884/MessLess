@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "include/auth_window.h"
 #include "include/reg_window.h"
+#include "include/projectwindow.h"
 #include <QtDebug>
 
 
@@ -25,6 +26,8 @@ QMainWindow(parent),
             this, SLOT(showMainWindow()));
 
     ui_Main->setupUi(this);
+
+    ui_Main->tabWidget->setTabIcon(1, QIcon("ls1.ico"));
 }
 
 void MainWindow::authorizeUser()
@@ -63,3 +66,11 @@ MainWindow::~MainWindow()
     delete ui_Main;
     exit(0);
 }
+
+//void MainWindow::on_pushButton_clicked()
+//{
+////    projectWindow Ui_ProjectWindow;
+////    Ui_ProjectWindow.setModal(true);
+////    Ui_ProjectWindow.show();
+//}
+

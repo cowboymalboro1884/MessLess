@@ -16,17 +16,22 @@ SOURCES += \
     src/auth_window.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/projectwindow.cpp \
     src/reg_window.cpp
 
 HEADERS += \
     include/auth_window.h \
     include/mainwindow.h \
+    include/projectwindow.h \
     include/reg_window.h \
+    include/projectwindow.h
 
 FORMS += \
     include/auth_window.ui \
     include/mainwindow.ui \
+    include/projectwindow.ui \
     include/reg_window.ui \
+    include/projectwindow.ui
 
 #win64:RC_FILE = icon.rc
 
