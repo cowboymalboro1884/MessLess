@@ -44,31 +44,36 @@ UserInfo DatabaseUser::login_user(
     static std::string personal_salt;
     // TODO may not work
     pqxx::work worker(db.connection);
-    personal_salt =
-        worker.query_value<std::string>(
-            "SELECT salt FROM users WHERE email='" + db.shield_string(email)
-        +"';");
-    if (personal_salt.empty()) {
-        return {"", ""};
+    try {
+        personal_salt = worker.query_value<std::string>(
+            "SELECT salt FROM users WHERE email='" + db.shield_string(email) +
+            "';"
+        );
+    }
+    catch(std::exception&){
+        return {"","",""};
     }
     static std::string password_hash;
     password_hash = db.crypt.get_password_hash(password, personal_salt);
-    int employee_role_id = 100;
-    employee_role_id = worker.query_value<int>(
-        "SELECT employee_role_id FROM users WHERE email='" + db.shield_string(email) +
-        "' AND password='" + db.shield_string(password_hash) + "';"
-    );
-    if (employee_role_id==1){
-        return {email, password_hash,"admin"};
+    int employee_role_id;
+    try {
+        employee_role_id = worker.query_value<int>(
+            "SELECT employee_role_id FROM users WHERE email='" +
+            db.shield_string(email) + "' AND password='" +
+            db.shield_string(password_hash) + "';"
+        );
+        if (employee_role_id==1){
+            return {email, password_hash,"admin"};
+        }
+        if (employee_role_id==2){
+            return {email, password_hash,"moderator"};
+        }
+        if (employee_role_id==3){
+            return {email,password_hash,"employee"};
+        }
     }
-    if (employee_role_id==2){
-        return {email, password_hash,"moderator"};
-    }
-    if (employee_role_id==3){
-        return {email,password_hash,"employee"};
-    }
-    else{
-        return {"", "",""};
+    catch(std::exception&){
+        return {"","",""};
     }
 }
 

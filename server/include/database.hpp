@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include<iostream>
-
+#include <exception>
 //TODO make without available SQL-injections
 
 namespace messless {
