@@ -18,6 +18,7 @@ public:
     std::string user_role;
 };
 class Database : private boost::noncopyable {
+
     pqxx::connection connection;
     messless::Encrypting crypt;
     void do_query_without_answer(const std::string& query);

@@ -21,6 +21,7 @@ void Database::do_query_without_answer(const std::string &query) {
 void Database::do_queries_without_answer(std::vector< std::string> &queries
 ) {
     try {
+
         pqxx::work worker(connection);
         for (auto &current_query : queries) {
             worker.exec(current_query);
