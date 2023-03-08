@@ -112,14 +112,20 @@ UserInfo DatabaseCompany::create_user(
     static std::string password_hash;
     new_salt = messless::Encrypting::get_random_string();
     password_hash = db.crypt.get_password_hash(password, new_salt);
-    db.do_query_without_answer(
-        "INSERT INTO users "
-        "(first_name,second_name,company_id,email,password,salt,employee_role_id) VALUES('" +
-        db.shield_string(name) + "','" + db.shield_string(surname) + "','" +
-        db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(email) + "','" + db.shield_string(password_hash) +
-        "','" + db.shield_string(new_salt) +"','"+ db.shield_string(std::to_string(employee_user_role_id))+"');"
-    );
+    try {
+        db.do_query_without_answer(
+            "INSERT INTO users "
+            "(first_name,second_name,company_id,email,password,salt,employee_role_id) VALUES('" +
+            db.shield_string(name) + "','" + db.shield_string(surname) + "','" +
+            db.shield_string(std::to_string(company_id)) + "','" +
+            db.shield_string(email) + "','" + db.shield_string(password_hash) +
+            "','" + db.shield_string(new_salt) + "','" +
+            db.shield_string(std::to_string(employee_user_role_id)) + "');"
+        );
+    }
+    catch(std::exception&e){
+        return {"","",""};
+    }
     return {email, password_hash,user_role};
 }
 }  // namespace messless
