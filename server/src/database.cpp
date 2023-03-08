@@ -5,11 +5,12 @@
 
 // TODO make without available SQL-injections
 namespace messless {
-Database::Database(const std::string &connection_string, const std::string &private_salt):connection(connection_string.c_str()),worker(connection),crypt(private_salt) {
+Database::Database(const std::string &connection_string, const std::string &private_salt):connection(connection_string.c_str()),crypt(private_salt) {
 }
 
 void Database::do_query_without_answer(const std::string &query) {
     try {
+        pqxx::work worker(connection);
         worker.exec(query);
         worker.commit();
     } catch (const std::exception &e) {
@@ -20,6 +21,7 @@ void Database::do_query_without_answer(const std::string &query) {
 void Database::do_queries_without_answer(std::vector< std::string> &queries
 ) {
     try {
+        pqxx::work worker(connection);
         for (auto &current_query : queries) {
             worker.exec(current_query);
         }
@@ -40,6 +42,7 @@ UserInfo DatabaseUser::login_user(
 ) {
     static std::string personal_salt;
     // TODO may not work
+    pqxx::work worker(connection);
     personal_salt =
         db.worker.query_value<std::string>(
             "SELECT salt FROM users WHERE email='" + db.shield_string(email)
@@ -89,7 +92,7 @@ UserInfo DatabaseCompany::create_user(
     unsigned int company_id,
     const std::string &user_role
 ) {
-    //TODO make user role
+    pqxx::work worker(connection);
     int employee_user_role_id = 100;
     if (user_role=="admin"){
         employee_user_role_id=1;

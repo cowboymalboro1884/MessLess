@@ -19,7 +19,6 @@ public:
 };
 class Database : private boost::noncopyable {
     pqxx::connection connection;
-    pqxx::work worker;
     messless::Encrypting crypt;
     void do_query_without_answer(const std::string& query);
     void do_queries_without_answer(std::vector< std::string> &queries);
