@@ -43,9 +43,9 @@ UserInfo DatabaseUser::login_user(
 ) {
     static std::string personal_salt;
     // TODO may not work
-    pqxx::work worker(connection);
+    pqxx::work worker(db.connection);
     personal_salt =
-        db.worker.query_value<std::string>(
+        worker.query_value<std::string>(
             "SELECT salt FROM users WHERE email='" + db.shield_string(email)
         +"';");
     if (personal_salt.empty()) {
@@ -54,7 +54,7 @@ UserInfo DatabaseUser::login_user(
     static std::string password_hash;
     password_hash = db.crypt.get_password_hash(password, personal_salt);
     int employee_role_id = 100;
-    employee_role_id = db.worker.query_value<int>(
+    employee_role_id = worker.query_value<int>(
         "SELECT employee_role_id FROM users WHERE email='" + db.shield_string(email) +
         "' AND password='" + db.shield_string(password_hash) + "';"
     );
@@ -93,7 +93,6 @@ UserInfo DatabaseCompany::create_user(
     unsigned int company_id,
     const std::string &user_role
 ) {
-    pqxx::work worker(connection);
     int employee_user_role_id = 100;
     if (user_role=="admin"){
         employee_user_role_id=1;
