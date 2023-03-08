@@ -59,13 +59,13 @@ UserInfo DatabaseUser::login_user(
         "' AND password='" + db.shield_string(password_hash) + "';"
     );
     if (employee_role_id==1){
-        return {email, password,"admin"};
+        return {email, password_hash,"admin"};
     }
     if (employee_role_id==2){
-        return {email, password,"moderator"};
+        return {email, password_hash,"moderator"};
     }
     if (employee_role_id==3){
-        return {email,password,"employee"};
+        return {email,password_hash,"employee"};
     }
     else{
         return {"", "",""};
