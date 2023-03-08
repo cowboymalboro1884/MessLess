@@ -9,12 +9,14 @@ Database::Database(const std::string &config_file) {
     std::ifstream input(config_file);
     std::string connection_string;
     std::getline(input, connection_string);
-    connection(connection_string.c_str());
-    worker(connection);
+    pqxx::connection curcon(connection_string.c_str());
+    connection = std::move(curcon);//TODO
+    pqxx::work curwork(connection);
+    worker= std::move(curwork);//TODO
     std::string salt;
     std::getline(input, salt);
-    Encrypting cur(salt);
-    crypt = std::move(cur);
+    Encrypting cur(salt);//TODO
+    crypt = std::move(cur);//TODO
     input.close();
 }
 
@@ -50,25 +52,32 @@ UserInfo DatabaseUser::login_user(
 ) {
     static std::string personal_salt;
     // TODO may not work
-    personal_salt = pqxx::to_string(
-        db.worker.exec(
+    personal_salt =
+        db.worker.query_value<std::string>(
             "SELECT salt FROM users WHERE email='" + db.shield_string(email)
-        ) +
-        "';"
-    );
+        +"';");
     if (personal_salt.empty()) {
         return {"", ""};
     }
     static std::string password_hash;
     password_hash = db.crypt.get_password_hash(password, personal_salt);
-    pqxx::result id = db.worker.exec(
-        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+    int employee_role_id = 100;
+    employee_role_id = db.worker.query_value<int>(
+        "SELECT employee_role_id FROM users WHERE email='" + db.shield_string(email) +
         "' AND password='" + db.shield_string(password_hash) + "';"
     );
-    if (id.empty()) {
-        return {"", ""};
+    if (employee_role_id==1){
+        return {email, password,"admin"};
     }
-    return {email, password};
+    if (employee_role_id==2){
+        return {email, password,"moderator"};
+    }
+    if (employee_role_id==3){
+        return {email,password,"employee"};
+    }
+    else{
+        return {"", "",""};
+    }
 }
 
 void DatabaseCompany::create_company(
@@ -93,6 +102,16 @@ UserInfo DatabaseCompany::create_user(
     const std::string &user_role
 ) {
     //TODO make user role
+    int employee_user_role_id = 100;
+    if (user_role=="admin"){
+        employee_user_role_id=1;
+    }
+    if (user_role=="moderator"){
+        employee_user_role_id=2;
+    }
+    if (user_role=="employee"){
+        employee_user_role_id=3;
+    }
     static std::string new_salt;
     static std::string password_hash;
     new_salt = messless::Encrypting::get_random_string();
@@ -103,7 +122,7 @@ UserInfo DatabaseCompany::create_user(
         db.shield_string(name) + "','" + db.shield_string(surname) + "','" +
         db.shield_string(std::to_string(company_id)) + "','" +
         db.shield_string(email) + "','" + db.shield_string(password_hash) +
-        "','" + db.shield_string(new_salt) + "');"
+        "','" + db.shield_string(new_salt) +"','"+ db.shield_string(std::to_string(employee_user_role_id))+"');"
     );
     return {email, password_hash,user_role};
 }
