@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     std::getline(input, connection_string);
     std::getline(input, private_salt);
     messless::Database db(connection_string, private_salt);
-    qint16 port = 1337;
+    qint16 port = 1338;
     Server server(port, &db);
 
     server.startServer();
