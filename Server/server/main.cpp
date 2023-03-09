@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    std::ifstream input("../../../database.config");
+    std::ifstream input("/root/database.config");
     std::string private_salt, connection_string;
     std::getline(input, connection_string);
     std::getline(input, private_salt);
