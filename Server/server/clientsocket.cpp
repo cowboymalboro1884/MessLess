@@ -38,7 +38,7 @@ void ClientSocket::readData() {
             sendData(doc.toJson());
             return;
         }
-
+        qDebug() << event_type;
         if (event_type == "authorization") {
            QJsonObject json = json_data.object();
            QString user_name = json.value("username").toString();
@@ -47,9 +47,11 @@ void ClientSocket::readData() {
            qDebug() << "password: " << entered_password;
         } else if (event_type == "registration") {
             QJsonObject json = json_data.object();
-            messless::UserInfo user_info = messless::DatabaseCompany::create_user(*db, "email@jopa.com", "pidor", "suka", "blyadskaya", 13, "admin");
+            qDebug() << "i'm here";
+            messless::UserInfo user_info = messless::DatabaseCompany::create_user(*db, "email@jopa.com", "entered_password", "suka", "blyadskaya", 13, "admin");
         }
     } else {
+        qDebug() << "smth wrong(";
         QJsonObject jsonResponse;
         jsonResponse["type"] = "error";
         jsonResponse["text"] = "Invalid JSON";
@@ -70,6 +72,3 @@ void ClientSocket::sendData(QString data) {
 qint16 ClientSocket::get_id() const {
     return socket_descriptor;
 }
-
-
-
