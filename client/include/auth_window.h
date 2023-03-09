@@ -19,16 +19,15 @@ public:
 signals:
     void login_button_clicked();
     void register_button_clicked();
-    void successfullAuth();
+    void auth_check();
 
 private slots:
     void on_lineEdit_textEdited(const QString &arg1);
     void on_lineEdit_2_textEdited(const QString &arg1);
     void on_loginPushButton_clicked();
     void on_registerPushButton_clicked();
-    void on_showPass_clicked();
-//    void successfullAuth();
 
+    void on_showPassword_clicked();
 
 private:
     Ui::auth_window *ui;

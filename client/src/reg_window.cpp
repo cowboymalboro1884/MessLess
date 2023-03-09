@@ -9,6 +9,8 @@ reg_window::reg_window(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Registration");
+     ui->confirmLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
+     ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
 }
 
 reg_window::~reg_window()

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "include/auth_window.h"
 #include "include/reg_window.h"
-#include "include/projectwindow.h"
 #include <QtDebug>
 
 
@@ -10,8 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
     ui_Main(new Ui::MainWindow)
 {
-    user_counter = 0;
-    m_loginSuccesfull = false;
     connect(&ui_Auth, SIGNAL(login_button_clicked()),
             this, SLOT(authorizeUser()));
     connect(&ui_Auth,SIGNAL(destroyed()),
@@ -22,17 +19,22 @@ QMainWindow(parent),
             this,SLOT(registerUser()));
     connect(&ui_Reg,SIGNAL(destroyed()),
             &ui_Auth, SLOT(show()));
-    connect(&ui_Auth,SIGNAL(successfullAuth()),
-            this, SLOT(showMainWindow()));
+    connect(&ui_Auth,SIGNAL(auth_check()),this, SLOT(check_auth()));
 
     ui_Main->setupUi(this);
-
-    ui_Main->tabWidget->setTabIcon(1, QIcon("ls1.ico"));
 }
 
 void MainWindow::authorizeUser()
 {
-    /// TODO
+    emit got_auth_data();
+}
+
+QString MainWindow::get_username(){
+    return ui_Auth.getLogin();
+}
+
+QString MainWindow::get_password(){
+    return ui_Auth.getPass();
 }
 
 void MainWindow::registerUser()
@@ -40,15 +42,18 @@ void MainWindow::registerUser()
     /// TODO
 }
 
-void MainWindow::showMainWindow(){
-    ui_Auth.close();
-    this->show();
-}
 void MainWindow::display()
 {
     ui_Auth.show();
 }
 
+void MainWindow::check_auth(){
+    qDebug() << "показалось";
+    if(is_auth){
+        this->show();
+        ui_Auth.close();
+    }
+}
 void MainWindow::registerWindowShow()
 {
     ui_Auth.hide();
@@ -58,19 +63,7 @@ void MainWindow::registerWindowShow()
 
 MainWindow::~MainWindow()
 {
-    if(m_loginSuccesfull)
-    {
-        /// TODO
-    }
     qDebug() << "MainWindow Destroyed";
     delete ui_Main;
     exit(0);
 }
-
-//void MainWindow::on_pushButton_clicked()
-//{
-////    projectWindow Ui_ProjectWindow;
-////    Ui_ProjectWindow.setModal(true);
-////    Ui_ProjectWindow.show();
-//}
-
