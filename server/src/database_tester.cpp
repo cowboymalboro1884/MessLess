@@ -8,10 +8,10 @@ int main() {
     std::getline(input, connection_string);
     std::getline(input, private_salt);
     messless::Database db(connection_string, private_salt);
-    messless::DatabaseCompany::create_company(
-        db, "ababa", "we are good company"
-    );
-    std::cout << "0" << std::endl;
+    std::cout << messless::DatabaseCompany::create_company(
+                     db, "ababa", "we are good company"
+                 )
+              << "0\n";
     std::cout << messless::DatabaseCompany::create_user(
                      db, "amogus@gmail.com", "quwuqewq!!!", "Mikhail", "Ivanov",
                      1, "admin"

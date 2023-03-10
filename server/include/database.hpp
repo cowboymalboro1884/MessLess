@@ -4,12 +4,12 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <mutex>
 #include <pqxx/pqxx>
 #include <string>
+#include <thread>
 #include <vector>
 #include "encrypting.hpp"
-
-// TODO make without available SQL-injections
 
 namespace messless {
 class UserInfo {
@@ -20,6 +20,7 @@ public:
 };
 
 class Database : private boost::noncopyable {
+    std::mutex database_mutex;
     pqxx::connection connection;
     messless::Encrypting crypt;
     void do_query_without_answer(const std::string &query);
@@ -51,7 +52,7 @@ public:
 
 class DatabaseCompany {
 public:
-    static void create_company(
+    static unsigned int create_company(
         Database &db,
         const std::string &company_name,
         const std::string &company_bio

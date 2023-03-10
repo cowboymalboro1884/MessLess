@@ -2,9 +2,7 @@
 #define DATABASE_CPP
 
 #include "../include/database.hpp"
-#include <iostream>
 
-// TODO make without available SQL-injections
 namespace messless {
 Database::Database(
     const std::string &connection_string,
@@ -74,16 +72,22 @@ UserInfo DatabaseUser::login_user(
     return {"", "", ""};
 }
 
-void DatabaseCompany::create_company(
+unsigned int DatabaseCompany::create_company(
     Database &db,
     const std::string &company_name,
     const std::string &company_bio
 ) {
-    db.do_query_without_answer(
+    std::unique_lock lock(db.database_mutex);
+    pqxx::work worker(db.connection);
+    worker.exec(
         "INSERT INTO companies (company_name,bio) VALUES('" +
         db.shield_string(company_name) + "','" + db.shield_string(company_bio) +
         "')"
     );
+    int company_id =
+        worker.query_value<int>("SELECT id FROM companies ORDER BY id DESC LIMIT 1;"
+        );
+    return company_id;
 }
 
 UserInfo DatabaseCompany::create_user(
