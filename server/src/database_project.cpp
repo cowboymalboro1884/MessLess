@@ -5,7 +5,7 @@
 namespace messless {
 unsigned int DatabaseProject::create_project(
     Database &db,
-    UserInfo &user,
+    PrivateUserInfo &user,
     const std::string &project_name,
     const std::string &biography
 ) {
@@ -27,7 +27,7 @@ unsigned int DatabaseProject::create_project(
 
 unsigned int DatabaseProject::get_project_id(
     Database &db,
-    UserInfo &user,
+    PrivateUserInfo &user,
     const std::string &project_name
 ) {
     pqxx::work worker(db.connection);
@@ -46,9 +46,9 @@ unsigned int DatabaseProject::get_project_id(
 }
 
 void DatabaseProject::add_user_in_project(Database &db,
-                                          UserInfo &user,
+                                          PrivateUserInfo &user,
                                           unsigned int project_id,
-                                          const std::string &user_role;) {
+                                          const std::string &user_role) {
     pqxx::work worker(db.connection);
     unsigned int user_id = worker.query_value<int>(
         "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
