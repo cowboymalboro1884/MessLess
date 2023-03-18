@@ -1,5 +1,5 @@
-#ifndef DATABASE_CPP
-#define DATABASE_CPP
+#ifndef DATABASE_PROJECT_CPP
+#define DATABASE_PROJECT_CPP
 
 #include "../include/database.hpp"
 namespace messless {
