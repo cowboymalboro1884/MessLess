@@ -22,6 +22,8 @@ unsigned int DatabaseProject::create_project(
     worker.commit();
     lock.unlock();
     add_user_in_project(db, user, projects_id, "admin");
+    //TODO create desk
+    //TODO create chat
     return projects_id;
 }
 
