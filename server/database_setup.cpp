@@ -54,12 +54,14 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create companies
+        //TODO delete pojects table and insert new
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
-                        id bigint PRIMARY KEY,
-                        company_id bigint NOT NULL,
-                        chat_id bigint NOT NULL,
+                        id serial PRIMARY KEY,
+                        project_name character varying(32) NOT NULL,
+                        company_id serial NOT NULL,
+                        chat_id serial NOT NULL,
                         bio character varying(256),
-                        desk_id bigint NOT NULL
+                        desk_id serial NOT NULL
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create projects

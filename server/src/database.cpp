@@ -33,7 +33,7 @@ std::string Database::shield_string(const std::string &unprotected_string) {
     return connection.esc(unprotected_string);
 }
 
-UserInfo DatabaseUser::login_user(
+PrivateUserInfo DatabaseUser::login_user(
     Database &db,
     const std::string &email,
     const std::string &password
@@ -84,13 +84,14 @@ unsigned int DatabaseCompany::create_company(
         db.shield_string(company_name) + "','" + db.shield_string(company_bio) +
         "')"
     );
-    int company_id =
-        worker.query_value<int>("SELECT id FROM companies ORDER BY id DESC LIMIT 1;"
-        );
+    int company_id = worker.query_value<int>(
+        "SELECT id FROM companies ORDER BY id DESC LIMIT 1;"
+    );
+    worker.commit();
     return company_id;
 }
 
-UserInfo DatabaseCompany::create_user(
+PrivateUserInfo DatabaseCompany::create_user(
     Database &db,
     const std::string &email,
     const std::string &password,
@@ -129,5 +130,7 @@ UserInfo DatabaseCompany::create_user(
     }
     return {email, password_hash, user_role};
 }
+
+
 }  // namespace messless
 #endif
