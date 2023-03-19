@@ -105,13 +105,12 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
     pqxx::work worker(db.connection);
     try {
         std::vector<unsigned int> user_id_list;
-        user_id_list = worker.query_value<std::vector<int>>(
-            "SELECT user_id from users_project_relationship WHERE "
-            "project_id='" +
-            db.shield_string(std::to_string(project_id)) + "';"
-        );
         std::vector<User> user_list;
-        for (auto user_id : user_id_list) {
+        for (auto user_id : worker.query<int>(
+                 "SELECT user_id from users_project_relationship WHERE "
+                 "project_id='" +
+                 db.shield_string(std::to_string(project_id)) + "';"
+             )) {
             User current_user;
             current_user.email = worker.query_value<std::string>(
                 "SELECT email FROM users WHERE id='" +
