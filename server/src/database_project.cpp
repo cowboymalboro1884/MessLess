@@ -41,7 +41,6 @@ unsigned int DatabaseProject::create_project(
     unsigned int desk_id =
         worker.query_value<int>("SELECT id FROM desk ORDER BY id DESC LIMIT 1;"
         );
-    ;
     unsigned int chat_id =
         worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
         );
@@ -190,6 +189,6 @@ void DatabaseProject::add_user_to_task(
     );
     worker.commit();
 }
-};  // namespace messless
+}  // namespace messless
 
 #endif
