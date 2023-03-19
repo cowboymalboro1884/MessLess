@@ -58,10 +58,10 @@ int main() {
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id serial PRIMARY KEY,
                         project_name character varying(32) NOT NULL,
-                        company_id serial NOT NULL,
-                        chat_id serial NOT NULL,
+                        company_id bigint NOT NULL,
+                        chat_id bigint,
                         bio character varying(256),
-                        desk_id serial NOT NULL
+                        desk_id bigint
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create projects
@@ -76,9 +76,9 @@ int main() {
         );  // create
         // user-projects
         // relationship
-
+        //TODO change bigint to serial at server
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS messages (
-                        id bigint PRIMARY KEY,
+                        id serial PRIMARY KEY,
                         chat_id bigint NOT NULL,
                         text_message character varying(1024),
                         file_link character varying(64),
@@ -86,17 +86,18 @@ int main() {
                         ) WITH (
                           OIDS=FALSE
                          );)sql");  // create messages
-
+        //TODO change bigint to serial at server
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
-                        id bigint NOT NULL,
+                        id serial NOT NULL,
                         project_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create desk
+        // TODO change bigint to serial at server
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS chats (
-                        id bigint PRIMARY KEY,
+                        id serial PRIMARY KEY,
                         company_id bigint NOT NULL,
-                        project_id bigint NOT NULL
+                        project_id bigint
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create chats

@@ -1,7 +1,8 @@
 #ifndef DATABASE_PROJECT_CPP
 #define DATABASE_PROJECT_CPP
 
-#include "../include/database.hpp"
+#include "../include/database_project.hpp"
+
 namespace messless {
 unsigned int DatabaseProject::create_project(
     Database &db,
@@ -9,22 +10,31 @@ unsigned int DatabaseProject::create_project(
     const std::string &project_name,
     const std::string &biography
 ) {
-    std::unique_lock lock(db.database_mutex);
     pqxx::work worker(db.connection);
+    unsigned int company_id = worker.query_value<int>("SELECT company_id FROM users WHERE email='"+db.shield_string(user.email)+"';");
+    std::unique_lock lock(db.database_mutex);
     worker.exec(
-        "INSERT INTO projects (project_name,bio) VALUES('" +
-        db.shield_string(project_name) + "','" + db.shield_string(biography) +
+        "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
+        db.shield_string(std::to_string(company_id))+"','"+db.shield_string(project_name) + "','" + db.shield_string(biography) +
         "')"
     );
-    unsigned int projects_id = worker.query_value<int>(
+    unsigned int project_id = worker.query_value<int>(
         "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
     );
-    worker.commit();
+    worker.exec("INSERT INTO desk (project_id) VALUES ('"+db.shield_string(std::to_string(project_id))+"')");
+    worker.exec("INSERT INTO desk (project_id) VALUES ('"+db.shield_string(std::to_string(project_id))+"')");
+    worker.exec("INSERT INTO chats (company_id,project_id) VALUES ('"+db.shield_string(std::to_string(company_id))+"','"+db.shield_string(std::to_string(project_id))+"')");
+    unsigned int desk_id =worker.query_value<int>(
+        "SELECT id FROM desk ORDER BY id DESC LIMIT 1;"
+    );;
+    unsigned int chat_id =worker.query_value<int>(
+        "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+    );
+    worker.exec("UPDATE projects SET (desk_id,chat_id) =('"+db.shield_string(std::to_string(desk_id))+"','"+db.shield_string(std::to_string(chat_id))"') WHERE id='"+db.shield_string(std::to_string(project_id))+"';");
     lock.unlock();
-    add_user_in_project(db, user, projects_id, "admin");
-    //TODO create desk
-    //TODO create chat
-    return projects_id;
+    worker.commit();
+    add_user_in_project(db, user, project_id, "admin");
+    return project_id;
 }
 
 unsigned int DatabaseProject::get_project_id(
