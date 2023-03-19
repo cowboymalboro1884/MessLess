@@ -114,7 +114,7 @@ int main() {
                         description character varying(256),
                         condition_id int NOT NULL,
                         deadline TIMESTAMP,
-                        creation_time TIMESTAMP NOT NULL,
+                        creation_time TIMESTAMP NOT NULL
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create tasks
