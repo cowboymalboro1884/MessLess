@@ -54,7 +54,7 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create companies
-        //TODO delete pojects table and insert new
+        // TODO delete pojects table and insert new
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id serial PRIMARY KEY,
                         project_name character varying(32) NOT NULL,
@@ -76,7 +76,7 @@ int main() {
         );  // create
         // user-projects
         // relationship
-        //TODO change bigint to serial at server
+        // TODO change bigint to serial at server
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS messages (
                         id serial PRIMARY KEY,
                         chat_id bigint NOT NULL,
@@ -86,7 +86,7 @@ int main() {
                         ) WITH (
                           OIDS=FALSE
                          );)sql");  // create messages
-        //TODO change bigint to serial at server
+        // TODO change bigint to serial at server
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
                         id serial NOT NULL,
                         project_id bigint NOT NULL
@@ -101,14 +101,15 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create chats
+        // TODO delete this table and insert new
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
-                        id bigint PRIMARY KEY,
+                        id serial PRIMARY KEY,
+                        task_name character varying(32) NOT NULL,
                         desk_id bigint NOT NULL,
                         description character varying(256),
                         condition_id int NOT NULL,
                         deadline TIMESTAMP,
                         creation_time TIMESTAMP NOT NULL,
-                        type character varying(32)
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create tasks
