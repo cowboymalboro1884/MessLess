@@ -55,7 +55,7 @@ int main() {
                         OIDS=FALSE
                         );)sql");  // create companies
         // TODO delete pojects table and insert new
-        worker.exec(R"sql(DROP TABLE projects;))sql");
+        worker.exec(R"sql(DROP TABLE projects;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id serial PRIMARY KEY,
                         project_name character varying(32) NOT NULL,
@@ -78,7 +78,7 @@ int main() {
         // user-projects
         // relationship
         // TODO change bigint to serial at server
-        worker.exec(R"sql(DROP TABLE messages;))sql");
+        worker.exec(R"sql(DROP TABLE messages;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS messages (
                         id serial PRIMARY KEY,
                         chat_id bigint NOT NULL,
@@ -89,7 +89,7 @@ int main() {
                           OIDS=FALSE
                          );)sql");  // create messages
         // TODO change bigint to serial at server
-        worker.exec(R"sql(DROP TABLE desk;))sql");
+        worker.exec(R"sql(DROP TABLE desk;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
                         id serial NOT NULL,
                         project_id bigint NOT NULL
@@ -97,7 +97,7 @@ int main() {
                         OIDS=FALSE
                         );)sql");  // create desk
         // TODO change bigint to serial at server
-        worker.exec(R"sql(DROP TABLE chats;))sql");
+        worker.exec(R"sql(DROP TABLE chats;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS chats (
                         id serial PRIMARY KEY,
                         company_id bigint NOT NULL,
@@ -106,7 +106,7 @@ int main() {
                         OIDS=FALSE
                         );)sql");  // create chats
         // TODO delete this table and insert new
-        worker.exec(R"sql(DROP TABLE tasks;))sql");
+        worker.exec(R"sql(DROP TABLE tasks;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
                         id serial PRIMARY KEY,
                         task_name character varying(32) NOT NULL,
