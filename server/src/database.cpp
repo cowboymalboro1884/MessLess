@@ -131,6 +131,5 @@ PrivateUserInfo DatabaseCompany::create_user(
     return {email, password_hash, user_role};
 }
 
-
 }  // namespace messless
 #endif
