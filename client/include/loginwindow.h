@@ -7,16 +7,15 @@ namespace Ui {
 class LoginWindow;
 }
 
-class LoginWindow : public QDialog
-{
-    Q_OBJECT
+class LoginWindow : public QDialog {
+  Q_OBJECT
 
 public:
-    explicit LoginWindow(QWidget *parent = nullptr);
-    ~LoginWindow();
+  explicit LoginWindow(QWidget *parent = nullptr);
+  ~LoginWindow();
 
 private:
-    Ui::LoginWindow *ui;
+  Ui::LoginWindow *ui;
 };
 
 #endif // LOGINWINDOW_H
