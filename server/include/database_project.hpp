@@ -5,6 +5,7 @@
 
 namespace messless {
 class DatabaseProject {
+public:
     static unsigned int create_project(
         Database &db,
         PrivateUserInfo &user,
