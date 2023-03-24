@@ -189,6 +189,14 @@ void DatabaseProject::add_user_to_task(
     );
     worker.commit();
 }
+bool DatabaseProject::is_project_exist(Database &db,
+PrivateUserInfo &user,
+const std::string &project_name){
+    if (get_project_id(db,user,project_name)==0){
+        return false;
+    }
+    return true;
+}
 }  // namespace messless
 
 #endif
