@@ -23,9 +23,25 @@ QString reg_window::getName()
     return m_userName;
 }
 
+QString reg_window::getSurname(){
+    return m_userSurname;
+}
+
 QString reg_window::getPass()
 {
     return m_userPass;
+}
+
+QString reg_window::getBio(){
+    return m_companyBio;
+}
+
+QString reg_window::getCompName(){
+    return m_companyName;
+}
+
+QString reg_window::getConfPass(){
+    return m_confirmation;
 }
 
 bool reg_window::checkPass()
@@ -51,8 +67,24 @@ void reg_window::on_confirmLineEdit_textEdited(const QString &arg1)
 }
 
 
+void reg_window::on_surnameLineEdit_textEdited(const QString &arg1)
+{
+    reg_window::m_userSurname = arg1;
+}
+
+
+void reg_window::on_companyNameLineEdit_textEdited(const QString &arg1)
+{
+    reg_window::m_companyName = arg1;
+}
+
+
+void reg_window::on_companyBioLineEdit_textEdited(const QString &arg1)
+{
+    reg_window::m_companyBio = arg1;
+}
+
 void reg_window::on_registerPushButton_clicked()
 {
     emit register_button_clicked2();
 }
-

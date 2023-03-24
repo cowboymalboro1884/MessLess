@@ -4,11 +4,11 @@
 #include "include/reg_window.h"
 #include <QtDebug>
 
-
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
     ui_Main(new Ui::MainWindow)
 {
+    ui_Main->setupUi(this);
     connect(&ui_Auth, SIGNAL(login_button_clicked()),
             this, SLOT(authorizeUser()));
     connect(&ui_Auth,SIGNAL(destroyed()),
@@ -20,8 +20,24 @@ QMainWindow(parent),
     connect(&ui_Reg,SIGNAL(destroyed()),
             &ui_Auth, SLOT(show()));
     connect(&ui_Auth,SIGNAL(auth_check()),this, SLOT(check_auth()));
+    connect(ui_Main->newProjetButton, &QPushButton::clicked, [this] {
 
-    ui_Main->setupUi(this);
+        add_project *chooseWindow = new add_project(nullptr, this);
+        chooseWindow->show();
+    });
+
+   QScrollArea* scroll = new QScrollArea(ui_Main->tab);
+   scroll->setBackgroundRole(QPalette::Window);
+   scroll->setFrameShadow(QFrame::Plain);
+   scroll->setFrameShape(QFrame::NoFrame);
+   scroll->setWidgetResizable(true);
+
+   QWidget* techArea = new QWidget(ui_Main->tabWidget);
+   techArea->setObjectName("techarea");
+   techArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+   techArea->setLayout(new QVBoxLayout(techArea));
+   scroll->setWidget(techArea);
+
 }
 
 void MainWindow::authorizeUser()
@@ -45,6 +61,10 @@ void MainWindow::registerUser()
 void MainWindow::display()
 {
     ui_Auth.show();
+}
+
+Ui::MainWindow *MainWindow::get_ui() const{
+    return ui_Main;
 }
 
 void MainWindow::check_auth(){

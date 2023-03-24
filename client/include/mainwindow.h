@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <vector>
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <QString>
+#include <QScrollArea>
 #include "auth_window.h"
 #include "reg_window.h"
 
@@ -21,7 +23,8 @@ public:
     void display(); // прототип пользовательской функции отображения
     QString get_username();
     QString get_password();
-
+    Ui::MainWindow *get_ui() const;
+    std::vector<std::string> projects;//нужен будет для сортировки
     bool is_auth = true;//надо будет изменить на false
 
 private:

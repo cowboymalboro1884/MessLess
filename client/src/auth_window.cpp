@@ -41,8 +41,8 @@ void auth_window::on_lineEdit_2_textEdited(const QString &arg1)
 
 void auth_window::on_loginPushButton_clicked()
 {
-    on_lineEdit_textEdited(ui->lineEdit->text());
-    on_lineEdit_2_textEdited(ui->lineEdit_2->text());
+//    on_lineEdit_textEdited(ui->lineEdit->text());
+//    on_lineEdit_2_textEdited(ui->lineEdit_2->text());//зачем я их вообще вызываю
     //Вынести проверку в отдельную функцию
 
     if(getLogin()=="" && getPass()==""){
@@ -80,4 +80,3 @@ void auth_window::on_showPassword_clicked()
     ui->lineEdit_2->setEchoMode(QLineEdit::EchoMode::Normal);
 
 }
-
