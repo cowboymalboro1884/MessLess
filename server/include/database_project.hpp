@@ -38,6 +38,7 @@ class DatabaseProject {
         unsigned int user_id,
         unsigned int role
         );
+
     static bool is_project_exist(
         Database &db,
         PrivateUserInfo &user,
