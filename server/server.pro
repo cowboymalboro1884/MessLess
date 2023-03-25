@@ -3,7 +3,7 @@ QT += core
 QT += network
 QT += websockets
 
-#LIBS += -lpq -lpqxx
+LIBS += -lpq -lpqxx
 
 TARGET = server
 CONFIG += c++17 console
