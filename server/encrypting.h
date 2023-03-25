@@ -2,12 +2,12 @@
 #define ENCRYPTING_HPP
 
 #include <fstream>
-//#include "cryptopp/base64.h"
-//#include "cryptopp/config_int.h"
-//#include "cryptopp/filters.h"
-//#include "cryptopp/integer.h"
-//#include "cryptopp/randpool.h"
-//#include "cryptopp/sha.h"
+#include "cryptopp/base64.h"
+#include "cryptopp/config_int.h"
+#include "cryptopp/filters.h"
+#include "cryptopp/integer.h"
+#include "cryptopp/randpool.h"
+#include "cryptopp/sha.h"
 
 namespace messless {
 
