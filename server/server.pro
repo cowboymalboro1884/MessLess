@@ -16,13 +16,11 @@ CONFIG -= app_bundle
 
 SOURCES += \
         clientsocket.cpp \
-#        database.cpp \
-#        encrypting.cpp \
-    database.cpp \
-    databaseproject.cpp \
-    encrypting.cpp \
+        database.cpp \
+        databaseproject.cpp \
+        encrypting.cpp \
         main.cpp \
-    requestholder.cpp \
+        requestholder.cpp \
         server.cpp
 
 QMAKE_CXXFLAGS += -O2
@@ -34,8 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     clientsocket.h \
-#    database.h \
-#    encrypting.h \
     database.h \
     databaseproject.h \
     encrypting.h \
