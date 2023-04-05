@@ -91,7 +91,7 @@ void DatabaseProject::add_user_in_project(
         db.shield_string(user_role) + "';"
     );
     worker.exec(
-        "INSERT INTO users_project_relationship "
+        "INSERT INTO users_projects_relationship "
         "(project_id,user_id,project_role_id) VALUES('" +
         db.shield_string(std::to_string(project_id)) + "','" +
         db.shield_string(std::to_string(user_id))+"','" +
@@ -107,7 +107,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
         std::vector<unsigned int> user_id_list;
         std::vector<User> user_list;
         for (auto [user_id] : worker.stream<int>(
-                 "SELECT user_id from users_project_relationship WHERE "
+                 "SELECT user_id from users_projects_relationship WHERE "
                  "project_id='" +
                  db.shield_string(std::to_string(project_id)) + "';"
              )) {
@@ -118,7 +118,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
             );
             current_user.name=worker.query_value<std::string>("SELECT first_name FROM users WHERE id='"+db.shield_string(std::to_string(user_id))+"';");
             current_user.surname=worker.query_value<std::string>("SELECT second_name FROM users WHERE id='"+db.shield_string(std::to_string(user_id))+"';");
-            unsigned user_role_id=worker.query_value<int>("SELECT project_role_id FROM users_project_relationship WHERE project_id='"+db.shield_string(std::to_string(project_id))+"' AND user_id='"+db.shield_string(std::to_string(user_id))+"';");
+            unsigned user_role_id=worker.query_value<int>("SELECT project_role_id FROM users_projects_relationship WHERE project_id='"+db.shield_string(std::to_string(project_id))+"' AND user_id='"+db.shield_string(std::to_string(user_id))+"';");
             current_user.user_role=worker.query_value<std::string>("SELECT role_description FROM project_roles WHERE id='"+db.shield_string(std::to_string(user_role_id))+"';");
             user_list.push_back(current_user);
         }
