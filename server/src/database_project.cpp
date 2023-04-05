@@ -81,21 +81,16 @@ void DatabaseProject::add_user_in_project(
     unsigned int project_id,
     const std::string &user_role
 ) {
-    //pqxx::work worker(db.connection);
-    std::cout<<"SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
-        "';\n";
-    std::cout<<user.email<<'\n';
+    pqxx::work worker(db.connection);
 
-    /*unsigned int user_id = worker.query_value<int>(
+    unsigned int user_id = worker.query_value<int>(
         "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
         "';"
-    );*/
-    std::cout<<"uraaa\n\n";
-    /*unsigned int user_role_id = worker.query_value<int>(
+    );
+    unsigned int user_role_id = worker.query_value<int>(
         "SELECT id FROM project_roles WHERE role_description='" +
         db.shield_string(user_role) + "';"
     );
-    std::cout<<"uraaa2\n\n";
     worker.exec(
         "INSERT INTO users_projects_relationship "
         "(project_id,user_id,project_role_id) VALUES('" +
@@ -103,8 +98,7 @@ void DatabaseProject::add_user_in_project(
         db.shield_string(std::to_string(user_id))+"','" +
         db.shield_string(std::to_string(user_role_id)) + "')"
     );
-    std::cout<<"uraaa3\n\n";
-    worker.commit();*/
+    worker.commit();
 }
 
 std::vector<User>
@@ -114,7 +108,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
         std::vector<unsigned int> user_id_list;
         std::vector<User> user_list;
         for (auto [user_id] : worker.stream<int>(
-                 "SELECT user_id from users_projects_relationship WHERE "
+                 "SELECT user_id FROM users_projects_relationship WHERE "
                  "project_id='" +
                  db.shield_string(std::to_string(project_id)) + "';"
              )) {
