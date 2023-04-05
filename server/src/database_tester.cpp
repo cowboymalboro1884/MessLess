@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
-#include "database.hpp"
-#include "database_project.hpp"
+#include "../include/database.hpp"
+#include "../include/database_project.hpp"
 
 int main() {
     std::ifstream input("../../../database.config");

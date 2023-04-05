@@ -129,14 +129,14 @@ int main() {
                         OIDS=FALSE
                         );)sql");  // create roles in tasks
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS project_roles(
-                        id int PRIMARY KEY,
+                        id serial PRIMARY KEY,
                         role_description character varying(32) NOT NULL
                         )WITH (
                         OIDS=FALSE
                         );)sql");  // create project roles
-        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('admin');)sql");
-        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('moderator');)sql");
-        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('employee');)sql");
+        /*worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(1,'admin');)sql");
+        worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(2,'moderator');)sql");
+        worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(3,'employee');)sql");*/
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
