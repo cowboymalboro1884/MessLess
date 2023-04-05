@@ -9,7 +9,7 @@ int main() {
     std::getline(input, connection_string);
     std::getline(input, private_salt);
     messless::Database db(connection_string, private_salt);
-    std::cout << messless::DatabaseCompany::create_company(
+    /*std::cout << messless::DatabaseCompany::create_company(
                      db, "ababa", "we are good company"
                  )
               << "Company creating\n";
@@ -24,7 +24,7 @@ int main() {
                      1, "employee"
                  )
                      .email
-              << "User creating\n";
+              << "User creating\n";*/
     std::cout << messless::DatabaseUser::login_user(
                      db, "amogus@gmail.com", "quwuqewq!!!"
                  )
