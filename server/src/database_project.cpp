@@ -81,14 +81,16 @@ void DatabaseProject::add_user_in_project(
     unsigned int project_id,
     const std::string &user_role
 ) {
-    pqxx::work worker(db.connection);
-    std::cout<<"u\n\n";
-    unsigned int user_id = worker.query_value<int>(
+    //pqxx::work worker(db.connection);
+    std::cout<<"SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
+        "';";
+
+    /*unsigned int user_id = worker.query_value<int>(
         "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
         "';"
-    );
+    );*/
     std::cout<<"uraaa\n\n";
-    unsigned int user_role_id = worker.query_value<int>(
+    /*unsigned int user_role_id = worker.query_value<int>(
         "SELECT id FROM project_roles WHERE role_description='" +
         db.shield_string(user_role) + "';"
     );
@@ -101,7 +103,7 @@ void DatabaseProject::add_user_in_project(
         db.shield_string(std::to_string(user_role_id)) + "')"
     );
     std::cout<<"uraaa3\n\n";
-    worker.commit();
+    worker.commit();*/
 }
 
 std::vector<User>
