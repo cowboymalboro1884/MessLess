@@ -1,11 +1,13 @@
 #ifndef DATABASE_PROJECT_HPP
 #define DATABASE_PROJECT_HPP
 
-#include "database.h"
+#include "database.hpp"
 
 namespace messless {
 class DatabaseProject {
 public:
+    //TODO get_projects_list
+    //TODO get_tasks_list
     static unsigned int create_project(
         Database &db,
         PrivateUserInfo &user,
@@ -28,17 +30,18 @@ public:
     static unsigned int create_new_task(
         Database &db,
         unsigned int project_id,
-        const std::string& task_name,
-        const std::string& description,
-        const std::string& deadline, //"2013-07-21 00:00:00" год-месяц-день часы:минуты:секунды
-        const std::vector<User>& users
-        );
+        const std::string &task_name,
+        const std::string &description,
+        const std::string &deadline,  //"2013-07-21 00:00:00" год-месяц-день
+                                      //часы:минуты:секунды
+        const std::vector<User> &users
+    );
     static void add_user_to_task(
         Database &db,
         unsigned int task_id,
         unsigned int user_id,
         unsigned int role
-        );
+    );
 
     static bool is_project_exist(
         Database &db,
