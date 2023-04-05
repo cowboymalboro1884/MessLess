@@ -141,5 +141,6 @@ int main() {
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
+
     }
 }
