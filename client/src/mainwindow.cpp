@@ -3,7 +3,7 @@
 #include "include/reg_window.h"
 #include "ui_mainwindow.h"
 #include "include/add_project.h"
-#include
+#include "include/project_button.h"
 #include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -50,7 +50,8 @@ void MainWindow::registerUser() {
 void MainWindow::update_projects(){
     QLayout *lay = techArea->layout();
     for(const auto &i:projects){
-        lay->addWidget()
+        project_button *project = new project_button(i.first, i.second);
+        lay->addWidget(project);
     }
 }
 
