@@ -18,7 +18,8 @@ QJsonDocument RequestHolder::validateUser(const QJsonObject &request) {
   jsonResponse["user_role"] =
       QString::fromStdString(is_login_success.user_role);
 
-  if(is_login_success.email.empty() || is_login_success.password.empty() || is_login_success.user_role.empty()) {
+  if (is_login_success.email.empty() || is_login_success.password.empty() ||
+      is_login_success.user_role.empty()) {
     jsonResponse["status"] = "success";
   } else {
     jsonResponse["status"] = "failed";
@@ -60,7 +61,9 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
   jsonResponse["user_role"] =
       QString::fromStdString(is_registration_success.user_role);
 
-  if(is_registration_success.email.empty() || is_registration_success.password.empty() || is_registration_success.user_role.empty()) {
+  if (is_registration_success.email.empty() ||
+      is_registration_success.password.empty() ||
+      is_registration_success.user_role.empty()) {
     jsonResponse["status"] = "success";
   } else {
     jsonResponse["status"] = "failed";
@@ -75,29 +78,33 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
 }
 
 QJsonDocument RequestHolder::createProject(const QJsonObject &request) {
-    qDebug() << "got for create_project" << request;
-    std::string email = request.value("email").toString().toStdString();
-    std::string password = request.value("password").toString().toStdString();
-    std::string user_role = request.value("user_role").toString().toStdString();
-    messless::PrivateUserInfo sender{email, password, user_role};
+  qDebug() << "got for create_project" << request;
+  std::string email = request.value("email").toString().toStdString();
+  std::string password = request.value("password").toString().toStdString();
+  std::string user_role = request.value("user_role").toString().toStdString();
+  messless::PrivateUserInfo sender{email, password, user_role};
 
-    std::string project_name = request.value("project_name").toString().toStdString();
-    std::string project_bio = request.value("project_bio").toString().toStdString();
+  std::string project_name =
+      request.value("project_name").toString().toStdString();
+  std::string project_bio =
+      request.value("project_bio").toString().toStdString();
 
-    QJsonObject jsonResponse;
-    if(!messless::DatabaseProject::is_project_exist(*database, sender, project_name)){
-        unsigned int project_id = messless::DatabaseProject::create_project(*database, sender, project_name, project_bio);
-        jsonResponse["status"] = "success";
-        jsonResponse["project_id"] = QString::number(project_id);
-        jsonResponse["project_name"] = QString::fromStdString(project_name);
-        jsonResponse["project_bio"] = QString::fromStdString(project_bio);
-    } else {
-        jsonResponse["type"] = "failed";
-        jsonResponse["error_text"] = "project with such name is already exist";
-    }
+  QJsonObject jsonResponse;
+  if (!messless::DatabaseProject::is_project_exist(*database, sender,
+                                                   project_name)) {
+    unsigned int project_id = messless::DatabaseProject::create_project(
+        *database, sender, project_name, project_bio);
+    jsonResponse["status"] = "success";
+    jsonResponse["project_id"] = QString::number(project_id);
+    jsonResponse["project_name"] = QString::fromStdString(project_name);
+    jsonResponse["project_bio"] = QString::fromStdString(project_bio);
+  } else {
+    jsonResponse["type"] = "failed";
+    jsonResponse["error_text"] = "project with such name is already exist";
+  }
 
-    QJsonDocument response(jsonResponse);
-    return response;
+  QJsonDocument response(jsonResponse);
+  return response;
 }
 
 QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
