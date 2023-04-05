@@ -34,19 +34,12 @@ void Server::incomingConnection() {
   QTcpSocket *next_connection = server->nextPendingConnection();
   ClientSocket *connected_socket = new ClientSocket(
       next_connection->socketDescriptor(), this, next_connection, db);
-  sockets.push_back(connected_socket);
+  sockets[connected_socket->get_id()] = connected_socket;
 }
 
 void Server::sockDisc(ClientSocket *socket) {
   qDebug() << "Disconnected" << socket->get_id();
-
-  for (int i = 0; i < sockets.size(); i++) {
-    if (socket == sockets[i]) {
-      delete sockets[i];
-      sockets.removeAt(i);
-      break;
-    }
-  }
+  sockets.erase(sockets.find(socket->get_id()));
 }
 
 void Server::connectToDatabase(std::string &config_file) {
