@@ -44,8 +44,9 @@ int main() {
     std::cout<< messless::DatabaseProject::create_project(db,user_info1,"my_project","")<<"Creating project\n";
     std::cout<< messless::DatabaseProject::get_project_id(db,user_info1,"my_project")<<"Project id\n";
     unsigned int prID =messless::DatabaseProject::get_project_id(db,user_info1,"my_project");
-    std::cout<<"PROJECT ID GOT";
+    std::cout<<"PROJECT ID GOT\n";
     messless::PrivateUserInfo user_info2 =messless::DatabaseUser::login_user(db,"amogus11@gmail.com","quwuqewq!!!");
-    messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"admin");
+    std::cout<<"LOGIN\n";
+    //messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
     std::cout<<"Add user to project\n";
 }
