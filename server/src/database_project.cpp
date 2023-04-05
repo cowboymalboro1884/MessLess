@@ -1,6 +1,6 @@
 #ifndef DATABASE_PROJECT_CPP
 #define DATABASE_PROJECT_CPP
-
+#include<tuple>
 #include "../include/database_project.hpp"
 
 namespace messless {
@@ -105,7 +105,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
     try {
         std::vector<unsigned int> user_id_list;
         std::vector<User> user_list;
-        for (auto user_id : worker.stream<int>(
+        for (auto user_id : worker.stream<std::string_view,int>(
                  "SELECT user_id from users_project_relationship WHERE "
                  "project_id='" +
                  db.shield_string(std::to_string(project_id)) + "';"
