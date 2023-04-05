@@ -94,7 +94,7 @@ void DatabaseProject::add_user_in_project(
         "INSERT INTO users_project_relationship "
         "(project_id,user_id,project_role_id) VALUES('" +
         db.shield_string(std::to_string(project_id)) + "','" +
-        db.shield_string(std::to_string(user_id))+"','"
+        db.shield_string(std::to_string(user_id))+"','" +
         db.shield_string(std::to_string(user_role_id)) + "')"
     );
     worker.commit();
