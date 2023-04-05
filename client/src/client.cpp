@@ -13,32 +13,25 @@ void Client::start() {
     m_window->display();
     m_socketwrapper = new network::SocketWrapper("127.0.0.1", 1338);
     m_socketwrapper->connect();
-//    send_data("hi from client!\n");
 }
 
 void Client::got_register_data() {
-//    QJsonObject json;
-//    json.insert("type", "registration");
-//    json.insert("username", m_window->ui_Reg.getPass());
-//    json.insert("password", m_window->ui_Reg.getPass());//узнать про это все
-//    QJsonDocument jsonDoc(json);
-//    qDebug() << jsonDoc;
-//    send_data(jsonDoc.toJson());
+    user = m_socketwrapper->registerCompanyAndUser(m_window->ui_Reg.getName(), m_window->ui_Reg.getSurname(),m_window->ui_Reg.getLogin(), m_window->ui_Reg.getPass(), m_window->ui_Reg.getCompName(), m_window->ui_Reg.getBio());
+    if(user.status=="success"){
+        m_window->ui_Reg.close();
+        m_window->show();
+    }else{
+        //добавить ошибку
+    }
 }
 
 void Client::got_auth_data() {
-//    QJsonObject json;
-//    json.insert("type", "authorization");
-//    json.insert("username", m_window->get_username());
-//    json.insert("password", m_window->get_password());
-//    QJsonDocument jsonDoc(json);
-//    qDebug() << jsonDoc;
-    user = m_socketwrapper->validateUser(m_window->get_username(), m_window->get_password());
+    user = m_socketwrapper->validateUser(m_window->ui_Auth.getLogin(), m_window->ui_Auth.getPass());
     if(user.status=="success"){
         m_window->ui_Auth.close();
         m_window->show();
     }else{
-
+        //добавить ошибку
     }
 }
 

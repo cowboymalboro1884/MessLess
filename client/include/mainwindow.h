@@ -39,11 +39,13 @@ private:
 private slots:
   void authorizeUser(); // пользовательские слоты
   void registerWindowShow();
+  void authorizeWindowShow();
   void registerUser();
 
 
 signals:
   void got_auth_data();
+  void got_register_data();
 };
 
 #endif // MAINWINDOW_H

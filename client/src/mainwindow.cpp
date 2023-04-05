@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
   connect(&ui_Reg, SIGNAL(register_button_clicked2()), this,
           SLOT(registerUser()));
   connect(&ui_Reg, SIGNAL(destroyed()), &ui_Auth, SLOT(show()));
-  connect(&ui_Auth, SIGNAL(auth_check()), this, SLOT(check_auth()));
   connect(ui_Main->newProjetButton, &QPushButton::clicked, [this] {
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
@@ -45,7 +44,7 @@ QString MainWindow::get_username() { return ui_Auth.getLogin(); }
 QString MainWindow::get_password() { return ui_Auth.getPass(); }
 
 void MainWindow::registerUser() {
-  /// TODO
+  emit got_register_data();
 }
 
 void MainWindow::update_projects(){
@@ -66,6 +65,10 @@ void MainWindow::registerWindowShow() {
   ui_Reg.show();
 }
 
+void MainWindow::authorizeWindowShow() {
+  ui_Auth.show();
+  ui_Reg.hide();
+}
 
 MainWindow::~MainWindow() {
   qDebug() << "MainWindow Destroyed";

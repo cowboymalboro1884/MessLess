@@ -27,8 +27,7 @@ private slots:
 
 private:
   Ui::auth_window *ui;
-  QString m_username;
-  QString m_userpass;
+
 };
 
 #endif

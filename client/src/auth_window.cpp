@@ -9,6 +9,7 @@ auth_window::auth_window(QWidget *parent)
   setWindowTitle("Authorization");
   ui->errorMessage->hide();
   ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
+  this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 auth_window::~auth_window() { delete ui; }
@@ -22,21 +23,18 @@ void auth_window::on_loginPushButton_clicked() {
 
   //Вынести проверку в отдельную функцию
 
-  if (getLogin() == "" && getPass() == "") {
+  if (getLogin().isEmpty() && getPass().isEmpty()) {
     ui->errorMessage->setText("Введите логин и пароль");
     ui->errorMessage->show();
-  } else if (getLogin() == "") {
+  } else if (getLogin().isEmpty()) {
     ui->errorMessage->setText("Введите логин");
     ui->errorMessage->show();
-  } else if (getPass() == "") {
+  } else if (getPass().isEmpty()) {
     ui->errorMessage->setText("Введите пароль");
     ui->errorMessage->show();
   } else {
     qDebug() << "login: " << getLogin();
     qDebug() << "password: " << getPass();
-    m_username = getLogin();
-    m_userpass = getPass();
-    //        emit login_button_clicked();
     emit auth_check();
     ui->errorMessage->setText("Такого пользователя не существует");
   }
