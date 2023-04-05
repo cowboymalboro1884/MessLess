@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include "include/add_project.h"
 #include "include/project_button.h"
+#include "include/socketwrapper.h"
 #include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -59,14 +60,6 @@ void MainWindow::display() { ui_Auth.show(); }
 
 Ui::MainWindow *MainWindow::get_ui() const { return ui_Main; }
 
-void MainWindow::check_auth() {
-  qDebug() << "показалось";
-
-  if (check_validate()) {
-    this->show();
-    ui_Auth.close();
-  }
-}
 
 void MainWindow::registerWindowShow() {
   ui_Auth.hide();
