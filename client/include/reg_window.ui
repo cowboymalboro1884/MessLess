@@ -34,6 +34,40 @@
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
+     <item row="8" column="0" colspan="3">
+      <widget class="QPushButton" name="pushButtonSignIn">
+       <property name="text">
+        <string>Sign In</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1" colspan="2">
+      <widget class="QLineEdit" name="confirmLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_Name">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_Surname">
+       <property name="text">
+        <string>Surname:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_Email">
+       <property name="text">
+        <string>Email:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="surnameLineEdit"/>
+     </item>
      <item row="0" column="1" colspan="2">
       <widget class="QLabel" name="label_Welcome">
        <property name="text">
@@ -44,38 +78,40 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_Company_name">
        <property name="text">
         <string>Company name:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="label_Password">
        <property name="text">
         <string>Password:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1" colspan="2">
+     <item row="6" column="1" colspan="2">
       <widget class="QLineEdit" name="passwordLineEdit"/>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_Name">
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="nameLineEdit"/>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="companyNameLineEdit"/>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="companyBioLineEdit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_Company_bio">
        <property name="text">
-        <string>Name:</string>
+        <string>Company bio:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_Surname">
-       <property name="text">
-        <string>Surname:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <widget class="QLabel" name="label_Confirm">
        <property name="text">
         <string>Confirm password:</string>
@@ -83,33 +119,7 @@
       </widget>
      </item>
      <item row="1" column="1" colspan="2">
-      <widget class="QLineEdit" name="nameLineEdit"/>
-     </item>
-     <item row="7" column="0" colspan="3">
-      <widget class="QPushButton" name="pushButtonSignIn">
-       <property name="text">
-        <string>Sign In</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QLineEdit" name="companyNameLineEdit"/>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_Company_bio">
-       <property name="text">
-        <string>Company bio:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1" colspan="2">
-      <widget class="QLineEdit" name="confirmLineEdit"/>
-     </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QLineEdit" name="surnameLineEdit"/>
-     </item>
-     <item row="4" column="1" colspan="2">
-      <widget class="QLineEdit" name="companyBioLineEdit"/>
+      <widget class="QLineEdit" name="emailLineEdit"/>
      </item>
     </layout>
    </item>

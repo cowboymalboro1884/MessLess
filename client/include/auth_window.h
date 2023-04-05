@@ -21,11 +21,8 @@ signals:
   void auth_check();
 
 private slots:
-  void on_lineEdit_textEdited(const QString &arg1);
-  void on_lineEdit_2_textEdited(const QString &arg1);
   void on_loginPushButton_clicked();
   void on_registerPushButton_clicked();
-
   void on_showPassword_clicked();
 
 private:

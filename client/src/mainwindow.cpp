@@ -61,7 +61,8 @@ Ui::MainWindow *MainWindow::get_ui() const { return ui_Main; }
 
 void MainWindow::check_auth() {
   qDebug() << "показалось";
-  if (is_auth) {
+
+  if (check_validate()) {
     this->show();
     ui_Auth.close();
   }

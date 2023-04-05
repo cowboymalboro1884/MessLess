@@ -8,27 +8,18 @@ auth_window::auth_window(QWidget *parent)
   ui->setupUi(this);
   setWindowTitle("Authorization");
   ui->errorMessage->hide();
-  ui->lineEdit_2->setEchoMode(QLineEdit::EchoMode::Password);
+  ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
 }
 
 auth_window::~auth_window() { delete ui; }
 
-QString auth_window::getLogin() { return auth_window::m_username; }
+QString auth_window::getLogin() { return ui->loginLineEdit->text(); }
 
-QString auth_window::getPass() { return auth_window::m_userpass; }
+QString auth_window::getPass() { return ui->passwordLineEdit->text(); }
 
-void auth_window::on_lineEdit_textEdited(const QString &arg1) {
-  auth_window::m_username = arg1;
-}
-
-void auth_window::on_lineEdit_2_textEdited(const QString &arg1) {
-  auth_window::m_userpass = arg1;
-}
 
 void auth_window::on_loginPushButton_clicked() {
-  //    on_lineEdit_textEdited(ui->lineEdit->text());
-  //    on_lineEdit_2_textEdited(ui->lineEdit_2->text());//зачем я их вообще
-  //    вызываю
+
   //Вынести проверку в отдельную функцию
 
   if (getLogin() == "" && getPass() == "") {
@@ -56,5 +47,5 @@ void auth_window::on_registerPushButton_clicked() {
 }
 
 void auth_window::on_showPassword_clicked() {
-  ui->lineEdit_2->setEchoMode(QLineEdit::EchoMode::Normal);
+  ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
 }

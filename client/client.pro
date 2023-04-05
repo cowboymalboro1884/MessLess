@@ -21,7 +21,6 @@ SOURCES += \
     src/project_button.cpp \
     src/reg_window.cpp \
     src/socketwrapper.cpp \
-    src/windowmanager.cpp
 
 HEADERS += \
     include/auth_window.h \
@@ -30,7 +29,6 @@ HEADERS += \
     include/project_button.h \
     include/reg_window.h \
     include/socketwrapper.h \
-    include/windowmanager.h \
     include/add_project.h \
     include/project_button.h
 

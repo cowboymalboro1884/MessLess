@@ -24,9 +24,8 @@ public:
   QString get_password();
   void update_projects();
   Ui::MainWindow *get_ui() const;
-  std::vector<std::pair<std::string, bool>>
-      projects;        //нужен будет для сортировки
-  bool is_auth = true; //надо будет изменить на false
+  std::vector<std::pair<std::string, bool>>projects;        //нужен будет для сортировки
+  std::vector<std::pair<std::pair<std::string, std::string>, std::string>> user;
   QWidget *techArea;
   QScrollArea *scroll;
 
