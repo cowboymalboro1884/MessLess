@@ -47,6 +47,6 @@ int main() {
     std::cout<<"PROJECT ID GOT\n";
     messless::PrivateUserInfo user_info2 =messless::DatabaseUser::login_user(db,"amogus11@gmail.com","quwuqewq!!!");
     std::cout<<"LOGIN\n";
-    //messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
+    messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
     std::cout<<"Add user to project\n";
 }
