@@ -118,6 +118,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
                  "project_id='" +
                  db.shield_string(std::to_string(project_id)) + "';"
              )) {
+            std::cout<<user_id<<"\n";
             User current_user;
             current_user.email = worker.query_value<std::string>(
                 "SELECT email FROM users WHERE id='" +
@@ -130,7 +131,8 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
             user_list.push_back(current_user);
         }
         return user_list;
-    } catch (...) {
+    } catch (std::exception& e) {
+        std::cout<<e.what();
         return {};
     }
 }
