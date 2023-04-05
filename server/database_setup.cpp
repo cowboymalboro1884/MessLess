@@ -54,8 +54,6 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create companies
-        // TODO delete pojects table and insert new
-        worker.exec(R"sql(DROP TABLE projects;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id serial PRIMARY KEY,
                         project_name character varying(32) NOT NULL,
@@ -77,7 +75,6 @@ int main() {
         );  // create
         // user-projects
         // relationship
-        worker.exec(R"sql(DROP TABLE messages;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS messages (
                         id serial PRIMARY KEY,
                         chat_id bigint NOT NULL,
@@ -87,14 +84,12 @@ int main() {
                         ) WITH (
                           OIDS=FALSE
                          );)sql");  // create messages
-        worker.exec(R"sql(DROP TABLE desk;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
                         id serial NOT NULL,
                         project_id bigint NOT NULL
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create desk
-        worker.exec(R"sql(DROP TABLE chats;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS chats (
                         id serial PRIMARY KEY,
                         company_id bigint NOT NULL,
@@ -102,8 +97,6 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create chats
-        worker.exec(R"sql(DROP TABLE tasks;)sql");
-        //TODO make new
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
                         id serial PRIMARY KEY,
                         task_name character varying(32) NOT NULL,
@@ -141,6 +134,9 @@ int main() {
                         )WITH (
                         OIDS=FALSE
                         );)sql");  // create project roles
+        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('admin');)sql");
+        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('moderator');)sql");
+        worker.exec(R"sql(INSERT INTO project_roles(role_description) VALUES('employee');)sql");
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {

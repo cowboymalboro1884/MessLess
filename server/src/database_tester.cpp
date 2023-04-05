@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "database.hpp"
+#include "database_project.hpp"
 
 int main() {
     std::ifstream input("../../../database.config");
@@ -11,28 +12,19 @@ int main() {
     std::cout << messless::DatabaseCompany::create_company(
                      db, "ababa", "we are good company"
                  )
-              << "0\n";
+              << "Company creating\n";
     std::cout << messless::DatabaseCompany::create_user(
                      db, "amogus@gmail.com", "quwuqewq!!!", "Mikhail", "Ivanov",
                      1, "admin"
                  )
                      .email
-              << "1\n";
-    std::cout << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com", "quwuqewq!!!1"
+              << "User creating\n";
+    std::cout << messless::DatabaseCompany::create_user(
+                     db, "amogus11@gmail.com", "zalupa", "Vladimir", "Krasnoe Solnyshko",
+                     1, "employee"
                  )
                      .email
-              << ' '
-              << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com", "quwuqewq!!!1"
-                 )
-                     .password
-              << ' '
-              << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com", "quwuqewq!!!1"
-                 )
-                     .user_role
-              << "2\n";
+              << "User creating\n";
     std::cout << messless::DatabaseUser::login_user(
                      db, "amogus@gmail.com", "quwuqewq!!!"
                  )
@@ -47,20 +39,12 @@ int main() {
                      db, "amogus@gmail.com", "quwuqewq!!!"
                  )
                      .user_role
-              << "3\n";
-    std::cout << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com1", "quwuqewq!!!"
-                 )
-                     .email
-              << ' '
-              << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com1", "quwuqewq!!!"
-                 )
-                     .password
-              << ' '
-              << messless::DatabaseUser::login_user(
-                     db, "amogus@gmail.com1", "quwuqewq!!!"
-                 )
-                     .user_role
-              << "4\n";
+              << "User login\n";
+    messless::PrivateUserInfo user_info1 =messless::DatabaseUser::login_user(db, "amogus@gmail.com", "quwuqewq!!!");
+    std::cout<< messless::DatabaseProject::create_project(db,user_info1,"my_project","")<<"Creating project\n";
+    std::cout<< messless::DatabaseProject::get_project_id(db,user_info1,"my_project")<<"Project id\n";
+    unsigned int prID =messless::DatabaseProject::get_project_id(db,user_info1,"my_project");
+    messless::PrivateUserInfo user_info2 =messless::DatabaseUser::login_user(db,"amogus11@gmail.com","quwuqewq!!!");
+    messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"admin");
+    std::cout<<"Add user to project\n";
 }

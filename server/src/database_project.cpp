@@ -144,12 +144,11 @@ unsigned int DatabaseProject::create_new_task(
         std::unique_lock lock(db.database_mutex);
         worker.exec(
             "INSERT INTO tasks "
-            "(task_name,desk_id,description,condition_id,deadline,creation_"
-            "time) VALUES ('" +
+            "(task_name,desk_id,description,condition_id,deadline) VALUES ('" +
             db.shield_string(task_name) + "','" +
             db.shield_string(std::to_string(desk_id)) + "','" +
             db.shield_string(description) + "','" + db.shield_string("0") +
-            "','" + db.shield_string(deadline) + "', now());"
+            "','" + db.shield_string(deadline) + "');"
         );
         unsigned int task_id = worker.query_value<int>(
             "SELECT id FROM tasks ORDER BY id DESC LIMIT 1;"
@@ -189,10 +188,13 @@ void DatabaseProject::add_user_to_task(
     );
     worker.commit();
 }
-bool DatabaseProject::is_project_exist(Database &db,
-PrivateUserInfo &user,
-const std::string &project_name){
-    if (get_project_id(db,user,project_name)==0){
+
+bool DatabaseProject::is_project_exist(
+    Database &db,
+    PrivateUserInfo &user,
+    const std::string &project_name
+) {
+    if (get_project_id(db, user, project_name) == 0) {
         return false;
     }
     return true;
