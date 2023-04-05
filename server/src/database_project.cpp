@@ -83,7 +83,8 @@ void DatabaseProject::add_user_in_project(
 ) {
     //pqxx::work worker(db.connection);
     std::cout<<"SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
-        "';";
+        "';\n";
+    std::cout<<user.email<<'\n';
 
     /*unsigned int user_id = worker.query_value<int>(
         "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
