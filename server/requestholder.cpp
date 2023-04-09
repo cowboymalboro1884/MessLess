@@ -44,48 +44,37 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
   QString entered_company_bio = request.value("company_bio").toString();
   QString entered_company_name = request.value("company_name").toString();
 
-  try {
-    unsigned int company_id = messless::DatabaseCompany::create_company(
-        *database, entered_company_name.toStdString(),
-        entered_company_bio.toStdString());
-    qDebug() << company_id;
-    messless::PrivateUserInfo is_registration_success =
-        messless::DatabaseCompany::create_user(
-            *database, entered_email.toStdString(),
-            entered_password.toStdString(), entered_name.toStdString(),
-            entered_surname.toStdString(), company_id, "admin");
-    qDebug() << "а мы сюда вообще зашли или зависли ты мне скажи";
+  unsigned int company_id = messless::DatabaseCompany::create_company(
+      *database, entered_company_name.toStdString(),
+      entered_company_bio.toStdString());
+  qDebug() << company_id;
+  messless::PrivateUserInfo is_registration_success =
+      messless::DatabaseCompany::create_user(
+          *database, entered_email.toStdString(),
+          entered_password.toStdString(), entered_name.toStdString(),
+          entered_surname.toStdString(), company_id, "admin");
+  qDebug() << "а мы сюда вообще зашли или зависли ты мне скажи";
 
-    QJsonObject jsonResponse;
-    jsonResponse["email"] =
-        QString::fromStdString(is_registration_success.email);
-    jsonResponse["password"] =
-        QString::fromStdString(is_registration_success.password);
-    jsonResponse["user_role"] =
-        QString::fromStdString(is_registration_success.user_role);
+  QJsonObject jsonResponse;
+  jsonResponse["email"] = QString::fromStdString(is_registration_success.email);
+  jsonResponse["password"] =
+      QString::fromStdString(is_registration_success.password);
+  jsonResponse["user_role"] =
+      QString::fromStdString(is_registration_success.user_role);
 
-    qDebug() << jsonResponse;
+  qDebug() << jsonResponse;
 
-    if (is_registration_success.email.empty() ||
-        is_registration_success.password.empty() ||
-        is_registration_success.user_role.empty()) {
-      jsonResponse["status"] = "failed";
-      jsonResponse["error_text"] = "couldn't register";
-    } else {
-      jsonResponse["status"] = "success";
-    }
-    QJsonDocument response(jsonResponse);
-
-    return response;
-
-  } catch (...) {
-    qDebug() << "failed(";
+  if (is_registration_success.email.empty() ||
+      is_registration_success.password.empty() ||
+      is_registration_success.user_role.empty()) {
+    jsonResponse["status"] = "failed";
+    jsonResponse["error_text"] = "couldn't register";
+  } else {
+    jsonResponse["status"] = "success";
   }
+  QJsonDocument response(jsonResponse);
 
-  QJsonObject empty;
-  empty["message"] = "ebanulsa?";
-  QJsonDocument doc(empty);
-  return doc;
+  return response;
 }
 
 QJsonDocument RequestHolder::createProject(const QJsonObject &request) {
