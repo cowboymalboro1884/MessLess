@@ -1,5 +1,5 @@
-#ifndef DATABASE_HPP
-#define DATABASE_HPP
+#ifndef DATABASE_H
+#define DATABASE_H
 #include "encrypting.h"
 #include <boost/noncopyable.hpp>
 #include <exception>
@@ -28,8 +28,8 @@ public:
 };
 
 class Database : private boost::noncopyable {
-  public:
-      std::mutex database_mutex;
+public:
+  std::mutex database_mutex;
   pqxx::connection connection;
   messless::Encrypting crypt;
   void do_query_without_answer(const std::string &query);
@@ -43,9 +43,6 @@ public:
   friend class DatabaseUser;
   friend class DatabaseCompany;
   friend class DatabaseProject;
-//  ~Database() {
-//	connection.disconnect();
-//  }
 };
 
 class DatabaseGeneral {
