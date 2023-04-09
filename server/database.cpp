@@ -7,9 +7,8 @@ namespace messless {
 Database::Database(const std::string &connection_string,
                    const std::string &private_salt)
     : connection(connection_string.c_str()), crypt(private_salt) {
-		std::cout << "всё получилось\n";
-		std::cout << connection.dbname() << '\n';
-        }
+  std::cout << connection.dbname() << " подключение есть!\n";
+}
 
 void Database::do_query_without_answer(const std::string &query) {
   pqxx::work worker(connection);
@@ -71,20 +70,16 @@ unsigned int DatabaseCompany::create_company(Database &db,
                                              const std::string &company_name,
                                              const std::string &company_bio) {
 
-  std::cout << "я тут сука!!!\n";
- std::cout << db.connection.is_open() << '\n';
- pqxx::work worker(db.connection); 
+  std::cout << db.connection.is_open() << '\n';
+  pqxx::work worker(db.connection);
 
- std::cout << "подключился";
   worker.exec("INSERT INTO companies (company_name,bio) VALUES('" +
               db.shield_string(company_name) + "','" +
               db.shield_string(company_bio) + "')");
-  std::cout << "я тут сука!!!\n";  
 
   int company_id = worker.query_value<int>(
       "SELECT id FROM companies ORDER BY id DESC LIMIT 1;");
   worker.commit();
-  std::cout << "я тут сука!!!\n";
 
   return company_id;
 }
