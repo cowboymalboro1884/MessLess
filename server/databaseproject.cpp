@@ -15,7 +15,6 @@ unsigned int DatabaseProject::create_project(
         "SELECT company_id FROM users WHERE email='" +
         db.shield_string(user.email) + "';"
     );
-    std::unique_lock lock(db.database_mutex);
     worker.exec(
         "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
         db.shield_string(std::to_string(company_id)) + "','" +
@@ -50,7 +49,6 @@ unsigned int DatabaseProject::create_project(
         db.shield_string(std::to_string(chat_id)) + "') WHERE id='" +
         db.shield_string(std::to_string(project_id)) + "';"
     );
-    lock.unlock();
     worker.commit();
     add_user_in_project(db, user, project_id, "admin");
     return project_id;
