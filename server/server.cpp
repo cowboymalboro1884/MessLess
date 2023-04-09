@@ -32,6 +32,7 @@ bool Server::startServer(qint16 port, std::string &config_file) {
 void Server::incomingConnection() {
   qDebug() << "New connection!";
   QTcpSocket *next_connection = server->nextPendingConnection();
+  qDebug() << db->connection.is_open() << "connection\n";
   ClientSocket *connected_socket = new ClientSocket(
       next_connection->socketDescriptor(), this, next_connection, db);
   sockets[connected_socket->get_id()] = connected_socket;
@@ -47,8 +48,10 @@ void Server::connectToDatabase(std::string &config_file) {
   std::string private_salt, connection_string;
   std::getline(input, connection_string);
   std::getline(input, private_salt);
-  messless::Database db_(connection_string, private_salt);
+  static  messless::Database db_(connection_string, private_salt);
+  std::cout << db_.connection.is_open();
   db = &db_;
+  std::cout << db->connection.is_open() << "create\n";
 }
 
 Server::~Server() {

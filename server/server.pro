@@ -3,7 +3,9 @@ QT += core
 QT += network
 QT += websockets
 
-LIBS += -lpq -lpqxx
+LIBS += -lpqxx -lpq -L /root/lpqxx -lboost_system -L/root/cryptopp -lcryptopp
+
+INCLUDEPATH += /root/cryptopp
 
 TARGET = server
 CONFIG += c++17 console
@@ -36,4 +38,4 @@ HEADERS += \
     databaseproject.h \
     encrypting.h \
     requestholder.h \
-    server.h
+    server.h 

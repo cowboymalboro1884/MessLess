@@ -13,7 +13,7 @@
 class Server : public QObject
 {
     Q_OBJECT
-    QVector<ClientSocket*> sockets;
+    QMap<qint32, ClientSocket*> sockets;
     QByteArray Data;
     messless::Database *db;
     qint16 PORT;

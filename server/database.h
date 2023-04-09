@@ -28,7 +28,8 @@ public:
 };
 
 class Database : private boost::noncopyable {
-  std::mutex database_mutex;
+  public:
+      std::mutex database_mutex;
   pqxx::connection connection;
   messless::Encrypting crypt;
   void do_query_without_answer(const std::string &query);
@@ -42,6 +43,9 @@ public:
   friend class DatabaseUser;
   friend class DatabaseCompany;
   friend class DatabaseProject;
+//  ~Database() {
+//	connection.disconnect();
+//  }
 };
 
 class DatabaseGeneral {

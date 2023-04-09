@@ -1,7 +1,7 @@
 #ifndef DATABASE_PROJECT_HPP
 #define DATABASE_PROJECT_HPP
 
-#include "database.hpp"
+#include "database.h"
 
 namespace messless {
 class DatabaseProject {
