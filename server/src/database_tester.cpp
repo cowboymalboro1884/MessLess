@@ -55,7 +55,7 @@ int main() {
         std::cout<<x.name<<" "<<x.surname<<" "<<x.email<<" "<<x.user_role<<'\n';
     }
     std::cout<<"\n\n\n";
-    std::vector<std::string> projects_for_one_user = messless::DatabaseProject::get_projects(db,user_info2);
+    std::vector<std::string> projects_for_one_user = messless::DatabaseProject::get_projects(db,user_info1);
     for (auto &x:projects_for_one_user){
         std::cout<<x<<'\n';
     }
