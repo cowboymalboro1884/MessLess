@@ -19,14 +19,13 @@ QJsonDocument RequestHolder::validateUser(const QJsonObject &request) {
   jsonResponse["password"] = QString::fromStdString(is_login_success.password);
   jsonResponse["user_role"] =
       QString::fromStdString(is_login_success.user_role);
-      qDebug() << jsonResponse;
 
   if (is_login_success.email.empty() || is_login_success.password.empty() ||
       is_login_success.user_role.empty()) {
+    jsonResponse["status"] = "success";
+  } else {
     jsonResponse["status"] = "failed";
     jsonResponse["error_text"] = "couldn't authorize";
-  } else {
-    jsonResponse["status"] = "success";
   }
 
   QJsonDocument response(jsonResponse);
@@ -79,7 +78,7 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
 }
 
 QJsonDocument RequestHolder::createProject(const QJsonObject &request) {
-  qDebug() << "got for create_project" << request;
+  qDebug() << "----------------------------\ngot for create_project" << request;
   std::string email = request.value("email").toString().toStdString();
   std::string password = request.value("password").toString().toStdString();
   std::string user_role = request.value("user_role").toString().toStdString();
@@ -90,15 +89,20 @@ QJsonDocument RequestHolder::createProject(const QJsonObject &request) {
   std::string project_bio =
       request.value("project_bio").toString().toStdString();
 
+  qDebug() << "name_of_project" << QString::fromStdString(project_name);
+  qDebug() << "bio_of_project" << QString::fromStdString(project_bio);
+
   QJsonObject jsonResponse;
   if (!messless::DatabaseProject::is_project_exist(*database, sender,
                                                    project_name)) {
     unsigned int project_id = messless::DatabaseProject::create_project(
         *database, sender, project_name, project_bio);
     jsonResponse["status"] = "success";
+    qDebug() << "success";
     jsonResponse["project_id"] = QString::number(project_id);
     jsonResponse["project_name"] = QString::fromStdString(project_name);
     jsonResponse["project_bio"] = QString::fromStdString(project_bio);
+    qDebug() << "project id " << project_id;
   } else {
     jsonResponse["type"] = "failed";
     jsonResponse["error_text"] = "project with such name is already exist";
