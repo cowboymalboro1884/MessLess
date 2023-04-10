@@ -259,11 +259,11 @@ std::vector<Task>
 DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
     std::vector<Task> tasks;
     pqxx::work worker(db.connection);
-
     pqxx::result res = worker.exec(
         "SELECT id, task_name FROM tasks WHERE project_id=" +
         db.shield_string(std::to_string(project_id)) + ";"
     );
+    std::cout<<"1"<<"\n";
     for (auto row : res) {
         unsigned int id = std::stoi(row[0].c_str());
         std::string task_name = row[1].c_str();
@@ -273,14 +273,17 @@ DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
             "SELECT deadline FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
+        std::cout<<"2"<<"\n";
         unsigned int condition_id = worker.query_value<int>(
             "SELECT condition_id FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
+        std::cout<<"3"<<"\n";
         current_task.condition = worker.query_value<std::string>(
             "SELECT condition_description FROM condition WHERE id=" +
             db.shield_string(std::to_string(condition_id)) + ";"
         );
+        std::cout<<"4"<<"\n";
         tasks.push_back(current_task);
     }
     worker.commit();
