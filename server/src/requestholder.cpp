@@ -89,6 +89,26 @@ QJsonDocument RequestHolder::registerCompanyWithAdmin(const QJsonObject &request
     return response;
 }
 
+QJsonDocument RequestHolder::getProjects(const QJsonObject &request) {
+    qDebug() << "----------------------------\ngot for get project list";
+    std::string email = request.value("email").toString().toStdString();
+    std::string password = request.value("password").toString().toStdString();
+    std::string user_role = request.value("user_role").toString().toStdString();
+    messless::PrivateUserInfo sender{email, password, user_role};
+    std::vector<std::string> resp = messless::DatabaseProject::get_projects(*database, sender);
+    std::string message;
+    for(const std::string& str: resp){
+        message += str + '|';
+    }
+
+    QJsonObject jsonquery;
+    jsonquery["message"] = QString::fromStdString(message);
+    QJsonDocument doc(jsonquery);
+
+    qDebug() << "----------------------------";
+    return doc;
+}
+
 QJsonDocument RequestHolder::createProject(const QJsonObject &request) {
     qDebug() << "----------------------------\ngot for create_project"
              << request;
