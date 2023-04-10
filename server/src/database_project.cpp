@@ -154,7 +154,7 @@ unsigned int DatabaseProject::create_new_task(
             "(task_name,project_id,description,condition_id,deadline) VALUES ('" +
             db.shield_string(task_name) + "','" +
             db.shield_string(std::to_string(project_id)) + "','" +
-            db.shield_string(description) + "','" + db.shield_string("0") +
+            db.shield_string(description) + "','" + db.shield_string("1") +
             "','" + db.shield_string(deadline) + "');"
         );
         std::cout<<"1"<<"\n";
