@@ -54,7 +54,6 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create companies
-        worker.exec(R"sql(DROP table projects;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS projects(
                         id serial PRIMARY KEY,
                         project_name character varying(32) NOT NULL,
@@ -116,8 +115,9 @@ int main() {
                         OIDS=FALSE
                        );)sql");   // create user-tasks
         // relationship
+        worker.exec(R"sql(DROP table roles;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS roles (
-                        id character varying NOT NULL,
+                        id int NOT NULL,
                         role_description character varying(32) NOT NULL
                         ) WITH (
                         OIDS=FALSE
@@ -128,9 +128,9 @@ int main() {
                         )WITH (
                         OIDS=FALSE
                         );)sql");  // create project roles
-        /*worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(1,'admin');)sql");
-        worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(2,'moderator');)sql");
-        worker.exec(R"sql(INSERT INTO project_roles(id,role_description) VALUES(3,'employee');)sql");*/
+        worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(1,'admin');)sql");
+        worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(2,'moderator');)sql");
+        worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(3,'employee');)sql");
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
