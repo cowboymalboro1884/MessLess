@@ -117,7 +117,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
             "project_id=" +
             db.shield_string(std::to_string(project_id)) + ";"
         );
-        for (auto row : result) {
+        for (auto row : res) {
             unsigned int user_id = std::stoi(row[0].c_str());
             std::cout << user_id << "\n";
             User current_user;
