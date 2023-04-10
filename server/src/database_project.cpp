@@ -34,8 +34,8 @@ unsigned int DatabaseProject::create_project(
         worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
         );
     worker.exec(
-        "UPDATE projects SET (chat_id) =('" +
-        db.shield_string(std::to_string(chat_id)) + "') WHERE id='" +
+        "UPDATE projects SET chat_id ='" +
+        db.shield_string(std::to_string(chat_id)) + "' WHERE id='" +
         db.shield_string(std::to_string(project_id)) + "';"
     );
     lock.unlock();
