@@ -119,7 +119,6 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
         );
         for (auto row : res) {
             unsigned int user_id = std::stoi(row[0].c_str());
-            std::cout << user_id << "\n";
             User current_user;
             current_user.email = worker.query_value<std::string>(
                 "SELECT email FROM users WHERE id=" +
@@ -241,11 +240,9 @@ DatabaseProject::get_projects(Database &db, PrivateUserInfo &user) {
         "SELECT id, project_name FROM projects WHERE company_id=" +
         db.shield_string(std::to_string(company_id)) + ";"
     );
-    std::cout<<"USER AND COMPANY IDS: "<<user_id<<" "<<company_id<<"\n";
     for (auto row : res) {
         unsigned int project_id = std::stoi(row[0].c_str());
         std::string project_name = row[1].c_str();
-        std::cout<<project_id<<" "<<project_name<<"\n";
         try {
             unsigned int role = worker.query_value<int>(
                 "SELECT project_role_id FROM users_projects_relationship WHERE "
