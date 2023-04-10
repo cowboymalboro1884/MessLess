@@ -148,16 +148,12 @@ unsigned int DatabaseProject::create_new_task(
 ) {
     try {
         pqxx::work worker(db.connection);
-        unsigned int desk_id = worker.query_value<int>(
-            "SELECT id FROM desk WHERE project_id='" +
-            db.shield_string(std::to_string(project_id)) + "';"
-        );
         std::unique_lock lock(db.database_mutex);
         worker.exec(
             "INSERT INTO tasks "
-            "(task_name,desk_id,description,condition_id,deadline) VALUES ('" +
+            "(task_name,project_id,description,condition_id,deadline) VALUES ('" +
             db.shield_string(task_name) + "','" +
-            db.shield_string(std::to_string(desk_id)) + "','" +
+            db.shield_string(std::to_string(project_id)) + "','" +
             db.shield_string(description) + "','" + db.shield_string("0") +
             "','" + db.shield_string(deadline) + "');"
         );
