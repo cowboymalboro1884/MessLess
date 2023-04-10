@@ -54,7 +54,7 @@ int main() {
     for (auto &x:project1_users){
         std::cout<<x.name<<" "<<x.surname<<" "<<x.email<<" "<<x.user_role<<'\n';
     }
-    std::cout<<"eeeee\n\n\n";
+    /*std::cout<<"eeeee\n\n\n";
     std::vector<std::string> projects_for_one_user = messless::DatabaseProject::get_projects(db,user_info1);
     for (auto &x:projects_for_one_user){
         std::cout<<x<<'\n';
@@ -65,5 +65,5 @@ int main() {
     for (auto &x:tasks) {
         std::cout << x.task_name << " " << x.condition << " " << x.deadline
                   << '\n';
-    }
+    }*/
 }
