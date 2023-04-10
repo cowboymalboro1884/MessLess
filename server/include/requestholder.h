@@ -24,6 +24,7 @@ public:
     QJsonDocument registerCompanyWithAdmin(const QJsonObject &request);
     QJsonDocument createProject(const QJsonObject &request);
     QJsonDocument createTask(const QJsonObject &request);
+    QJsonDocument getProjects(const QJsonObject &request);
 };
 
 #endif  // REQUESTHOLDER_H
