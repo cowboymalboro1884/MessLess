@@ -248,7 +248,7 @@ DatabaseProject::get_projects(Database &db, PrivateUserInfo &user) {
         std::cout<<project_id<<" "<<project_name<<"\n";
         try {
             unsigned int role = worker.query_value<int>(
-                "SELECT role FROM users_projects_relationship WHERE "
+                "SELECT project_role_id FROM users_projects_relationship WHERE "
                 "project_id=" +
                 db.shield_string(std::to_string(project_id)) + " AND user_id=" +
                 db.shield_string(std::to_string(user_id)) + " ;"
