@@ -244,6 +244,7 @@ DatabaseProject::get_projects(Database &db, PrivateUserInfo &user) {
     for (auto row : res) {
         unsigned int project_id = std::stoi(row[0].c_str());
         std::string project_name = row[1].c_str();
+        std::cout<<project_id<<" "<<project_name<<"\n";
         try {
             unsigned int role = worker.query_value<int>(
                 "SELECT role FROM users_projects_relationship WHERE "
