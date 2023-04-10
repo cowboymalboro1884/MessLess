@@ -174,7 +174,8 @@ unsigned int DatabaseProject::create_new_task(
         }
         worker.commit();
         return task_id;
-    } catch (...) {
+    } catch (std::exception &e) {
+        std::cout<<e.what()<<'\n';
         return 0;
     }
 }
