@@ -57,7 +57,7 @@ int main() {
         std::cout<<x<<'\n';
     }
     std::cout<<"\n\n\n";
-    messless::DatabaseProject::create_new_task(db,prID,"MY TASK","MY DESCRIPTION","2024-07-21 00:00:00",{{"Michail","Ivanov","amogus@gmail.com","moderator"}});
+    //messless::DatabaseProject::create_new_task(db,prID,"MY TASK","MY DESCRIPTION","2024-07-21 00:00:00",{{"Michail","Ivanov","amogus@gmail.com","moderator"}});
     std::vector<messless::Task> tasks = messless::DatabaseProject::get_tasks(db,prID);
     for (auto &x:tasks) {
         std::cout << x.task_name << " " << x.condition << " " << x.deadline

@@ -269,15 +269,15 @@ DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
         Task current_task{};
         current_task.task_name = task_name;
         current_task.deadline = worker.query_value<std::string>(
-            "SELECT deadline FROM tasks WHERE task_id=" +
+            "SELECT deadline FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
         unsigned int condition_id = worker.query_value<int>(
-            "SELECT condition_id FROM tasks WHERE task_id=" +
+            "SELECT condition_id FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
         current_task.condition = worker.query_value<std::string>(
-            "SELECT condition_description WHERE condition_id=" +
+            "SELECT condition_description FROM condition WHERE id=" +
             db.shield_string(std::to_string(condition_id)) + ";"
         );
         tasks.push_back(current_task);
