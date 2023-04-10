@@ -132,7 +132,7 @@ int main() {
         worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(3,'employee');)sql");*/
         worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(1,'to do');)sql");
         worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(2,'in process');)sql");
-        worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(3,'done');)sql")
+        worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(3,'done');)sql");
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
