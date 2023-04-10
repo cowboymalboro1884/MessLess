@@ -174,7 +174,13 @@ unsigned int DatabaseProject::create_new_task(
                 db.shield_string(current_user.user_role) + "';"
             );
             std::cout<<"4"<<"\n";
-            add_user_to_task(db, task_id, current_user_id, role_id);
+            worker.exec(
+                "INSERT INTO users_tasks_relationship (user_id,task_id,role) VALUES "
+                "('" +
+                db.shield_string(std::to_string(current_user_id)) + "','" +
+                db.shield_string(std::to_string(task_id)) + "','" +
+                db.shield_string(std::to_string(role_id)) + "');"
+            );
             std::cout<<"5"<<"\n";
         }
         worker.commit();
