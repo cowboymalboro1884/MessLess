@@ -109,7 +109,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
         std::vector<User> user_list;
         pqxx::result res= worker.exec("SELECT user_id FROM users_projects_relationship WHERE "
             "project_id=" +
-            db.shield_string(std::to_string(project_id)) + ";")
+            db.shield_string(std::to_string(project_id)) + ";");
         for (auto row: result) {
             unsigned int user_id = std::stoi(row[0].c_str());
             std::cout<<user_id<<"\n";
@@ -240,7 +240,7 @@ DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
         Task current_task{};
         current_task.task_name = task_name;
         current_task.deadline = worker.query_value<std::string>("SELECT deadline FROM tasks WHERE task_id="+db.shield_string(std::to_string(id))+";");
-        unsigned int condition_id = worker.query_value<std::string>("SELECT condition_id FROM tasks WHERE task_id="+db.shield_string(std::to_string(id))+";");
+        unsigned int condition_id = worker.query_value<int>("SELECT condition_id FROM tasks WHERE task_id="+db.shield_string(std::to_string(id))+";");
         current_task.condition = worker.query_value<std::string>("SELECT condition_description WHERE condition_id="+db.shield_string(std::to_string(condition_id))+";");
         tasks.push_back(current_task);
     }
@@ -265,7 +265,7 @@ unsigned int DatabaseProject::get_task_id(
 ) {
     try{
         pqxx::work worker(db.connection);
-        unsigned int task_id = worker.query_value<int>("SELECT id FROM tasks WHERE task_name='"+db.shield_string(task_name) "' AND project_id="+db.shield_string(std::to_string(project_id))+";");
+        unsigned int task_id = worker.query_value<int>("SELECT id FROM tasks WHERE task_name='"+db.shield_string(task_name) +"' AND project_id="+db.shield_string(std::to_string(project_id))+";");
         worker.commit();
         return task_id;
     }
