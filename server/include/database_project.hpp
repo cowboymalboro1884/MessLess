@@ -12,8 +12,6 @@ public:
 };
 class DatabaseProject {
 public:
-    // TODO get_projects_list
-    // TODO get_tasks_list
     static unsigned int create_project(
         Database &db,
         PrivateUserInfo &user,
