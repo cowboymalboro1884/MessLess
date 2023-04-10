@@ -107,7 +107,7 @@ DatabaseProject::get_project_user_list(Database &db, unsigned int project_id) {
     try {
         std::vector<unsigned int> user_id_list;
         std::vector<User> user_list;
-        pqxx::result = worker.exec("SELECT user_id FROM users_projects_relationship WHERE "
+        pqxx::result res= worker.exec("SELECT user_id FROM users_projects_relationship WHERE "
             "project_id=" +
             db.shield_string(std::to_string(project_id)) + ";")
         for (auto row: result) {
@@ -218,7 +218,7 @@ DatabaseProject::get_projects(Database &db, PrivateUserInfo &user) {
         unsigned int project_id = std::stoi(row[0].c_str());
         std::string project_name = row[1].c_str();
         try{
-            unsigned int role = worker.query1<int>("SELECT role FROM users_projects_relationship WHERE project_id="+db.shield_string(std::to_string(project_id))+" AND user_id="+db.shield_string(std::to_string(user_id))+" ;");
+            unsigned int role = worker.query<int>("SELECT role FROM users_projects_relationship WHERE project_id="+db.shield_string(std::to_string(project_id))+" AND user_id="+db.shield_string(std::to_string(user_id))+" ;");
             user_projects.push_back(project_name);
         }
         catch(...){
@@ -233,7 +233,7 @@ std::vector<Task>
 DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
     std::vector<Task> tasks;
     pqxx::work worker(db.connection);
-    pqxx::result res =worker.exec("SELECT id, task_name FROM tasks WHERE project_id="+ db.shield_string(std::to_string(project_id))+";"))
+    pqxx::result res =worker.exec("SELECT id, task_name FROM tasks WHERE project_id="+ db.shield_string(std::to_string(project_id))+";");
     for (auto row: res){
         unsigned int id = std::stoi(row[0].c_str());
         std::string task_name = row[1].c_str();
