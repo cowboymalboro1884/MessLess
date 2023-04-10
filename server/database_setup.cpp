@@ -86,12 +86,7 @@ int main() {
                         ) WITH (
                           OIDS=FALSE
                          );)sql");  // create messages
-        worker.exec(R"sql(CREATE TABLE IF NOT EXISTS desk (
-                        id serial NOT NULL,
-                        project_id bigint NOT NULL
-                        ) WITH (
-                        OIDS=FALSE
-                        );)sql");  // create desk
+        worker.exec(R"sql(DROP table desk;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS chats (
                         id serial PRIMARY KEY,
                         company_id bigint NOT NULL,
@@ -99,10 +94,11 @@ int main() {
                         ) WITH (
                         OIDS=FALSE
                         );)sql");  // create chats
+        worker.exec(R"sql(DROP table tasks;)sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
                         id serial PRIMARY KEY,
                         task_name character varying(32) NOT NULL,
-                        desk_id bigint NOT NULL,
+                        project_id bigint NOT NULL,
                         description character varying(256),
                         condition_id int NOT NULL,
                         deadline TIMESTAMP,
