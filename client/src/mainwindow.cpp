@@ -1,9 +1,9 @@
 #include "include/mainwindow.h"
-#include "include/add_project.h"
 #include "include/auth_window.h"
 #include "include/project_button.h"
 #include "include/reg_window.h"
 #include "include/socketwrapper.h"
+#include "include/add_project.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
 
@@ -59,7 +59,9 @@ void MainWindow::clear_projects() {
   }
 }
 
-void MainWindow::add_new_project() { emit got_new_project_data(); }
+void MainWindow::add_new_project(){
+    emit got_new_project_data();
+}
 
 void MainWindow::update_projects() {
   QLayout *lay = techArea->layout();
