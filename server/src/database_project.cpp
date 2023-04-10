@@ -157,20 +157,25 @@ unsigned int DatabaseProject::create_new_task(
             db.shield_string(description) + "','" + db.shield_string("0") +
             "','" + db.shield_string(deadline) + "');"
         );
+        std::cout<<"1"<<"\n";
         unsigned int task_id = worker.query_value<int>(
             "SELECT id FROM tasks ORDER BY id DESC LIMIT 1;"
         );
+        std::cout<<"2"<<"\n";
         lock.unlock();
         for (auto &current_user : users) {
             unsigned int current_user_id = worker.query_value<int>(
                 "SELECT id FROM users WHERE email='" +
                 db.shield_string(current_user.email) + "';"
             );
+            std::cout<<"3"<<"\n";
             unsigned int role_id = worker.query_value<int>(
                 "SELECT id FROM roles WHERE role_description='" +
                 db.shield_string(current_user.user_role) + "';"
             );
+            std::cout<<"4"<<"\n";
             add_user_to_task(db, task_id, current_user_id, role_id);
+            std::cout<<"5"<<"\n";
         }
         worker.commit();
         return task_id;
