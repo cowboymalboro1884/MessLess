@@ -151,42 +151,38 @@ unsigned int DatabaseProject::create_new_task(
         std::unique_lock lock(db.database_mutex);
         worker.exec(
             "INSERT INTO tasks "
-            "(task_name,project_id,description,condition_id,deadline) VALUES ('" +
+            "(task_name,project_id,description,condition_id,deadline) VALUES "
+            "('" +
             db.shield_string(task_name) + "','" +
             db.shield_string(std::to_string(project_id)) + "','" +
             db.shield_string(description) + "','" + db.shield_string("1") +
             "','" + db.shield_string(deadline) + "');"
         );
-        std::cout<<"1"<<"\n";
         unsigned int task_id = worker.query_value<int>(
             "SELECT id FROM tasks ORDER BY id DESC LIMIT 1;"
         );
-        std::cout<<"2"<<"\n";
         lock.unlock();
         for (auto &current_user : users) {
             unsigned int current_user_id = worker.query_value<int>(
                 "SELECT id FROM users WHERE email='" +
                 db.shield_string(current_user.email) + "';"
             );
-            std::cout<<"3"<<"\n";
             unsigned int role_id = worker.query_value<int>(
                 "SELECT id FROM roles WHERE role_description='" +
                 db.shield_string(current_user.user_role) + "';"
             );
-            std::cout<<"4"<<"\n";
             worker.exec(
-                "INSERT INTO users_tasks_relationship (user_id,task_id,role) VALUES "
+                "INSERT INTO users_tasks_relationship (user_id,task_id,role) "
+                "VALUES "
                 "('" +
                 db.shield_string(std::to_string(current_user_id)) + "','" +
                 db.shield_string(std::to_string(task_id)) + "','" +
                 db.shield_string(std::to_string(role_id)) + "');"
             );
-            std::cout<<"5"<<"\n";
         }
         worker.commit();
         return task_id;
-    } catch (std::exception &e) {
-        std::cout<<e.what()<<'\n';
+    } catch (...) {
         return 0;
     }
 }
@@ -263,7 +259,6 @@ DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
         "SELECT id, task_name FROM tasks WHERE project_id=" +
         db.shield_string(std::to_string(project_id)) + ";"
     );
-    std::cout<<"1"<<"\n";
     for (auto row : res) {
         unsigned int id = std::stoi(row[0].c_str());
         std::string task_name = row[1].c_str();
@@ -273,17 +268,14 @@ DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
             "SELECT deadline FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
-        std::cout<<"2"<<"\n";
         unsigned int condition_id = worker.query_value<int>(
             "SELECT condition_id FROM tasks WHERE id=" +
             db.shield_string(std::to_string(id)) + ";"
         );
-        std::cout<<"3"<<"\n";
         current_task.condition = worker.query_value<std::string>(
             "SELECT condition_description FROM condition WHERE id=" +
             db.shield_string(std::to_string(condition_id)) + ";"
         );
-        std::cout<<"4"<<"\n";
         tasks.push_back(current_task);
     }
     worker.commit();

@@ -89,7 +89,7 @@ int main() {
                         project_id bigint
                         ) WITH (
                         OIDS=FALSE
-                        );)sql");  // create chats
+                        );)sql");   // create chats
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS tasks(
                         id serial PRIMARY KEY,
                         task_name character varying(32) NOT NULL,
@@ -100,20 +100,20 @@ int main() {
                         creation_time TIMESTAMP NOT NULL DEFAULT NOW()
                         ) WITH (
                         OIDS=FALSE
-                        );)sql");  // create tasks
+                        );)sql");   // create tasks
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS condition (
                         id int PRIMARY KEY,
                         condition_description character varying(32) NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                        );)sql");  // create task  conditions
+                        );)sql");   // create task  conditions
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS users_tasks_relationship (
                         user_id bigint NOT NULL,
                         task_id bigint NOT NULL,
                         role int NOT NULL
                         ) WITH (
                         OIDS=FALSE
-                       );)sql");   // create user-tasks
+                       );)sql");    // create user-tasks
         // relationship
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS roles (
                         id int NOT NULL,
@@ -127,16 +127,23 @@ int main() {
                         )WITH (
                         OIDS=FALSE
                         );)sql");  // create project roles
-        /*worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(1,'admin');)sql");
-        worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(2,'moderator');)sql");
-        worker.exec(R"sql(INSERT INTO roles(id,role_description) VALUES(3,'employee');)sql");*/
-        worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(1,'to do');)sql");
-        worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(2,'in process');)sql");
-        worker.exec(R"sql(INSERT INTO condition(id,condition_description) VALUES(3,'done');)sql");
+        /*worker.exec(R"sql(INSERT INTO roles(id,role_description)
+        VALUES(1,'admin');)sql"); worker.exec(R"sql(INSERT INTO
+        roles(id,role_description) VALUES(2,'moderator');)sql");
+        worker.exec(R"sql(INSERT INTO roles(id,role_description)
+        VALUES(3,'employee');)sql");*/
+        worker.exec(
+            R"sql(INSERT INTO condition(id,condition_description) VALUES(1,'to do');)sql"
+        );
+        worker.exec(
+            R"sql(INSERT INTO condition(id,condition_description) VALUES(2,'in process');)sql"
+        );
+        worker.exec(
+            R"sql(INSERT INTO condition(id,condition_description) VALUES(3,'done');)sql"
+        );
         worker.commit();
         std::cout << "Creating tables ended correctly" << std::endl;
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-
     }
 }

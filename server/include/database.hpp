@@ -19,7 +19,7 @@ public:
     std::string user_role;
 };
 
-class User{
+class User {
 public:
     std::string name;
     std::string surname;
@@ -71,7 +71,6 @@ public:
         const std::string &user_role
     );  // return user id
 };
-
 
 }  // namespace messless
 #endif

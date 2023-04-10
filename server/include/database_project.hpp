@@ -4,12 +4,13 @@
 #include "database.hpp"
 
 namespace messless {
-class Task{
+class Task {
 public:
     std::string task_name;
     std::string deadline;
     std::string condition;
 };
+
 class DatabaseProject {
 public:
     static unsigned int create_project(
@@ -38,8 +39,7 @@ public:
     static std::vector<User>
     get_project_user_list(Database &db, unsigned int project_id);
 
-    static std::vector<Task>
-    get_tasks(Database &db, unsigned int project_id);
+    static std::vector<Task> get_tasks(Database &db, unsigned int project_id);
 
     static unsigned int create_new_task(
         Database &db,
@@ -51,9 +51,17 @@ public:
         const std::vector<User> &users
     );
 
-    static void change_task_condition(Database &db, unsigned int task_id, const std::string& new_condition);
+    static void change_task_condition(
+        Database &db,
+        unsigned int task_id,
+        const std::string &new_condition
+    );
 
-    static unsigned int get_task_id(Database &db, unsigned int project_id, const std::string& task_name);
+    static unsigned int get_task_id(
+        Database &db,
+        unsigned int project_id,
+        const std::string &task_name
+    );
 
     static void add_user_to_task(
         Database &db,
@@ -70,7 +78,7 @@ public:
 
     void delete_project(Database &db, unsigned int project_id);
 
-    void delete_task(Database &db,unsigned int task_id);
+    void delete_task(Database &db, unsigned int task_id);
 };
 }  // namespace messless
 #endif
