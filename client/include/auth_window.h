@@ -27,7 +27,6 @@ private slots:
 
 private:
   Ui::auth_window *ui;
-
 };
 
 #endif

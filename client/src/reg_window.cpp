@@ -10,10 +10,15 @@ reg_window::reg_window(QWidget *parent)
   setWindowTitle("Registration");
   ui->confirmLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
   ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
-  this->setAttribute(Qt::WA_DeleteOnClose);
+  connect(this, SIGNAL(pushButtonSignIn_clicked()), this,
+          SLOT(on_pushButtonSignIn_clicked()));
+  //  this->setAttribute(Qt::WA_DeleteOnClose);// почему-то в нем ошибка
 }
 
-reg_window::~reg_window() { delete ui; }
+reg_window::~reg_window() {
+  qDebug() << "reg_delete";
+  delete ui;
+}
 
 QString reg_window::getName() { return ui->nameLineEdit->text(); }
 
@@ -27,27 +32,24 @@ QString reg_window::getCompName() { return ui->companyNameLineEdit->text(); }
 
 QString reg_window::getConfPass() { return ui->confirmLineEdit->text(); }
 
-bool reg_window::checkPass() { return (getPass()==getConfPass()); }
+QString reg_window::getLogin() { return ui->emailLineEdit->text(); }
 
+bool reg_window::checkPass() { return (getPass() == getConfPass()); }
 
-
-void reg_window::on_registerPushButton_clicked() {
-    if(getName().isEmpty() || getSurname().isEmpty() || getLogin().isEmpty() || getPass().isEmpty() || getConfPass().isEmpty() || getCompName().isEmpty() || getBio().isEmpty()){
-        if(checkPass()){
-           emit register_button_clicked2();
-        }else{
-          ui->label_Error->setText("Пароли отличаются");
-          ui->label_Error->show();
-        }
-    }else{
-       ui->label_Error->setText("Пустое поле");
-       ui->label_Error->show();
+void reg_window::on_pushButtonSignIn_clicked() {
+  if (getName().isEmpty() || getSurname().isEmpty() || getLogin().isEmpty() ||
+      getPass().isEmpty() || getConfPass().isEmpty() ||
+      getCompName().isEmpty() || getBio().isEmpty()) {
+    ui->label_Error->setText("Пустое поле");
+    ui->label_Error->show();
+  } else {
+    if (checkPass()) {
+      emit register_button_clicked2();
+    } else {
+      ui->label_Error->setText("Пароли отличаются");
+      ui->label_Error->show();
     }
-
+  }
 }
 
-void reg_window::on_pushButton_clicked()
-{
-
-}
-
+void reg_window::on_pushButtonBack_clicked() { emit pushButtonBack_clicked(); }

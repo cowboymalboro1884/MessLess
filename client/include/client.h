@@ -8,27 +8,25 @@
 
 namespace client {
 
-
-
 class Client : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    Client (QObject *parent = nullptr);
-    ~Client ();
-    void start();
-    void send_data(const QString &email, const QString &password);
-    int userid;
+  Client(QObject *parent = nullptr);
+  ~Client();
+  void start();
+  void send_data(const QString &email, const QString &password);
+  int userid;
 
 public slots:
-    void got_auth_data();
-    void got_register_data();
+  void got_auth_data();
+  void got_register_data();
 
 private:
-    MainWindow* m_window;
-    QString m_username;
-    QString m_password;
-    network::SocketWrapper* m_socketwrapper;
-    network::PrivateUserInfo user;
+  MainWindow *m_window;
+  QString m_username;
+  QString m_password;
+  network::SocketWrapper *m_socketwrapper;
+  network::PrivateUserInfo user;
 };
 } // namespace client
 #endif // CLIENT_H

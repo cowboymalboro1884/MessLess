@@ -36,7 +36,7 @@ FORMS += \
     include/auth_window.ui \
     include/mainwindow.ui \
     include/reg_window.ui \
-    include/add_project.ui
+    include/add_project.ui/
 
 #win64:RC_FILE = icon.rc
 

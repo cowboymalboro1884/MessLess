@@ -1,25 +1,24 @@
 #ifndef PROJECT_BUTTON_H
 #define PROJECT_BUTTON_H
 
+#include <QString>
 #include <QWidget>
-#include <QPushButton>
 
-class project_button : public QWidget
-{
-    Q_OBJECT
+class project_button : public QWidget {
+  Q_OBJECT
 public:
-    explicit project_button(const std::string &name, bool is_it_my_project);
-    ~project_button();
-
-private:
-    QPushButton *button;
-    bool flag;
+  project_button(const QString &name, const QString &deadline,
+                 const QString &condition)
+      : m_name(name), m_deadline(deadline), m_condition(condition) {}
+  //    ~project_button();
+  QString m_name;
+  QString m_deadline;
+  QString m_condition;
 
 public slots:
-    void on_project_button_clicked();
+  void on_project_button_clicked();
 
 signals:
-
 };
 
 #endif // PROJECT_BUTTON_H

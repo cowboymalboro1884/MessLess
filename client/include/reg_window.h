@@ -24,15 +24,16 @@ public:
 
 signals:
   void register_button_clicked2();
+  void pushButtonSignIn_clicked();
+  void pushButtonBack_clicked();
 
 private slots:
-  void on_registerPushButton_clicked();
+  void on_pushButtonSignIn_clicked();
 
-  void on_pushButton_clicked();
+  void on_pushButtonBack_clicked();
 
 private:
   Ui::reg_window *ui;
-
 };
 
 #endif // REG_WINDOW_H

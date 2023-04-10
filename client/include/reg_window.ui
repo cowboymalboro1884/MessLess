@@ -92,7 +92,7 @@
       <widget class="QLineEdit" name="passwordLineEdit"/>
      </item>
      <item row="9" column="2">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonBack">
        <property name="text">
         <string>Back</string>
        </property>
