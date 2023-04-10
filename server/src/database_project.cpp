@@ -218,7 +218,7 @@ DatabaseProject::get_projects(Database &db, PrivateUserInfo &user) {
         unsigned int project_id = std::stoi(row[0].c_str());
         std::string project_name = row[1].c_str();
         try{
-            unsigned int role = worker.query<int>("SELECT role FROM users_projects_relationship WHERE project_id="+db.shield_string(std::to_string(project_id))+" AND user_id="+db.shield_string(std::to_string(user_id))+" ;");
+            unsigned int role = worker.query_value<int>("SELECT role FROM users_projects_relationship WHERE project_id="+db.shield_string(std::to_string(project_id))+" AND user_id="+db.shield_string(std::to_string(user_id))+" ;");
             user_projects.push_back(project_name);
         }
         catch(...){
@@ -254,7 +254,7 @@ void DatabaseProject::change_task_condition(
     const std::string &new_condition
 ) {
     pqxx::work worker(db.connection);
-    worker.exec("UPDATE tasks SET condition = '"+db.shield_string(new_condition)+"' WHERE task_id="+db.shield_string(std::to_string(task_id))+" ;";
+    worker.exec("UPDATE tasks SET condition = '"+db.shield_string(new_condition)+"' WHERE task_id="+db.shield_string(std::to_string(task_id))+" ;");
     worker.commit();
 }
 
@@ -265,7 +265,7 @@ unsigned int DatabaseProject::get_task_id(
 ) {
     try{
         pqxx::work worker(db.connection);
-        unsigned int task_id = worker.query1<int>("SELECT id FROM tasks WHERE task_name='"+db.shield_string(task_name) "' AND project_id="+db.shield_string(std::to_string(project_id))+";");
+        unsigned int task_id = worker.query_value<int>("SELECT id FROM tasks WHERE task_name='"+db.shield_string(task_name) "' AND project_id="+db.shield_string(std::to_string(project_id))+";");
         worker.commit();
         return task_id;
     }
