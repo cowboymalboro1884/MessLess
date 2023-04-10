@@ -26,27 +26,15 @@ unsigned int DatabaseProject::create_project(
         "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
     );
     worker.exec(
-        "INSERT INTO desk (project_id) VALUES ('" +
-        db.shield_string(std::to_string(project_id)) + "')"
-    );
-    worker.exec(
-        "INSERT INTO desk (project_id) VALUES ('" +
-        db.shield_string(std::to_string(project_id)) + "')"
-    );
-    worker.exec(
         "INSERT INTO chats (company_id,project_id) VALUES ('" +
         db.shield_string(std::to_string(company_id)) + "','" +
         db.shield_string(std::to_string(project_id)) + "')"
     );
-    unsigned int desk_id =
-        worker.query_value<int>("SELECT id FROM desk ORDER BY id DESC LIMIT 1;"
-        );
     unsigned int chat_id =
         worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
         );
     worker.exec(
-        "UPDATE projects SET (desk_id,chat_id) =('" +
-        db.shield_string(std::to_string(desk_id)) + "','" +
+        "UPDATE projects SET (chat_id) =('" +
         db.shield_string(std::to_string(chat_id)) + "') WHERE id='" +
         db.shield_string(std::to_string(project_id)) + "';"
     );
