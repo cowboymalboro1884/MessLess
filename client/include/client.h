@@ -20,6 +20,7 @@ public:
 public slots:
   void got_auth_data();
   void got_register_data();
+  void got_add_project_data();
 
 private:
   MainWindow *m_window;

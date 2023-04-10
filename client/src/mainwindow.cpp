@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::authorizeUser() { emit got_auth_data(); }
 
 QString MainWindow::get_username() { return ui_Auth.getLogin(); }
-
+//наверное нужно удалить обе
 QString MainWindow::get_password() { return ui_Auth.getPass(); }
 
 void MainWindow::registerUser() { emit got_register_data(); }
@@ -58,6 +58,8 @@ void MainWindow::clear_projects() {
     delete child;
   }
 }
+
+void MainWindow::add_new_project() { emit got_new_project_data(); }
 
 void MainWindow::update_projects() {
   QLayout *lay = techArea->layout();

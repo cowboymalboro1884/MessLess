@@ -7,34 +7,36 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   this->setFixedSize(400, 200);
   main_wind->setEnabled(false);
   this->setAttribute(Qt::WA_DeleteOnClose);
-//  ui->name_lineEdit->setStyleSheet(
-//      ".QLineEdit {background-color : #191919;border-width: 2px; "
-//      "border-radius: 10px; padding: 6px;}");
+  //  ui->name_lineEdit->setStyleSheet(
+  //      ".QLineEdit {background-color : #191919;border-width: 2px; "
+  //      "border-radius: 10px; padding: 6px;}");
 
   connect(ui->addProject, &QPushButton::clicked,
           [&] { //мб надо будт изменить на this
-            std::string project_name = ui->name_lineEdit->text().toStdString();
-            std::string project_descririon =
-                ui->description_lineEdit->text().toStdString();
-            // передам имя проекта и описание
-            bool flag = true; //// убрать заглушку
-            if (!flag) {
+            main_wind->project_name = get_project_name();
+            main_wind->project_description = get_project_description();
+            main_wind->add_new_project();
+
+            if (!main_wind->flag) {
               //написать какой-нибудь popup с ошибкой
 
             } else {
-
-//              main_wind->projects.push_back({"1","2","3"});//функция, которая
-              main_wind->clear_projects();
-
-
-              main_wind->update_projects(); //написать функцию в main
-              hide();
               this->close();
+
+              main_wind->clear_projects();
+              main_wind->update_projects(); //написать функцию в main
             }
           });
 }
 
+QString add_project::get_project_name() { return ui->name_lineEdit->text(); }
+
+QString add_project::get_project_description() {
+  return ui->description_lineEdit->text();
+}
+
 add_project::~add_project() {
-    qDebug() << "add project window deleted";
-    main_wind->setEnabled(true);
-    delete ui; }
+  qDebug() << "add project window deleted";
+  main_wind->setEnabled(true);
+  delete ui;
+}

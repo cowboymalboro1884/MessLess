@@ -17,6 +17,12 @@ public:
                        MainWindow *main_wind = nullptr);
   ~add_project();
 
+  QString get_project_name();
+  QString get_project_description();
+
+signals:
+  void create_project();
+
 private:
   Ui::add_project *ui;
   MainWindow *main_wind;

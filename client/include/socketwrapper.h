@@ -21,6 +21,7 @@ class SocketWrapper : public QObject {
   QTcpSocket *m_socket_wrap;
   QString ip;
   qint16 port;
+  PrivateUserInfo user;
 
 public:
   SocketWrapper(QString ip, qint16 port);
@@ -35,6 +36,12 @@ public:
                                          const QString &password,
                                          const QString &company_name,
                                          const QString &company_bio);
+  bool createProject(const QString &email, const QString &password,
+                     const QString &user_role, const QString &project_name,
+                     const QString &project_bio);
+
+  bool createTask(const QString &task_name, const QString &description,
+                  const QString &deadline, const QString &project_name);
 };
 } // namespace client::network
 

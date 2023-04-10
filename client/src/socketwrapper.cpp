@@ -20,6 +20,29 @@ void SocketWrapper::send_data(const QByteArray &data) {
   m_socket_wrap->waitForBytesWritten();
 }
 
+bool SocketWrapper::createTask(const QString &task_name,
+                               const QString &description,
+                               const QString &deadline,
+                               const QString &project_name) {
+  QJsonObject jsonquery;
+  jsonquery["type"] = "create_task";
+  jsonquery["task_name"] = task_name;
+  jsonquery["description"] = description;
+  jsonquery["deadline"] = deadline;
+  jsonquery["project_name"] = project_name;
+
+  QJsonDocument doc(jsonquery);
+
+  send_data(doc.toJson());
+  m_socket_wrap->waitForReadyRead();
+
+  QByteArray response = m_socket_wrap->readAll();
+  QJsonParseError json_data_error;
+  QJsonDocument json_data = QJsonDocument::fromJson(response, &json_data_error);
+
+  return true;
+}
+
 PrivateUserInfo SocketWrapper::registerCompanyAndUser(
     const QString &name, const QString &surname, const QString &email,
     const QString &password, const QString &company_name,
@@ -47,8 +70,31 @@ PrivateUserInfo SocketWrapper::registerCompanyAndUser(
   QString got_password = json_data.object().value("password").toString();
   QString got_user_role = json_data.object().value("user_role").toString();
   QString status = json_data.object().value("status").toString();
+  user = PrivateUserInfo{status, got_email, got_password, got_user_role};
+  return user;
+}
 
-  return {status, got_email, got_password, got_user_role};
+bool SocketWrapper::createProject(const QString &email, const QString &password,
+                                  const QString &user_role,
+                                  const QString &project_name,
+                                  const QString &project_bio) {
+  QJsonObject jsonquery;
+  jsonquery["type"] = "add_project";
+  jsonquery["email"] = email;
+  jsonquery["password"] = password;
+  jsonquery["user_role"] = user_role;
+  jsonquery["project_name"] = project_name;
+  jsonquery["project_bio"] = project_bio;
+
+  QJsonDocument doc(jsonquery);
+
+  send_data(doc.toJson());
+  m_socket_wrap->waitForReadyRead();
+  QByteArray response = m_socket_wrap->readAll();
+  QJsonParseError json_data_error;
+  QJsonDocument json_data = QJsonDocument::fromJson(response, &json_data_error);
+
+  return (json_data.object().value("status") == "success");
 }
 
 PrivateUserInfo SocketWrapper::validateUser(const QString &email,
@@ -71,8 +117,9 @@ PrivateUserInfo SocketWrapper::validateUser(const QString &email,
   QString got_password = json_data.object().value("password").toString();
   QString got_user_role = json_data.object().value("user_role").toString();
   QString status = json_data.object().value("status").toString();
+  user = PrivateUserInfo{status, got_email, got_password, got_user_role};
 
-  return {status, got_email, got_password, got_user_role};
+  return user;
 }
 
 SocketWrapper::~SocketWrapper() { m_socket_wrap->deleteLater(); }
