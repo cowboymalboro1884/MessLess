@@ -19,13 +19,14 @@ QJsonDocument RequestHolder::validateUser(const QJsonObject &request) {
   jsonResponse["password"] = QString::fromStdString(is_login_success.password);
   jsonResponse["user_role"] =
       QString::fromStdString(is_login_success.user_role);
+      qDebug() << jsonResponse;
 
   if (is_login_success.email.empty() || is_login_success.password.empty() ||
       is_login_success.user_role.empty()) {
-    jsonResponse["status"] = "success";
-  } else {
     jsonResponse["status"] = "failed";
     jsonResponse["error_text"] = "couldn't authorize";
+  } else {
+    jsonResponse["status"] = "success";
   }
 
   QJsonDocument response(jsonResponse);
