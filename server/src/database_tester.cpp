@@ -47,16 +47,23 @@ int main() {
     unsigned int prID =messless::DatabaseProject::get_project_id(db,user_info1,"my_project");
     messless::PrivateUserInfo user_info2 =messless::DatabaseUser::login_user(db,"amogus11@gmail.com","zalupa");
     messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");*/
-    messless::DatabaseCompany::create_user(
-        db, "amogus34@gmail.com", "quwuqewq!!!", "Vladimir", "EEEE",
-        1, "employee"
-    );
     messless::PrivateUserInfo user_info2 =messless::DatabaseUser::login_user(db,"amogus34@gmail.com","quwuqewq!!!");
     messless::PrivateUserInfo user_info1 =messless::DatabaseUser::login_user(db, "amogus@gmail.com", "quwuqewq!!!");
     unsigned int prID =messless::DatabaseProject::get_project_id(db,user_info1,"my_project");
-    messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"employee");
     std::vector<messless::User> project1_users = messless::DatabaseProject::get_project_user_list(db,prID);
     for (auto &x:project1_users){
         std::cout<<x.name<<" "<<x.surname<<" "<<x.email<<" "<<x.user_role<<'\n';
+    }
+    std::cout<<"\n\n\n";
+    std::vector<std::string> projects_for_one_user = messless::DatabaseProject::get_projects(db,user_info1);
+    for (auto &x:projects_for_one_user){
+        std::cout<<x<<'\n';
+    }
+    std::cout<<"\n\n\n";
+    messless::DatabaseProject::create_new_task(db,prID,"MY TASK","MY DESCRIPTION","2024-07-21 00:00:00",{{"Michail","Ivanov","amogus@gmail.com","moderator"}});
+    std::vector<messless::Task> tasks = messless::DatabaseProject::get_tasks(db,prID);
+    for (auto &x:tasks) {
+        std::cout << x.task_name << " " << x.condition << " " << x.deadline
+                  << '\n';
     }
 }
