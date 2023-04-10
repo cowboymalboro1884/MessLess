@@ -28,6 +28,7 @@ public:
 };
 
 class Database : private boost::noncopyable {
+public:
   std::mutex database_mutex;
   pqxx::connection connection;
   messless::Encrypting crypt;

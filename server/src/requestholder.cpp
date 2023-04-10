@@ -1,7 +1,9 @@
 #include "requestholder.h"
 
 RequestHolder::RequestHolder(messless::Database *database_)
-    : database(database_) {}
+    : database(database_) {
+  qDebug() << database->connection.is_open() << "RH\n";
+}
 
 QJsonDocument RequestHolder::validateUser(const QJsonObject &request) {
   qDebug() << "got for authorization" << request;
@@ -28,8 +30,6 @@ QJsonDocument RequestHolder::validateUser(const QJsonObject &request) {
 
   QJsonDocument response(jsonResponse);
 
-  /// Return {"", "", "", "failed"} if authorization is failed,
-  /// {email, password, user_role, "success"} else
   return response;
 }
 
@@ -47,12 +47,13 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
   unsigned int company_id = messless::DatabaseCompany::create_company(
       *database, entered_company_name.toStdString(),
       entered_company_bio.toStdString());
-
+  qDebug() << company_id;
   messless::PrivateUserInfo is_registration_success =
       messless::DatabaseCompany::create_user(
           *database, entered_email.toStdString(),
           entered_password.toStdString(), entered_name.toStdString(),
           entered_surname.toStdString(), company_id, "admin");
+  qDebug() << "а мы сюда вообще зашли или зависли ты мне скажи";
 
   QJsonObject jsonResponse;
   jsonResponse["email"] = QString::fromStdString(is_registration_success.email);
@@ -61,19 +62,18 @@ RequestHolder::registerCompanyWithAdmin(const QJsonObject &request) {
   jsonResponse["user_role"] =
       QString::fromStdString(is_registration_success.user_role);
 
+  qDebug() << jsonResponse;
+
   if (is_registration_success.email.empty() ||
       is_registration_success.password.empty() ||
       is_registration_success.user_role.empty()) {
-    jsonResponse["status"] = "success";
-  } else {
     jsonResponse["status"] = "failed";
     jsonResponse["error_text"] = "couldn't register";
+  } else {
+    jsonResponse["status"] = "success";
   }
-
   QJsonDocument response(jsonResponse);
 
-  /// Return {"", "", "", "failed"} if registration is failed,
-  /// {email, password, user_role, "success"} else
   return response;
 }
 
@@ -114,7 +114,8 @@ QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
 
   if (json_data_error.errorString().toInt() == QJsonParseError::NoError) {
     QString event_type = json_data.object().value("type").toString();
-
+    qDebug() << "RH: got data";
+    qDebug() << json_data;
     if (!event_type.size()) {
       QJsonObject jsonResponse;
       jsonResponse["status"] = "error";
@@ -128,7 +129,7 @@ QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
       return validateUser(json_data.object());
 
     } else if (event_type == "registration") {
-
+      qDebug() << "RH: registration";
       return registerCompanyWithAdmin(json_data.object());
 
     } else if (event_type == "add_project") {
@@ -138,7 +139,7 @@ QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
     } else {
       qDebug() << "Got wrong request";
       QJsonObject jsonResponse;
-      jsonResponse["status"] = "error";
+      jsonResponse["status"] = "failed";
       jsonResponse["error_text"] = "Invalid JSON";
       QJsonDocument response(jsonResponse);
       return response;

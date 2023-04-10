@@ -3,7 +3,9 @@ QT += core
 QT += network
 QT += websockets
 
-LIBS += -lpq -lpqxx
+LIBS += -lpqxx -lpq -L /root/lpqxx -lboost_system -L/root/cryptopp -lcryptopp
+
+INCLUDEPATH += /root/cryptopp
 
 TARGET = server
 CONFIG += c++17 console
@@ -15,13 +17,13 @@ CONFIG -= app_bundle
 # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        clientsocket.cpp \
-        database.cpp \
-        databaseproject.cpp \
-        encrypting.cpp \
-        main.cpp \
-        requestholder.cpp \
-        server.cpp
+        src/clientsocket.cpp \
+	src/database.cpp \
+	src/databaseproject.cpp \
+	src/encrypting.cpp \
+	src/main.cpp \
+	src/requestholder.cpp \
+	src/server.cpp
 
 QMAKE_CXXFLAGS += -O2
 
@@ -30,10 +32,12 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+INCLUDEPATH += $$PWD/include
+
 HEADERS += \
-    clientsocket.h \
-    database.h \
-    databaseproject.h \
-    encrypting.h \
-    requestholder.h \
-    server.h
+    include/clientsocket.h \
+    include/database.h \
+    include/databaseproject.h \
+    include/encrypting.h \
+    include/requestholder.h \
+    include/server.h

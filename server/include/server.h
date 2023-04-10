@@ -13,18 +13,17 @@
 class Server : public QObject
 {
     Q_OBJECT
-    QVector<ClientSocket*> sockets;
+    QMap<qint32, ClientSocket*> sockets;
     QByteArray Data;
     messless::Database *db;
     qint16 PORT;
-    qint16 user_counter = 1;
 
 public:
     ~Server();
     bool startServer(qint16 port, std::string &config_file);
     void sockReady();
     void sockDisc(ClientSocket*);
-    void connectToDatabase(std::string& config_file);
+    bool connectToDatabase(std::string& config_file);
 
     static Server& getInstance() {
         static Server server;

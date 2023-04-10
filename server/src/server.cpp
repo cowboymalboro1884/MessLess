@@ -15,10 +15,9 @@ bool Server::startServer(qint16 port, std::string &config_file) {
 
     connect(server, SIGNAL(newConnection()), this, SLOT(incomingConnection()));
 
-    try {
-      connectToDatabase(config_file);
+    if (connectToDatabase(config_file)) {
       qDebug() << "Connected to database";
-    } catch (...) {
+    } else {
       qDebug() << "Couldn't connect to database";
       return false;
     }
@@ -32,6 +31,7 @@ bool Server::startServer(qint16 port, std::string &config_file) {
 void Server::incomingConnection() {
   qDebug() << "New connection!";
   QTcpSocket *next_connection = server->nextPendingConnection();
+  qDebug() << db->connection.is_open() << "connection\n";
   ClientSocket *connected_socket = new ClientSocket(
       next_connection->socketDescriptor(), this, next_connection, db);
   sockets[connected_socket->get_id()] = connected_socket;
@@ -42,13 +42,14 @@ void Server::sockDisc(ClientSocket *socket) {
   sockets.erase(sockets.find(socket->get_id()));
 }
 
-void Server::connectToDatabase(std::string &config_file) {
+bool Server::connectToDatabase(std::string &config_file) {
   std::ifstream input(config_file);
   std::string private_salt, connection_string;
   std::getline(input, connection_string);
   std::getline(input, private_salt);
-  messless::Database db_(connection_string, private_salt);
+  static messless::Database db_(connection_string, private_salt);
   db = &db_;
+  return db_.connection.is_open();
 }
 
 Server::~Server() {

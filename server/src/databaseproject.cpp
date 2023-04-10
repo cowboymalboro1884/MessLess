@@ -1,7 +1,7 @@
 #ifndef DATABASE_PROJECT_CPP
 #define DATABASE_PROJECT_CPP
 #include<tuple>
-#include "../include/database_project.hpp"
+#include "databaseproject.h"
 
 namespace messless {
 unsigned int DatabaseProject::create_project(

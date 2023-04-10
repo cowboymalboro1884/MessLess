@@ -4,16 +4,13 @@
 namespace messless {
 std::string messless::Encrypting::get_hash(std::string &str) {
   std::string new_string;
-      CryptoPP::SHA256 hash;
+  CryptoPP::SHA256 hash;
 
-      CryptoPP::StringSource foo(
-          str, true,
-          new CryptoPP::HashFilter(
-              hash,
-              new CryptoPP::Base64Encoder(new
-              CryptoPP::StringSink(new_string))
-          )
-      );
+  CryptoPP::StringSource foo(
+      str, true,
+      new CryptoPP::HashFilter(
+          hash,
+          new CryptoPP::Base64Encoder(new CryptoPP::StringSink(new_string))));
   return new_string;
 }
 
@@ -33,12 +30,12 @@ messless::Encrypting::Encrypting(std::string salt)
 messless::Encrypting::Encrypting() : private_salt() {}
 
 std::string messless::Encrypting::get_random_string() {
-      static CryptoPP::RandomPool current;
+  static CryptoPP::RandomPool current;
   static std::string str = "rndstr";
-      str = CryptoPP::WordToString(current.GenerateWord32()) +
-            CryptoPP::WordToString(current.GenerateWord32()) +
-            CryptoPP::WordToString(current.GenerateWord32()) +
-            CryptoPP::WordToString(current.GenerateWord32());
+  str = CryptoPP::WordToString(current.GenerateWord32()) +
+        CryptoPP::WordToString(current.GenerateWord32()) +
+        CryptoPP::WordToString(current.GenerateWord32()) +
+        CryptoPP::WordToString(current.GenerateWord32());
   return get_hash(str);
 }
 } // namespace messless
