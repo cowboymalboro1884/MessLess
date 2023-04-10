@@ -259,6 +259,7 @@ std::vector<Task>
 DatabaseProject::get_tasks(Database &db, unsigned int project_id) {
     std::vector<Task> tasks;
     pqxx::work worker(db.connection);
+
     pqxx::result res = worker.exec(
         "SELECT id, task_name FROM tasks WHERE project_id=" +
         db.shield_string(std::to_string(project_id)) + ";"
