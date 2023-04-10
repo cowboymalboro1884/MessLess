@@ -9,7 +9,7 @@ namespace Ui {
 class add_project;
 }
 
-class add_project : public QMainWindow {
+class add_project : public QWidget {
   Q_OBJECT
 
 public:

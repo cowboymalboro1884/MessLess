@@ -37,7 +37,7 @@ void auth_window::on_loginPushButton_clicked() {
   } else {
     qDebug() << "login: " << getLogin();
     qDebug() << "password: " << getPass();
-    emit auth_check();
+    emit login_button_clicked();
     ui->errorMessage->setText("Такого пользователя не существует");
   }
 }

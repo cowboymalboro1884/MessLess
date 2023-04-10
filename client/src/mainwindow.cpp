@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(&ui_Reg, SIGNAL(register_button_clicked2()), this,
           SLOT(registerUser()));
   //  connect(&ui_Reg, SIGNAL(destroyed()), &ui_Auth, SLOT(show()));
-  connect(ui_Main->newProjetButton, &QPushButton::clicked, [this] {
+  connect(ui_Main->newProjetButton, &QPushButton::clicked, [&] {
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
@@ -53,7 +53,6 @@ void MainWindow::registerUser() { emit got_register_data(); }
 
 void MainWindow::clear_projects() {
   QLayoutItem *child;
-
   while ((child = techArea->takeAt(0)) != nullptr) {
     delete child->widget();
     delete child;
@@ -63,7 +62,6 @@ void MainWindow::clear_projects() {
 void MainWindow::update_projects() {
   QLayout *lay = techArea->layout();
   for (const auto &i : projects) {
-
     // может сделать это обычной кнопкой
     project_button *project =
         new project_button(i.m_name, i.m_deadline, i.m_condition);

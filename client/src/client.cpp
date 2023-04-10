@@ -15,11 +15,11 @@ void Client::start() {
 }
 
 void Client::got_register_data() {
-  user = m_socketwrapper->registerCompanyAndUser(
-      m_window->ui_Reg.getName(), m_window->ui_Reg.getSurname(),
-      m_window->ui_Reg.getLogin(), m_window->ui_Reg.getPass(),
-      m_window->ui_Reg.getCompName(), m_window->ui_Reg.getBio());
-  if (user.status == "success") {
+//  user = m_socketwrapper->registerCompanyAndUser(
+//      m_window->ui_Reg.getName(), m_window->ui_Reg.getSurname(),
+//      m_window->ui_Reg.getLogin(), m_window->ui_Reg.getPass(),
+//      m_window->ui_Reg.getCompName(), m_window->ui_Reg.getBio());
+  if (true) {
     m_window->ui_Auth.close();
     m_window->ui_Reg.close();
     m_window->show();
