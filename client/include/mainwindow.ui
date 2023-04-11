@@ -28,7 +28,7 @@
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Chat</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
@@ -42,13 +42,13 @@
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Projects</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="newProjetButton">
           <property name="text">
-           <string>новый проект</string>
+           <string>Add new project</string>
           </property>
          </widget>
         </item>

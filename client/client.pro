@@ -14,26 +14,36 @@ CONFIG += c++17
 
 SOURCES += \
     src/add_project.cpp \
+    src/add_task.cpp \
     src/auth_window.cpp \
     src/client.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/projectwindow.cpp \
     src/reg_window.cpp \
     src/socketwrapper.cpp \
 
 HEADERS += \
+    include/add_task.h \
     include/auth_window.h \
     include/client.h \
     include/mainwindow.h \
+    include/projectwindow.h \
     include/reg_window.h \
     include/socketwrapper.h \
-    include/add_project.h
+    include/add_project.h \
+    include/projectwindow.h \
+    include/add_task.h
 
 FORMS += \
+    include/add_task.ui \
     include/auth_window.ui \
     include/mainwindow.ui \
+    include/projectwindow.ui \
     include/reg_window.ui \
-    include/add_project.ui/
+    include/add_project.ui/ \
+    include/projectwindow.ui \
+    include/add_task.ui
 
 #win64:RC_FILE = icon.rc
 

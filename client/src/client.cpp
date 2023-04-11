@@ -7,11 +7,13 @@ Client::Client(QObject *parent) : m_window(new MainWindow()) {
   connect(m_window, SIGNAL(got_register_data()), this,
           SLOT(got_register_data()));
   connect(m_window, SIGNAL(got_new_project_data()), this, SLOT(got_add_project_data()));
+  connect(m_window, SIGNAL(got_project_tasks()), this, SLOT(got_project_tasks()));
+  connect(m_window, SIGNAL(got_new_task_data()), this, SLOT(got_add_task_data()));
 };
 
 void Client::start() {
   m_window->display();
-  m_socketwrapper = new network::SocketWrapper("194.87.210.109", 1338);
+  m_socketwrapper = new network::SocketWrapper("194.87.210.109", 1339);
   m_socketwrapper->connect();
 }
 
@@ -49,6 +51,16 @@ void Client::got_add_project_data(){
     qDebug() << "flag: " << m_window->flag;
     m_window->projects = m_socketwrapper->getProjects(user.email,user.password,user.user_role);
     qDebug() << "проекты обновлены";
+}
+
+void Client::got_project_tasks(){
+    m_window->tasks = m_socketwrapper->getTasks(user.email, user.password, user.user_role, m_window->project_name);
+
+}
+
+void Client::got_add_task_data(){
+    m_window->flag = m_socketwrapper->createTask(user.email, user.password, user.user_role, m_window->task_name, m_window->task_description, m_window->task_deadline, m_window->project_name);
+    got_project_tasks();
 }
 
 Client::~Client() { m_window->deleteLater(); }

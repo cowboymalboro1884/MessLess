@@ -4,12 +4,15 @@
 #include "auth_window.h"
 #include "reg_window.h"
 #include "socketwrapper.h"
+
 #include <QBoxLayout>
 #include <QMainWindow>
+#include <QPushButton>
 #include <QScrollArea>
 #include <QString>
 #include <QTcpSocket>
 #include <vector>
+#include <unordered_map>
 
 namespace Ui {
 class MainWindow;
@@ -24,20 +27,25 @@ public:
   Ui::MainWindow *get_ui() const;
   void display(); // прототип пользовательской функции отображения
   void update_projects();
+
   void clear_projects();
   QString get_username();
   QString get_password();
   QString project_name;
   QString project_description;
+  QString task_name;
+  QString task_description;
+  QString task_deadline;
   bool flag;
   std::vector<std::string> projects; //нужен будет для сортировки
+  std::vector<client::network::Task> tasks;
   QBoxLayout *techArea;
   QScrollArea *scroll;
   auth_window ui_Auth; // экземпляры окна авторизации и окна регистрации
   reg_window ui_Reg;   // принадлежат главному окну
-
+//  ProjectWindow ui_project;
   void add_new_project();
-
+  void add_new_task();
 private:
   Ui::MainWindow *ui_Main;
 
@@ -51,6 +59,8 @@ signals:
   void got_auth_data();
   void got_register_data();
   void got_new_project_data();
+  void got_project_tasks();
+  void got_new_task_data();
 };
 
 #endif // MAINWINDOW_H

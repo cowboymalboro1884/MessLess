@@ -21,6 +21,8 @@ public slots:
   void got_auth_data();
   void got_register_data();
   void got_add_project_data();
+  void got_project_tasks();
+  void got_add_task_data();
 
 private:
   MainWindow *m_window;
@@ -28,6 +30,7 @@ private:
   QString m_password;
   network::SocketWrapper *m_socketwrapper;
   network::PrivateUserInfo user;
+
 };
 } // namespace client
 #endif // CLIENT_H

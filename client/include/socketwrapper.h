@@ -16,6 +16,13 @@ public:
     QString user_role;
 };
 
+class Task {
+public:
+    QString task_name;
+    QString deadline;
+    QString condition;
+};
+
 class SocketWrapper : public QObject {
     Q_OBJECT
     QTcpSocket *m_socket_wrap;
@@ -47,13 +54,27 @@ public:
     );
 
     bool createTask(
+        const QString &email,
+        const QString &password,
+        const QString &user_role,
         const QString &task_name,
         const QString &description,
         const QString &deadline,
         const QString &project_name
     );
 
-    std::vector<std::string> getProjects(const QString &email, const QString &password, const QString &user_role);
+    std::vector<Task> getTasks(
+        const QString &email,
+        const QString &password,
+        const QString &user_role,
+        const QString &project_name
+    );
+
+    std::vector<std::string> getProjects(
+        const QString &email,
+        const QString &password,
+        const QString &user_role
+    );
 };
 }  // namespace client::network
 

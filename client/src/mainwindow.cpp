@@ -3,6 +3,7 @@
 #include "include/reg_window.h"
 #include "include/socketwrapper.h"
 #include "include/add_project.h"
+#include "include/projectwindow.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
 
@@ -15,31 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
           SLOT(registerWindowShow()));
   connect(&ui_Reg, SIGNAL(pushButtonBack_clicked()), this,
           SLOT(authorizeWindowShow()));
-  //  connect(&ui_Auth, SIGNAL(destroyed()), this, SLOT(show()));
   connect(&ui_Reg, SIGNAL(register_button_clicked2()), this,
           SLOT(registerUser()));
-  //  connect(&ui_Reg, SIGNAL(destroyed()), &ui_Auth, SLOT(show()));
   connect(ui_Main->newProjetButton, &QPushButton::clicked, [&] {
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
 
-//  QScrollArea *scroll = new QScrollArea(ui_Main->tab);
-//  scroll->setBackgroundRole(QPalette::Window);
-//  scroll->setFrameShadow(QFrame::Plain);
-//  scroll->setFrameShape(QFrame::NoFrame);
-//  scroll->setWidgetResizable(true);
-
-//  //  QWidget *techArea = new QWidget(ui_Main->tabWidget);
-//  //  techArea->setObjectName("techarea");
-//  //  techArea->setSizePolicy(QSizePolicy::MinimumExpanding,
-//  //                          QSizePolicy::MinimumExpanding);
-//  //  techArea->setLayout(new QVBoxLayout(techArea));
-//  //  scroll->setWidget(techArea);
-//  QBoxLayout *techArea = new QVBoxLayout();
-//  techArea->setObjectName("techarea");
-//  //   techArea->se
-//  scroll->setLayout(techArea);
 }
 
 void MainWindow::authorizeUser() { emit got_auth_data(); }
@@ -62,14 +45,30 @@ void MainWindow::add_new_project(){
     emit got_new_project_data();
 }
 
+void MainWindow::add_new_task(){
+    emit got_new_task_data();
+}
+
 void MainWindow::update_projects() {
-    qDebug() << "упало до";
+
   QLayout *lay = ui_Main->project_lay->layout();
 
-  qDebug() << "упало после";
   for (const auto &i : projects) {
       qDebug()<< QString::fromStdString(i);
-    lay->addWidget(new QPushButton(QString::fromStdString(i)));
+      QPushButton *button = new QPushButton(QString::fromStdString(i));
+      project_name = button->text();
+      //возможно, что тут есть ошибки
+      connect(button, &QPushButton::clicked,[=]{
+          project_name = button->text();
+          emit got_project_tasks();
+          if (true){ //потом изменить flag вместо заглушки
+            ProjectWindow *project_window = new ProjectWindow(nullptr, this, project_name);
+            project_window->show();
+          } else{
+              //добавить ошибку
+          }
+          });
+    lay->addWidget(button);
   }
 }
 
