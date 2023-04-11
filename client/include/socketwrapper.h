@@ -52,6 +52,8 @@ public:
         const QString &deadline,
         const QString &project_name
     );
+
+    std::vector<std::string> getProjects(const QString &email, const QString &password, const QString &user_role);
 };
 }  // namespace client::network
 

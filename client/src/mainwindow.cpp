@@ -1,6 +1,5 @@
 #include "include/mainwindow.h"
 #include "include/auth_window.h"
-#include "include/project_button.h"
 #include "include/reg_window.h"
 #include "include/socketwrapper.h"
 #include "include/add_project.h"
@@ -25,22 +24,22 @@ MainWindow::MainWindow(QWidget *parent)
     chooseWindow->show();
   });
 
-  QScrollArea *scroll = new QScrollArea(ui_Main->tab);
-  scroll->setBackgroundRole(QPalette::Window);
-  scroll->setFrameShadow(QFrame::Plain);
-  scroll->setFrameShape(QFrame::NoFrame);
-  scroll->setWidgetResizable(true);
+//  QScrollArea *scroll = new QScrollArea(ui_Main->tab);
+//  scroll->setBackgroundRole(QPalette::Window);
+//  scroll->setFrameShadow(QFrame::Plain);
+//  scroll->setFrameShape(QFrame::NoFrame);
+//  scroll->setWidgetResizable(true);
 
-  //  QWidget *techArea = new QWidget(ui_Main->tabWidget);
-  //  techArea->setObjectName("techarea");
-  //  techArea->setSizePolicy(QSizePolicy::MinimumExpanding,
-  //                          QSizePolicy::MinimumExpanding);
-  //  techArea->setLayout(new QVBoxLayout(techArea));
-  //  scroll->setWidget(techArea);
-  QBoxLayout *techArea = new QVBoxLayout();
-  techArea->setObjectName("techarea");
-  //   techArea->se
-  scroll->setLayout(techArea);
+//  //  QWidget *techArea = new QWidget(ui_Main->tabWidget);
+//  //  techArea->setObjectName("techarea");
+//  //  techArea->setSizePolicy(QSizePolicy::MinimumExpanding,
+//  //                          QSizePolicy::MinimumExpanding);
+//  //  techArea->setLayout(new QVBoxLayout(techArea));
+//  //  scroll->setWidget(techArea);
+//  QBoxLayout *techArea = new QVBoxLayout();
+//  techArea->setObjectName("techarea");
+//  //   techArea->se
+//  scroll->setLayout(techArea);
 }
 
 void MainWindow::authorizeUser() { emit got_auth_data(); }
@@ -53,7 +52,7 @@ void MainWindow::registerUser() { emit got_register_data(); }
 
 void MainWindow::clear_projects() {
   QLayoutItem *child;
-  while ((child = techArea->takeAt(0)) != nullptr) {
+  while ((child = ui_Main->project_lay->takeAt(0)) != nullptr) {
     delete child->widget();
     delete child;
   }
@@ -64,12 +63,13 @@ void MainWindow::add_new_project(){
 }
 
 void MainWindow::update_projects() {
-  QLayout *lay = techArea->layout();
+    qDebug() << "упало до";
+  QLayout *lay = ui_Main->project_lay->layout();
+
+  qDebug() << "упало после";
   for (const auto &i : projects) {
-    // может сделать это обычной кнопкой
-    project_button *project =
-        new project_button(i.m_name, i.m_deadline, i.m_condition);
-    lay->addWidget(project);
+      qDebug()<< QString::fromStdString(i);
+    lay->addWidget(new QPushButton(QString::fromStdString(i)));
   }
 }
 

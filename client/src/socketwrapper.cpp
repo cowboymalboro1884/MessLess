@@ -1,4 +1,5 @@
 #include "include/socketwrapper.h"
+#include <sstream>
 
 namespace client::network {
 
@@ -18,6 +19,33 @@ void SocketWrapper::connect() {
 void SocketWrapper::send_data(const QByteArray &data) {
     m_socket_wrap->write(data);
     m_socket_wrap->waitForBytesWritten();
+}
+
+std::vector<std::string> SocketWrapper::getProjects(const QString &email, const QString &password, const QString &user_role){
+    QJsonObject jsonquery;
+    jsonquery["type"] = "get_projects";
+    jsonquery["email"] = email;
+    jsonquery["password"] = password;
+    jsonquery["user_role"] = user_role;
+
+    QJsonDocument doc(jsonquery);
+
+    send_data(doc.toJson());
+    m_socket_wrap->waitForReadyRead();
+    QByteArray response = m_socket_wrap->readAll();
+
+    QJsonParseError json_data_error;
+    QJsonDocument json_data =
+        QJsonDocument::fromJson(response, &json_data_error);
+
+    std::string projects = json_data.object().value("message").toString().toStdString();
+    std::vector<std::string> vec;
+    std::stringstream ss(projects);
+    std::string proj;
+    while(std::getline(ss, proj, '|')) {
+        vec.push_back(proj);
+    }
+    return vec;
 }
 
 bool SocketWrapper::createTask(

@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "auth_window.h"
-#include "project_button.h"
 #include "reg_window.h"
 #include "socketwrapper.h"
 #include <QBoxLayout>
@@ -31,7 +30,7 @@ public:
   QString project_name;
   QString project_description;
   bool flag;
-  std::vector<project_button> projects; //нужен будет для сортировки
+  std::vector<std::string> projects; //нужен будет для сортировки
   QBoxLayout *techArea;
   QScrollArea *scroll;
   auth_window ui_Auth; // экземпляры окна авторизации и окна регистрации

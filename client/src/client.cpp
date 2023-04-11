@@ -35,7 +35,10 @@ void Client::got_auth_data() {
                                        m_window->ui_Auth.getPass());
   if (user.status == "success") {
     m_window->ui_Auth.close();
+    m_window->ui_Reg.close();
+    m_window->projects = m_socketwrapper->getProjects(user.email,user.password,user.user_role);
     m_window->show();
+    m_window->update_projects();
   } else {
     //добавить ошибку
   }
@@ -43,7 +46,9 @@ void Client::got_auth_data() {
 
 void Client::got_add_project_data(){
     m_window->flag = m_socketwrapper->createProject(user.email,user.password,user.user_role,m_window->project_name, m_window->project_description);
-
+    qDebug() << "flag: " << m_window->flag;
+    m_window->projects = m_socketwrapper->getProjects(user.email,user.password,user.user_role);
+    qDebug() << "проекты обновлены";
 }
 
 Client::~Client() { m_window->deleteLater(); }

@@ -15,16 +15,19 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
           [&] { //мб надо будт изменить на this
             main_wind->project_name=get_project_name();
             main_wind->project_description=get_project_description();
+            qDebug() << 1;
             main_wind->add_new_project();
-
+            qDebug() << 2;
             if (!main_wind->flag) {
               //написать какой-нибудь popup с ошибкой
 
             } else {
                 this->close();
-
+                qDebug() <<3;
               main_wind->clear_projects();
-              main_wind->update_projects(); //написать функцию в main
+              qDebug() << "проекты очищены";
+              main_wind->update_projects();
+              qDebug() <<"проекты обновлены";
             }
           });
 }
