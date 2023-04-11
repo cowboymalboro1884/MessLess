@@ -95,9 +95,10 @@ QJsonDocument RequestHolder::getProjects(const QJsonObject &request) {
     std::string password = request.value("password").toString().toStdString();
     std::string user_role = request.value("user_role").toString().toStdString();
     messless::PrivateUserInfo sender{email, password, user_role};
-    std::vector<std::string> resp = messless::DatabaseProject::get_projects(*database, sender);
+    std::vector<std::string> resp =
+        messless::DatabaseProject::get_projects(*database, sender);
     std::string message;
-    for(const std::string& str: resp){
+    for (const std::string &str : resp) {
         message += str + '|';
     }
 
@@ -185,6 +186,39 @@ QJsonDocument RequestHolder::createTask(const QJsonObject &request) {
     return doc;
 }
 
+QJsonDocument RequestHolder::getTasks(const QJsonObject &request) {
+    qDebug() << "----------------------------\ngot for get tasks list";
+    std::string email = request.value("email").toString().toStdString();
+    std::string password = request.value("password").toString().toStdString();
+    std::string user_role = request.value("user_role").toString().toStdString();
+
+    messless::PrivateUserInfo sender{email, password, user_role};
+
+    std::string project_name =
+        request.value("project_name").toString().toStdString();
+
+    int project_id = messless::DatabaseProject::get_project_id(
+        *database, sender, project_name
+    );
+    std::vector<messless::Task> resp =
+        messless::DatabaseProject::get_tasks(*database, project_id);
+    std::string message;
+
+    for (messless::Task task : resp) {
+        message += task.task_name + '\n' + task.condition + '\n' +
+                   task.deadline + '\n';
+        message += '|';
+    }
+
+    QJsonObject jsonquery;
+    jsonquery["status"] = "success";
+    jsonquery["message"] = QString::fromStdString(message);
+    QJsonDocument doc(jsonquery);
+
+    qDebug() << "----------------------------";
+    return doc;
+}
+
 QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
     QJsonParseError json_data_error;
     QJsonDocument json_data =
@@ -218,10 +252,14 @@ QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
             qDebug() << "RH: create_task";
 
             return createTask(json_data.object());
-        }else if (event_type == "get_projects") {
+        } else if (event_type == "get_projects") {
             qDebug() << "RH: get projects";
-            
+
             return getProjects(json_data.object());
+        } else if (event_type == "get_tasks") {
+            qDebug() << "RH: get_tasks";
+
+            return getTasks(json_data.object());
         } else {
             qDebug() << "Got wrong request";
             QJsonObject jsonResponse;
