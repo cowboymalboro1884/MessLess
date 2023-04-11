@@ -158,6 +158,12 @@ QJsonDocument RequestHolder::createTask(const QJsonObject &request) {
     std::string deadline = request.value("deadline").toString().toStdString();
     std::string project_name =
         request.value("project_name").toString().toStdString();
+    
+    std::string email = request.value("email").toString().toStdString();
+    std::string password = request.value("password").toString().toStdString();
+    std::string user_role = request.value("user_role").toString().toStdString();
+    messless::PrivateUserInfo sender{email, password, user_role};
+    
 
     qDebug() << "task name:" << QString::fromStdString(task_name);
     qDebug() << "description:" << QString::fromStdString(description);
@@ -165,8 +171,9 @@ QJsonDocument RequestHolder::createTask(const QJsonObject &request) {
     qDebug() << "project name:" << QString::fromStdString(project_name);
 
     int project_id = messless::DatabaseProject::get_project_id(
-        *database, user, project_name
+        *database, sender, project_name
     );
+    
     std::vector<messless::User> user_list =
         messless::DatabaseProject::get_project_user_list(*database, project_id);
 
