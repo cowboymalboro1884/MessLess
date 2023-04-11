@@ -102,6 +102,7 @@ QJsonDocument RequestHolder::getProjects(const QJsonObject &request) {
     }
 
     QJsonObject jsonquery;
+    jsonquery["status"] = "success";
     jsonquery["message"] = QString::fromStdString(message);
     QJsonDocument doc(jsonquery);
 
@@ -217,6 +218,10 @@ QJsonDocument RequestHolder::proccessData(const QByteArray &incoming_data) {
             qDebug() << "RH: create_task";
 
             return createTask(json_data.object());
+        }else if (event_type == "get_projects") {
+            qDebug() << "RH: get projects";
+            
+            return getProjects(json_data.object());
         } else {
             qDebug() << "Got wrong request";
             QJsonObject jsonResponse;
