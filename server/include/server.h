@@ -12,19 +12,18 @@
 
 class Server : public QObject {
     Q_OBJECT
-    QMap<qint32, ClientSocket *> sockets;
-    QByteArray Data;
-    messless::Database *db;
+    QMap<qint32, ClientSocket *> connected_sockets;
+    messless::Database *m_db;
     qint16 PORT;
 
 public:
     ~Server();
-    bool startServer(qint16 port, std::string &config_file);
+    bool start_server(qint16 port, std::string &config_file);
     void sockReady();
-    void sockDisc(ClientSocket *);
-    bool connectToDatabase(std::string &config_file);
+    void sock_disc(ClientSocket *);
+    bool connect_to_database(std::string &config_file);
 
-    static Server &getInstance() {
+    static Server &get_instance() {
         static Server server;
         return server;
     };
@@ -32,7 +31,7 @@ public:
     QTcpServer *server;
 
 public slots:
-    void incomingConnection();
+    void incoming_connection();
 
     // made a singleton
 private:
