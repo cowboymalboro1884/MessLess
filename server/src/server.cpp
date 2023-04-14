@@ -5,7 +5,7 @@ Server::Server(QObject *parent)
 
       };
 
-bool Server::startServer(qint16 port, std::string &config_file) {
+bool Server::start_server(qint16 port, std::string &config_file) {
     server = new QTcpServer(this);
     PORT = port;
 
@@ -14,10 +14,10 @@ bool Server::startServer(qint16 port, std::string &config_file) {
         qDebug() << "My ip " << server->serverAddress().toString();
 
         connect(
-            server, SIGNAL(newConnection()), this, SLOT(incomingConnection())
+            server, SIGNAL(newConnection()), this, SLOT(incoming_connection())
         );
 
-        if (connectToDatabase(config_file)) {
+        if (connect_to_database(config_file)) {
             qDebug() << "Connected to database";
         } else {
             qDebug() << "Couldn't connect to database";
@@ -30,35 +30,35 @@ bool Server::startServer(qint16 port, std::string &config_file) {
     return true;
 }
 
-void Server::incomingConnection() {
+void Server::incoming_connection() {
     qDebug() << "New connection!";
     QTcpSocket *next_connection = server->nextPendingConnection();
-    qDebug() << db->connection.is_open() << "connection\n";
+    qDebug() << m_db->connection.is_open() << "connection\n";
     ClientSocket *connected_socket = new ClientSocket(
-        next_connection->socketDescriptor(), this, next_connection, db
+        next_connection->socketDescriptor(), this, next_connection, m_db
     );
-    sockets[connected_socket->get_id()] = connected_socket;
+    connected_sockets[connected_socket->get_id()] = connected_socket;
 }
 
-void Server::sockDisc(ClientSocket *socket) {
-    qDebug() << "Disconnected" << socket->get_id();
-    sockets.erase(sockets.find(socket->get_id()));
+void Server::sock_disc(ClientSocket *socket) {
+    connected_sockets.erase(connected_sockets.find(socket->get_id()));
+    delete socket;
 }
 
-bool Server::connectToDatabase(std::string &config_file) {
+bool Server::connect_to_database(std::string &config_file) {
     std::ifstream input(config_file);
     std::string private_salt, connection_string;
     std::getline(input, connection_string);
     std::getline(input, private_salt);
     static messless::Database db_(connection_string, private_salt);
-    db = &db_;
+    m_db = &db_;
     return db_.connection.is_open();
 }
 
 Server::~Server() {
-    for (auto &client : sockets) {
+    for (auto &client : connected_sockets) {
         client->socket->deleteLater();
     }
     server->deleteLater();
-    delete db;
+    delete m_db;
 }
