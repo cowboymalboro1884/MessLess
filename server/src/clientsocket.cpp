@@ -15,14 +15,13 @@ ClientSocket::ClientSocket(
       server(server_),
       socket_descriptor(ID) {
     qDebug() << "client" << ID << "connected";
-    qDebug() << db->connection.is_open() << "client1\n";
-    qDebug() << db_->connection.is_open() << "client2\n";
     holder = new RequestHolder(db);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 
 ClientSocket::~ClientSocket() {
+    qDebug() << "Disconnected" << get_id();
     socket->deleteLater();
 }
 
@@ -37,7 +36,7 @@ void ClientSocket::readData() {
 
 void ClientSocket::disconnected() {
     qDebug() << "try to disconnect";
-    server->sockDisc(this);
+    server->sock_disc(this);
 }
 
 void ClientSocket::sendData(const QByteArray &response) {
