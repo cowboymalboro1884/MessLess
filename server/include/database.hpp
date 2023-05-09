@@ -43,6 +43,7 @@ public:
     friend class DatabaseUser;
     friend class DatabaseCompany;
     friend class DatabaseProject;
+    friend class DatabaseChats;
 };
 
 class DatabaseUser {

@@ -87,6 +87,15 @@ unsigned int DatabaseCompany::create_company(
     int company_id = worker.query_value<int>(
         "SELECT id FROM companies ORDER BY id DESC LIMIT 1;"
     );
+    worker.exec("INSERT INTO chats (company_id,project_id) VALUES('"+db.shield_string(std::to_string(company_id))+"','"+'0'+"');");
+    int chat_id = worker.query_value<int>(
+        "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+    );
+    worker.exec(
+        "UPDATE companies SET chat_id =" +
+        db.shield_string(std::to_string(chat_id)) + " WHERE id=" + db.shield_string(std::to_string(company_id)) +
+        " ;"
+    );
     worker.commit();
     return company_id;
 }
