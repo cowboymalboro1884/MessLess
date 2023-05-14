@@ -1,39 +1,49 @@
 #include <QJsonObject>
 #include <QJsonParseError>
-
+#include "requestholder.h"
 #include "server.h"
 
-ClientSocket::ClientSocket(qintptr ID, Server *server_, QTcpSocket *socket_,
-                           messless::Database *db_, QObject *parent)
-    : QObject(nullptr), socket(socket_), db(db_), server(server_),
-      socket_descriptor(ID) {
-  qDebug() << "client" << ID << "connected";
-  qDebug() << db->connection.is_open() << "client1\n";
-  qDebug() << db_->connection.is_open() << "client2\n";
-  holder = new RequestHolder(db);
-  connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
-  connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+ClientSocket::ClientSocket(
+    qintptr ID,
+    Server *server_,
+    QTcpSocket *socket_,
+    messless::Database *db_,
+    QObject *parent
+)
+    : QObject(nullptr),
+      socket(socket_),
+      server(server_),
+      m_db(db_),
+      m_socket_descriptor(ID) {
+    qDebug() << "client" << ID << "connected";
+    request_holder = new RequestHolder(m_db);
+    connect(socket, SIGNAL(readyRead()), this, SLOT(read_data()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 
-ClientSocket::~ClientSocket() { socket->deleteLater(); }
+ClientSocket::~ClientSocket() {
+    qDebug() << "Disconnected" << get_id();
+    socket->deleteLater();
+}
 
-void ClientSocket::readData() {
-  QByteArray data = socket->readAll();
-  qDebug() << "got data";
-  QJsonDocument json_responce = holder->proccessData(data);
-  qDebug() << "sending data to socket";
-  qDebug() << json_responce;
-  sendData(json_responce.toJson());
+void ClientSocket::read_data() {
+    QByteArray data = socket->readAll();
+    QJsonDocument json_responce = request_holder->proccess_data(data);
+    qDebug() << "sending data to socket";
+    qDebug() << json_responce;
+    send_data(json_responce.toJson());
 }
 
 void ClientSocket::disconnected() {
-  qDebug() << "try to disconnect";
-  server->sockDisc(this);
+    qDebug() << "try to disconnect";
+    server->sock_disc(this);
 }
 
-void ClientSocket::sendData(const QByteArray &response) {
-  socket->write(response);
-  socket->flush();
+void ClientSocket::send_data(const QByteArray &response) {
+    socket->write(response);
+    socket->flush();
 }
 
-qint16 ClientSocket::get_id() const { return socket_descriptor; }
+qint16 ClientSocket::get_id() const {
+    return m_socket_descriptor;
+}

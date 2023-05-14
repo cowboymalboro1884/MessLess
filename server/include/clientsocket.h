@@ -6,37 +6,35 @@
 #include <QJsonParseError>
 #include <QString>
 #include <QTcpSocket>
-
-#include "database.h"
 #include "requestholder.h"
 
 class Server;
 
 class ClientSocket : QObject {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  explicit ClientSocket(qintptr ID, Server *server_, QTcpSocket *socket_,
-                        messless::Database *db_, QObject *parent = nullptr);
-  ~ClientSocket();
-  void sendData(const QByteArray &data);
-  qint16 get_id() const;
-  QTcpSocket *socket;
-  bool isCheckSuccessfull = false;
+    explicit ClientSocket(
+        qintptr ID,
+        Server *m_server,
+        QTcpSocket *m_socket,
+        messless::Database *m_db,
+        QObject *parent = nullptr
+    );
+    ~ClientSocket();
+    void send_data(const QByteArray &data);
+    qint16 get_id() const;
+    QTcpSocket *socket;
 
-  RequestHolder *holder;
-
-  QString user_role;
-  QString email;
-  QString password;
+    RequestHolder *request_holder;
+    Server *server;
 
 public slots:
-  void readData();
-  void disconnected();
+    void read_data();
+    void disconnected();
 
 private:
-  messless::Database *db;
-  Server *server;
-  qintptr socket_descriptor;
+    messless::Database *m_db;
+    qintptr m_socket_descriptor;
 };
 
-#endif // CLIENTSOCKET_H
+#endif  // CLIENTSOCKET_H
