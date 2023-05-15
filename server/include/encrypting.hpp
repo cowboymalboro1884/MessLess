@@ -52,10 +52,10 @@ public:
         const std::string &personal_salt
     );
     [[nodiscard]] static RSAKeys create_keys();
-    [[nodiscard]] static PrivateKeys to_normal_view_private_keys(const RSA::PrivateKey& r);
+    [[maybe_unused]] [[nodiscard]] static PrivateKeys to_normal_view_private_keys(const RSA::PrivateKey& r);
     [[nodiscard]] static PublicKeys to_normal_view_public_keys(const RSA::PublicKey & r);
     [[nodiscard]] static RSA::PublicKey to_cryptopp_public_key(const PublicKeys& r);
-    [[nodiscard]] static RSA::PrivateKey to_cryptopp_private_key(const PrivateKeys& r);
+    [[maybe_unused]][[nodiscard]] static RSA::PrivateKey to_cryptopp_private_key(const PrivateKeys& r);
     [[nodiscard]] static std::string encrypt(const std::string &message,RSA::PublicKey &publicKey);
     [[nodiscard]] static std::string decrypt(const std::string &message,RSA::PrivateKey  &privateKey);
 };
