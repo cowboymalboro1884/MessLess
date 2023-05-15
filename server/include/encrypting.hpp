@@ -51,13 +51,13 @@ public:
         const std::string &password,
         const std::string &personal_salt
     );
-    static RSAKeys create_keys();
-    static PrivateKeys to_normal_view_private_keys(const RSA::PrivateKey& r);
-    static PublicKeys to_normal_view_public_keys(const RSA::PublicKey & r);
-    static RSA::PublicKey to_cryptopp_public_key(const PublicKeys& r);
-    static RSA::PrivateKey to_cryptopp_private_key(const PrivateKeys& r);
-    static std::string encrypt(const std::string &message,RSA::PublicKey &publicKey);
-    static std::string decrypt(const std::string &message,RSA::PrivateKey  &privateKey);
+    [[nodiscard]] static RSAKeys create_keys();
+    [[nodiscard]] static PrivateKeys to_normal_view_private_keys(const RSA::PrivateKey& r);
+    [[nodiscard]] static PublicKeys to_normal_view_public_keys(const RSA::PublicKey & r);
+    [[nodiscard]] static RSA::PublicKey to_cryptopp_public_key(const PublicKeys& r);
+    [[nodiscard]] static RSA::PrivateKey to_cryptopp_private_key(const PrivateKeys& r);
+    [[nodiscard]] static std::string encrypt(const std::string &message,RSA::PublicKey &publicKey);
+    [[nodiscard]] static std::string decrypt(const std::string &message,RSA::PrivateKey  &privateKey);
 };
 }  // namespace messless
 #endif

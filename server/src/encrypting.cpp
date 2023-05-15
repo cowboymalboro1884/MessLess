@@ -3,7 +3,6 @@
 
 namespace messless {
 
-
 std::string messless::Encrypting::get_hash(std::string &str) {
     std::string new_string;
     CryptoPP::SHA256 hash;
@@ -46,72 +45,88 @@ std::string messless::Encrypting::get_random_string() {
     return get_hash(str);
 }
 
-RSAKeys messless::Encrypting::create_keys(){
+[[nodiscard]] RSAKeys messless::Encrypting::create_keys() {
     CryptoPP::AutoSeededRandomPool rng;
     CryptoPP::InvertibleRSAFunction params;
     params.GenerateRandomWithKeySize(rng, 3072);
     RSA::PrivateKey privateKey(params);
     // NOLINTNEXTLINE
     RSA::PublicKey publicKey(params);
-    return {publicKey,privateKey};
+    return {publicKey, privateKey};
 }
 
-PrivateKeys to_normal_view_private_keys(const RSA::PrivateKey& r) {
+[[nodiscard]] PrivateKeys Encrypting::to_normal_view_private_keys(
+    const RSA::PrivateKey &r
+) {
     std::stringstream ss;
-    ss<<r.GetModulus()<<' '<<r.GetPrime1()<<' '<<r.GetPrime2()<<' '<<r.GetPrivateExponent()<<' '<<r.GetPublicExponent();
+    ss << r.GetModulus() << ' ' << r.GetPrime1() << ' ' << r.GetPrime2() << ' '
+       << r.GetPrivateExponent() << ' ' << r.GetPublicExponent();
     PrivateKeys new_keys;
-    ss>>new_keys.modulus>>new_keys.first_prime>>new_keys.second_prime>>new_keys.private_exponent>>new_keys.public_exponent;
-    return new_keys;
-}
-PublicKeys Encrypting::to_normal_view_public_keys(const RSA::PublicKey &r) {
-    std::stringstream ss;
-    ss<<r.GetModulus()<<r.GetPublicExponent();
-    PublicKeys new_keys;
-    ss>>new_keys.modulus>>new_keys.public_exponent;
+    ss >> new_keys.modulus >> new_keys.first_prime >> new_keys.second_prime >>
+        new_keys.private_exponent >> new_keys.public_exponent;
     return new_keys;
 }
 
-std::string
+[[nodiscard]] PublicKeys Encrypting::to_normal_view_public_keys(
+    const RSA::PublicKey &r
+) {
+    std::stringstream ss;
+    ss << r.GetModulus() << r.GetPublicExponent();
+    PublicKeys new_keys;
+    ss >> new_keys.modulus >> new_keys.public_exponent;
+    return new_keys;
+}
+
+[[nodiscard]] std::string
 Encrypting::encrypt(const std::string &message, RSA::PublicKey &publicKey) {
     CryptoPP::AutoSeededRandomPool rng;
     CryptoPP::RSAES_OAEP_SHA_Encryptor e(publicKey);
     std::string cipher;
-    CryptoPP::StringSource ss1(message, true,
-                     new CryptoPP::PK_EncryptorFilter(rng, e,
-                                            new CryptoPP::StringSink(cipher)
-                     )
+    CryptoPP::StringSource ss1(
+        message, true,
+        new CryptoPP::PK_EncryptorFilter(
+            rng, e, new CryptoPP::StringSink(cipher)
+        )
     );
     return cipher;
 }
-std::string Encrypting::decrypt(const std::string &message, RSA::PrivateKey &privateKey) {
+
+[[nodiscard]] std::string
+Encrypting::decrypt(const std::string &message, RSA::PrivateKey &privateKey) {
     CryptoPP::RSAES_OAEP_SHA_Decryptor d(privateKey);
     CryptoPP::AutoSeededRandomPool rng;
     std::string recovered;
-    CryptoPP::StringSource ss2(message, true,
-                     new CryptoPP::PK_DecryptorFilter(rng, d,
-                                            new CryptoPP::StringSink(recovered)
-                     )
+    CryptoPP::StringSource ss2(
+        message, true,
+        new CryptoPP::PK_DecryptorFilter(
+            rng, d, new CryptoPP::StringSink(recovered)
+        )
     );
     return recovered;
 }
 
-RSA::PublicKey Encrypting::to_cryptopp_public_key(const PublicKeys &r) {
+[[nodiscard]] RSA::PublicKey Encrypting::to_cryptopp_public_key(
+    const PublicKeys &r
+) {
     RSA::PublicKey x;
     std::stringstream ss;
-    ss<<r.modulus<<' '<<r.public_exponent;
-    CryptoPP::Integer n,e;
-    ss>>n>>e;
-    x.Initialize(n,e);
+    ss << r.modulus << ' ' << r.public_exponent;
+    CryptoPP::Integer n, e;
+    ss >> n >> e;
+    x.Initialize(n, e);
     return x;
 }
 
-RSA::PrivateKey Encrypting::to_cryptopp_private_key(const PrivateKeys &r) {
+[[nodiscard]] RSA::PrivateKey Encrypting::to_cryptopp_private_key(
+    const PrivateKeys &r
+) {
     RSA::PrivateKey x;
     std::stringstream ss;
-    ss<<r.modulus<<' '<<r.first_prime<<' '<<r.second_prime<<' '<<r.private_exponent<<' '<<r.public_exponent;
-    CryptoPP::Integer n,p,q,d,e;
-    ss>>n>>p>>q>>d>>e;
-    x.Initialize(n,e,d);//TODO maybe isn't correct
+    ss << r.modulus << ' ' << r.first_prime << ' ' << r.second_prime << ' '
+       << r.private_exponent << ' ' << r.public_exponent;
+    CryptoPP::Integer n, p, q, d, e;
+    ss >> n >> p >> q >> d >> e;
+    x.Initialize(n, e, d);  // TODO maybe isn't correct
     return x;
 }
 
