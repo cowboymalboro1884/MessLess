@@ -55,9 +55,8 @@ std::string messless::Encrypting::get_random_string() {
     return {publicKey, privateKey};
 }
 
-[[nodiscard]] PrivateKeys Encrypting::to_normal_view_private_keys(
-    const RSA::PrivateKey &r
-) {
+[[maybe_unused]] [[nodiscard]] PrivateKeys
+Encrypting::to_normal_view_private_keys(const RSA::PrivateKey &r) {
     std::stringstream ss;
     ss << r.GetModulus() << ' ' << r.GetPrime1() << ' ' << r.GetPrime2() << ' '
        << r.GetPrivateExponent() << ' ' << r.GetPublicExponent();
@@ -117,9 +116,8 @@ Encrypting::decrypt(const std::string &message, RSA::PrivateKey &privateKey) {
     return x;
 }
 
-[[nodiscard]] RSA::PrivateKey Encrypting::to_cryptopp_private_key(
-    const PrivateKeys &r
-) {
+[[maybe_unused]] [[nodiscard]] RSA::PrivateKey
+Encrypting::to_cryptopp_private_key(const PrivateKeys &r) {
     RSA::PrivateKey x;
     std::stringstream ss;
     ss << r.modulus << ' ' << r.first_prime << ' ' << r.second_prime << ' '
