@@ -64,6 +64,8 @@ int main() {
                   << '\n';
     }*/
     unsigned int chat_id_user_info1_company_chat = messless::DatabaseChats::get_chat_id(db,messless::DatabaseChats::get_company_id(db,user_info1),0);
+    std::cout<<messless::DatabaseChats::get_company_id(db,user_info1)<<'\n';
+    std::cout<<chat_id_user_info1_company_chat<<'\n';
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my message","");
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"wow message","");
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my message","");
