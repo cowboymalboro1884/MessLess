@@ -11,7 +11,7 @@ int main() {
     std::getline(input, connection_string);
     std::getline(input, private_salt);
     messless::Database db(connection_string, private_salt);
-    std::cout << messless::DatabaseCompany::create_company(
+    /*std::cout << messless::DatabaseCompany::create_company(
                      db, "ababa", "we are good company"
                  )
               << "Company creating\n";
@@ -27,21 +27,21 @@ int main() {
                  )
                      .email
               << "User creating\n";
-    messless::PrivateUserInfo user_info1 = messless::DatabaseUser::login_user(
+    */messless::PrivateUserInfo user_info1 = messless::DatabaseUser::login_user(
         db, "amogus@gmail.com", "quwuqewq!!!"
-    );
+    );/*
     std::cout<<
     messless::DatabaseProject::create_project(db,user_info1,"my_project","")<<"Creating \
     project\n";
     std::cout<<
     messless::DatabaseProject::get_project_id(db,user_info1,"my_project")<<"Project \
-    id\n";
+    id\n";*/
     unsigned int prID =
         messless::DatabaseProject::get_project_id(db, user_info1, "my_project");
     messless::PrivateUserInfo user_info2 =
         messless::DatabaseUser::login_user(db, "amogus11@gmail.com", "zalupa");
-     messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
-    std::vector<messless::User> project1_users =
+     //messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
+    /*std::vector<messless::User> project1_users =
         messless::DatabaseProject::get_project_user_list(db, prID);
     for (auto &x : project1_users) {
         std::cout << x.name << " " << x.surname << " " << x.email << " "
@@ -62,7 +62,7 @@ int main() {
     for (auto &x : tasks) {
         std::cout << x.task_name << " " << x.condition << " " << x.deadline
                   << '\n';
-    }
+    }*/
     unsigned int chat_id_user_info1_company_chat = messless::DatabaseChats::get_chat_id(db,messless::DatabaseChats::get_company_id(db,user_info1),0);
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my message","");
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"wow message","");
