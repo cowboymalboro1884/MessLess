@@ -77,8 +77,8 @@ int main() {
     for (auto y:x){
         std::cout<<y.name<<' '<<y.surname<<' '<<y.email<<' '<<y.user_role<<'\n';
     }
-    unsigned int new_project = messless::DatabaseProject::create_project(db,user_info1,"new_project","bio");
-    messless::DatabaseProject::add_user_in_project(db,user_info2.email,new_project,"employee");
-    unsigned int new_task = messless::DatabaseProject::create_new_task(db,new_project,"do do","qweqw","2023-07-21 00:00:00",)
+    //unsigned int new_project = messless::DatabaseProject::create_project(db,user_info1,"new_project","bio");
+    //messless::DatabaseProject::add_user_in_project(db,user_info2.email,new_project,"employee");
+    //unsigned int new_task = messless::DatabaseProject::create_new_task(db,new_project,"do do","qweqw","2023-07-21 00:00:00",)
 
 }
