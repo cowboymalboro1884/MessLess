@@ -64,7 +64,7 @@ DatabaseChats::get_all_messages(Database &db, unsigned int chat_id) {
     std::vector<Message> messages;
     pqxx::work worker(db.connection);
     pqxx::result res = worker.exec(
-        "SELECT text_message, file_link, sender_id FROM projects WHERE chat_id=" +
+        "SELECT text_message, file_link, sender_id FROM messages WHERE chat_id=" +
         db.shield_string(std::to_string(chat_id)) + ";"
     );
     for (auto row: res){
