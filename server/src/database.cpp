@@ -87,14 +87,17 @@ unsigned int DatabaseCompany::create_company(
     int company_id = worker.query_value<int>(
         "SELECT id FROM companies ORDER BY id DESC LIMIT 1;"
     );
-    worker.exec("INSERT INTO chats (company_id,project_id) VALUES('"+db.shield_string(std::to_string(company_id))+"','"+'0'+"');");
-    int chat_id = worker.query_value<int>(
-        "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+    worker.exec(
+        "INSERT INTO chats (company_id,project_id) VALUES('" +
+        db.shield_string(std::to_string(company_id)) + "','" + '0' + "');"
     );
+    int chat_id =
+        worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+        );
     worker.exec(
         "UPDATE companies SET general_chat_id =" +
-        db.shield_string(std::to_string(chat_id)) + " WHERE id=" + db.shield_string(std::to_string(company_id)) +
-        " ;"
+        db.shield_string(std::to_string(chat_id)) +
+        " WHERE id=" + db.shield_string(std::to_string(company_id)) + " ;"
     );
     worker.commit();
     return company_id;
@@ -140,5 +143,49 @@ PrivateUserInfo DatabaseCompany::create_user(
     return {email, password_hash, user_role};
 }
 
+std::vector<User> DatabaseCompany::get_company_user_list(
+    Database &db,
+    PrivateUserInfo user_info
+) {
+    std::vector<User> users;
+    pqxx::work worker(db.connection);
+    unsigned int company_id = worker.query_value<int>(
+        "SELECT company_id FROM users "
+        "WHERE email='" +
+        db.shield_string(user_info.email) + "';"
+    );
+    pqxx::result res = worker.exec(
+        "SELECT id FROM users WHERE "
+        "company_id=" +
+        db.shield_string(std::to_string(company_id)) + ";"
+    );
+    for (auto row : res) {
+        unsigned int user_id = std::stoi(row[0].c_str());
+        User current_user;
+        current_user.email = worker.query_value<std::string>(
+            "SELECT email FROM users WHERE id=" +
+            db.shield_string(std::to_string(user_id)) + ";"
+        );
+        current_user.name = worker.query_value<std::string>(
+            "SELECT first_name FROM users WHERE id=" +
+            db.shield_string(std::to_string(user_id)) + ";"
+        );
+        current_user.surname = worker.query_value<std::string>(
+            "SELECT second_name FROM users WHERE id=" +
+            db.shield_string(std::to_string(user_id)) + ";"
+        );
+        unsigned user_role_id = worker.query_value<int>(
+            "SELECT employee_role_id FROM users WHERE "
+            "user_id=" +
+            db.shield_string(std::to_string(user_id)) ";"
+        );
+        current_user.user_role = worker.query_value<std::string>(
+            "SELECT role_description FROM employee_roles WHERE id=" +
+            db.shield_string(std::to_string(user_role_id)) + ";"
+        );
+        users.push_back(current_user);
+    }
+    return users;
+}
 }  // namespace messless
 #endif

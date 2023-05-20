@@ -24,12 +24,13 @@ public:
     static bool send_message(
         Database &db,
         unsigned int chat_id,
-        PrivateUserInfo& user,
+        PrivateUserInfo &user,
         const std::string &message,
         const std::string &file_link
     );  // returns true if message sent
 
-    static std::vector<Message> get_all_messages(Database &db, unsigned int chat_id);
+    static std::vector<Message>
+    get_all_messages(Database &db, unsigned int chat_id);
 };
 }  // namespace messless
 #endif

@@ -40,7 +40,7 @@ unsigned int DatabaseProject::create_project(
     );
     lock.unlock();
     worker.commit();
-    add_user_in_project(db, user, project_id, "admin");
+    add_user_in_project(db, user.email, project_id, "admin");
     return project_id;
 }
 
@@ -70,14 +70,14 @@ unsigned int DatabaseProject::get_project_id(
 
 void DatabaseProject::add_user_in_project(
     Database &db,
-    PrivateUserInfo &user,
+    const std::string& email,
     unsigned int project_id,
     const std::string &user_role
 ) {
     pqxx::work worker(db.connection);
 
     unsigned int user_id = worker.query_value<int>(
-        "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
         "';"
     );
     unsigned int user_role_id = worker.query_value<int>(

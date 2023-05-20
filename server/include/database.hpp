@@ -71,6 +71,8 @@ public:
         unsigned int company_id,
         const std::string &user_role
     );  // return user id
+    static std::vector<User>
+    get_company_user_list(Database &db, PrivateUserInfo user_info);
 };
 
 }  // namespace messless
