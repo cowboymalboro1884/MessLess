@@ -50,7 +50,6 @@ bool DatabaseChats::send_message(
             "SELECT id FROM users WHERE email='" +
             db.shield_string(user.email) + "';"
         );
-        std::cout<<user_id<<'\n';
         worker.exec(
             "INSERT into messages (chat_id,text_message,sender_id,file_link) VALUES(" +
             db.shield_string(std::to_string(chat_id)) + ",'" +
