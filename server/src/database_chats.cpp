@@ -25,7 +25,7 @@ unsigned int DatabaseChats::get_chat_id(
     try {
         pqxx::work worker(db.connection);
         unsigned int chat_id = worker.query_value<int>(
-            "SELECT chat_id FROM chats "
+            "SELECT id FROM chats "
             "WHERE company_id=" +
             db.shield_string(std::to_string(company_id)) +
             " AND project_id=" + db.shield_string(std::to_string(project_id))+";"

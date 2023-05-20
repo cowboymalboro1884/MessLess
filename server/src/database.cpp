@@ -92,7 +92,7 @@ unsigned int DatabaseCompany::create_company(
         "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
     );
     worker.exec(
-        "UPDATE companies SET chat_id =" +
+        "UPDATE companies SET general_chat_id =" +
         db.shield_string(std::to_string(chat_id)) + " WHERE id=" + db.shield_string(std::to_string(company_id)) +
         " ;"
     );
