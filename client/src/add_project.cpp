@@ -7,9 +7,6 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   this->setFixedSize(400, 200);
   main_wind->setEnabled(false);
   this->setAttribute(Qt::WA_DeleteOnClose);
-//  ui->name_lineEdit->setStyleSheet(
-//      ".QLineEdit {background-color : #191919;border-width: 2px; "
-//      "border-radius: 10px; padding: 6px;}");
 
   connect(ui->addProject, &QPushButton::clicked,
           [&] { //мб надо будт изменить на this

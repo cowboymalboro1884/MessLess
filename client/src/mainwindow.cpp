@@ -22,6 +22,16 @@ MainWindow::MainWindow(QWidget *parent)
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
+  connect(ui_Main->projectsButton, &QPushButton::clicked, [&]{
+      ui_Main->tabWidget->setCurrentIndex(1);
+  });
+  connect(ui_Main->chatButton, &QPushButton::clicked, [&]{
+      ui_Main->tabWidget->setCurrentIndex(0);
+  });
+  connect(ui_Main->accButton, &QPushButton::clicked, [&]{
+      ui_Main->tabWidget->setCurrentIndex(2);
+  });
+
 
 }
 
@@ -93,3 +103,6 @@ MainWindow::~MainWindow() {
   //Возможно нужно будет поудалять все
   exit(0);
 }
+
+
+

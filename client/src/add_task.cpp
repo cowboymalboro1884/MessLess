@@ -45,6 +45,3 @@ QString AddTask::get_task_description(){
 QString AddTask::get_task_deadline(){
     return ui->task_deadline_edit->text();
 }
-
-
-

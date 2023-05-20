@@ -55,6 +55,7 @@ private slots:
   void registerWindowShow();
   void authorizeWindowShow();
 
+
 signals:
   void got_auth_data();
   void got_register_data();

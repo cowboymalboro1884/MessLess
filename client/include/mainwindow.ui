@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>681</width>
-    <height>292</height>
+    <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(255, 255, 255)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -20,11 +23,15 @@
       <property name="styleSheet">
        <string notr="true">QTabWidget:tab-bar
 {
+	background-color:rgb(176, 222, 240);
 	alignment:center;
-}</string>
+	height:0px;
+	
+}
+</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -41,12 +48,30 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(247, 247, 247)</string>
+       </property>
        <attribute name="title">
         <string>Projects</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="newProjetButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+background-color: rgb(80, 108, 200);
+	color: white;
+border: 1px black;
+     border-radius: 4px;
+	height:26px;
+	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+}
+
+
+QPushButton:hover{
+border: 1px solid rgb(255, 255, 255);
+}</string>
+          </property>
           <property name="text">
            <string>Add new project</string>
           </property>
@@ -63,7 +88,7 @@
              <x>0</x>
              <y>0</y>
              <width>629</width>
-             <height>182</height>
+             <height>206</height>
             </rect>
            </property>
            <layout class="QFormLayout" name="formLayout">
@@ -79,7 +104,59 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Страница</string>
+       </attribute>
+      </widget>
      </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="chatButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="projectsButton">
+        <property name="styleSheet">
+         <string notr="true">
+background-color: transparent;
+width:40px;
+height:60px;
+image: url(:img/project.png);
+background: none;
+border: none;
+background-repeat: none;
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="accButton">
+        <property name="styleSheet">
+         <string notr="true">
+background-color: transparent;
+width:40px;
+height:60px;
+image: url(:img/ls1.png);
+background: none;
+border: none;
+background-repeat: none;
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
