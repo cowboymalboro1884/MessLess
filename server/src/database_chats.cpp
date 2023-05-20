@@ -9,7 +9,7 @@ DatabaseChats::get_company_id(Database &db, PrivateUserInfo &user_info) {
         unsigned int company_id = worker.query_value<int>(
             "SELECT company_id FROM users "
             "WHERE email='" +
-            db.shield_string(user.email) + "'"
+            db.shield_string(user_info.email) + "'"
         );
         return company_id;
     } catch (...) {
