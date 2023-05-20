@@ -45,7 +45,6 @@ bool DatabaseChats::send_message(
     const std::string &message,
     const std::string &file_link
 ) {
-    try {
         pqxx::work worker(db.connection);
         unsigned int user_id = worker.query_value<int>(
             "SELECT id FROM users WHERE email='" +
@@ -59,10 +58,6 @@ bool DatabaseChats::send_message(
         );
         worker.commit();
         return true;
-    }
-    catch(...){
-        return false;
-    }
 }
 
 std::vector<Message>
