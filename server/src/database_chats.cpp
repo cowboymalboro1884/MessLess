@@ -30,6 +30,7 @@ unsigned int DatabaseChats::get_chat_id(
             db.shield_string(std::to_string(company_id)) +
             " AND project_id=" + db.shield_string(std::to_string(project_id))+";"
         );
+        worker.commit();
         return chat_id;
     } catch (...) {
         return 0;
@@ -54,6 +55,7 @@ bool DatabaseChats::send_message(
             db.shield_string(std::to_string(chat_id)) + ",'" +
             db.shield_string(message) + "',"+ db.shield_string(std::to_string(user_id))+",'"+db.shield_string(file_link)+");"
         );
+        worker.commit();
         return true;
     }
     catch(...){
@@ -88,6 +90,7 @@ DatabaseChats::get_all_messages(Database &db, unsigned int chat_id) {
         );
         messages.push_back({text_message,file_link,current_user});
     }
+    worker.commit();
     return messages;
 }
 
