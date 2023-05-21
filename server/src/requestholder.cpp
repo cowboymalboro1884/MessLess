@@ -10,10 +10,7 @@ QJsonDocument RequestHolder::validate_user(const QJsonObject &request) const noe
     qDebug() << "got for authorization" << request;
     QString entered_email = request.value("email").toString();
     QString entered_password = request.value("password").toString();
-    qDebug() << "email: " << entered_email;
-    qDebug() << "password: " << entered_password;
-    qDebug() << "---------";
-
+    
     messless::PrivateUserInfo is_login_success =
         messless::DatabaseUser::login_user(
             *database, entered_email.toStdString(),
@@ -57,8 +54,6 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
         *database, entered_company_name.toStdString(),
         entered_company_bio.toStdString()
     );
-    qDebug() << company_id;
-    qDebug() << "---------";
 
     messless::PrivateUserInfo is_registration_success =
         messless::DatabaseCompany::create_user(
@@ -75,7 +70,7 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
         reg_response.set_status("failed");
         reg_response.set_error_text("couldn't register");
 
-    }else {
+    } else {
         unsigned int company_id = messless::DatabaseChats::get_company_id(*database, is_registration_success);
 
         reg_response.set_company_id(company_id);
