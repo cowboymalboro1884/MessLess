@@ -292,32 +292,18 @@ QJsonDocument RequestHolder::proccess_data(const QByteArray &incoming_data) cons
         }
 
         if (event_type == "authorization") {
-            qDebug() << "RH: authorization";
-
             return validate_user(json_data.object());
         } else if (event_type == "registration") {
-            qDebug() << "RH: registration";
-
             return register_company_with_admin(json_data.object());
         } else if (event_type == "add_project") {
-            qDebug() << "RH: add_project";
-
             return create_project(json_data.object());
         } else if (event_type == "create_task") {
-            qDebug() << "RH: create_task";
-
             return create_task(json_data.object());
         } else if (event_type == "get_projects") {
-            qDebug() << "RH: get projects";
-
             return get_projects(json_data.object());
         } else if (event_type == "get_tasks") {
-            qDebug() << "RH: get_tasks";
-
             return get_tasks(json_data.object());
         } else if (event_type == "send_message_to_company"){
-            qDebug() << "RH: send message to company";
-
             return send_message_to_company(json_data.object());
         } else {
             qDebug() << "RH: Got wrong request";
