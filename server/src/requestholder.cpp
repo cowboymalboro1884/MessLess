@@ -104,6 +104,8 @@ QJsonDocument RequestHolder::get_projects(const QJsonObject &request) const noex
     for (const std::string &str : projects_to_update) {
         message_to_send += str + '|';
     }
+    
+    qDebug() << QString::fromStdString(message_to_send);
 
     QJsonObject json_response_object;
 
