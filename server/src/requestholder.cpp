@@ -10,7 +10,10 @@ QJsonDocument RequestHolder::validate_user(const QJsonObject &request) const noe
     qDebug() << "got for authorization" << request;
     QString entered_email = request.value("email").toString();
     QString entered_password = request.value("password").toString();
-    
+    qDebug() << "email: " << entered_email;
+    qDebug() << "password: " << entered_password;
+    qDebug() << "---------";
+
     messless::PrivateUserInfo is_login_success =
         messless::DatabaseUser::login_user(
             *database, entered_email.toStdString(),
@@ -54,6 +57,8 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
         *database, entered_company_name.toStdString(),
         entered_company_bio.toStdString()
     );
+    qDebug() << company_id;
+    qDebug() << "---------";
 
     messless::PrivateUserInfo is_registration_success =
         messless::DatabaseCompany::create_user(
@@ -62,6 +67,16 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
             entered_surname.toStdString(), company_id, "admin"
         );
 
+    
+    // DELETE LATER
+    messless::PrivateUserInfo is_registration_success2 =
+        messless::DatabaseCompany::create_user(
+            *database, entered_email.toStdString() + "test",
+            entered_password.toStdString() + "test", entered_name.toStdString() + "test",
+            entered_surname.toStdString() + "test", company_id, "admin"
+        );
+    // DELETE LATER
+    
     UserResponse reg_response("got_status_of_registration", QString::fromStdString(is_registration_success.email), \
                               QString::fromStdString(is_registration_success.password), \
                            QString::fromStdString(is_registration_success.user_role));
@@ -70,7 +85,7 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
         reg_response.set_status("failed");
         reg_response.set_error_text("couldn't register");
 
-    } else {
+    }else {
         unsigned int company_id = messless::DatabaseChats::get_company_id(*database, is_registration_success);
 
         reg_response.set_company_id(company_id);
@@ -287,18 +302,32 @@ QJsonDocument RequestHolder::proccess_data(const QByteArray &incoming_data) cons
         }
 
         if (event_type == "authorization") {
+            qDebug() << "RH: authorization";
+
             return validate_user(json_data.object());
         } else if (event_type == "registration") {
+            qDebug() << "RH: registration";
+
             return register_company_with_admin(json_data.object());
         } else if (event_type == "add_project") {
+            qDebug() << "RH: add_project";
+
             return create_project(json_data.object());
         } else if (event_type == "create_task") {
+            qDebug() << "RH: create_task";
+
             return create_task(json_data.object());
         } else if (event_type == "get_projects") {
+            qDebug() << "RH: get projects";
+
             return get_projects(json_data.object());
         } else if (event_type == "get_tasks") {
+            qDebug() << "RH: get_tasks";
+
             return get_tasks(json_data.object());
         } else if (event_type == "send_message_to_company"){
+            qDebug() << "RH: send message to company";
+
             return send_message_to_company(json_data.object());
         } else {
             qDebug() << "RH: Got wrong request";
