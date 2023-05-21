@@ -94,4 +94,22 @@ DatabaseChats::get_all_messages(Database &db, unsigned int chat_id) {
     return messages;
 }
 
+User messless::DatabaseChats::from_private_user_info_to_user(messless::Database &db, messless::PrivateUserInfo user_info) {
+    pqxx::work worker(db.connection);
+    User user;
+    unsigned int user_id = worker.query_value<int>("SELECT id FROM users WHERE email='"+db.shield_string(user_info.email)+"';");
+    user.email = worker.query_value<std::string>(
+        "SELECT email FROM users WHERE id=" +
+        db.shield_string(std::to_string(user_id)) + ";"
+    );
+    user.name = worker.query_value<std::string>(
+        "SELECT first_name FROM users WHERE id=" +
+        db.shield_string(std::to_string(user_id)) + ";"
+    );
+    user.surname = worker.query_value<std::string>(
+        "SELECT second_name FROM users WHERE id=" +
+        db.shield_string(std::to_string(user_id)) + ";"
+    );
+    return user;
+}
 }  // namespace messless
