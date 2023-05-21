@@ -66,16 +66,6 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
             entered_password.toStdString(), entered_name.toStdString(),
             entered_surname.toStdString(), company_id, "admin"
         );
-
-    
-    // DELETE LATER
-    messless::PrivateUserInfo is_registration_success2 =
-        messless::DatabaseCompany::create_user(
-            *database, entered_email.toStdString() + "test",
-            entered_password.toStdString() + "test", entered_name.toStdString() + "test",
-            entered_surname.toStdString() + "test", company_id, "admin"
-        );
-    // DELETE LATER
     
     UserResponse reg_response("got_status_of_registration", QString::fromStdString(is_registration_success.email), \
                               QString::fromStdString(is_registration_success.password), \
