@@ -44,10 +44,10 @@ void ClientSocket::read_data() {
         qDebug() << "sending data to company" << company_id;
         qDebug() << json_responce;
         qDebug() << server->get_companies()[json_responce.object().value("company_id").toInt()].empty();
-        for(auto socket_id : server->get_companies()[company_id]){
+        for(auto socket_id : server->get_companies()[json_responce.object().value("company_id").toInt()]){
             qDebug() << "socket: " << socket_id;
         }
-        server->send_message_to_company(company_id, json_responce);
+        server->send_message_to_company(json_responce.object().value("company_id").toInt(), json_responce);
     } else {
         qDebug() << "sending data to user";
         qDebug() << json_responce;
