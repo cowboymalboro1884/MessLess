@@ -34,7 +34,9 @@ void ClientSocket::read_data() {
             json_responce["type"] == "got_status_of_registration") &&
             (json_responce["status"] == "success")) {
         qDebug() << "moving to companies";
+        qDebug() << socket->socketDescriptor();
         server->get_companies()[json_responce.object().value("company_id").toInt()].insert(socket->socketDescriptor());
+        qDebug() << server->get_companies()[json_responce.object().value("company_id").toInt()].empty();
     }
 
     if(json_responce.object().value("recipient").toString() == "to company") {
