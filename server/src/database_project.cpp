@@ -70,28 +70,31 @@ unsigned int DatabaseProject::get_project_id(
 
 void DatabaseProject::add_user_in_project(
     Database &db,
-    const std::string& email,
+    const std::string &email,
     unsigned int project_id,
     const std::string &user_role
 ) {
-    pqxx::work worker(db.connection);
-
-    unsigned int user_id = worker.query_value<int>(
-        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
-        "';"
-    );
-    unsigned int user_role_id = worker.query_value<int>(
-        "SELECT id FROM project_roles WHERE role_description='" +
-        db.shield_string(user_role) + "';"
-    );
-    worker.exec(
-        "INSERT INTO users_projects_relationship "
-        "(project_id,user_id,project_role_id) VALUES('" +
-        db.shield_string(std::to_string(project_id)) + "','" +
-        db.shield_string(std::to_string(user_id)) + "','" +
-        db.shield_string(std::to_string(user_role_id)) + "')"
-    );
-    worker.commit();
+    try {
+        pqxx::work worker(db.connection);
+        unsigned int user_id = worker.query_value<int>(
+            "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+            "';"
+        );
+        unsigned int user_role_id = worker.query_value<int>(
+            "SELECT id FROM project_roles WHERE role_description='" +
+            db.shield_string(user_role) + "';"
+        );
+        worker.exec(
+            "INSERT INTO users_projects_relationship "
+            "(project_id,user_id,project_role_id) VALUES('" +
+            db.shield_string(std::to_string(project_id)) + "','" +
+            db.shield_string(std::to_string(user_id)) + "','" +
+            db.shield_string(std::to_string(user_role_id)) + "')"
+        );
+        worker.commit();
+    } catch (...) {
+        return;
+    }
 }
 
 std::vector<User>

@@ -22,7 +22,7 @@ public:
 
     static void add_user_in_project(
         Database &db,
-        const std::string& email,
+        const std::string &email,
         unsigned int project_id,
         const std::string &user_role
     );

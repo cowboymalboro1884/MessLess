@@ -177,7 +177,7 @@ std::vector<User> DatabaseCompany::get_company_user_list(
         unsigned user_role_id = worker.query_value<int>(
             "SELECT employee_role_id FROM users WHERE "
             "id=" +
-            db.shield_string(std::to_string(user_id)) +";"
+            db.shield_string(std::to_string(user_id)) + ";"
         );
         current_user.user_role = worker.query_value<std::string>(
             "SELECT role_description FROM employee_roles WHERE id=" +

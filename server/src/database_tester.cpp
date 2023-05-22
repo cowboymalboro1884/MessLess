@@ -2,8 +2,8 @@
 #include <iostream>
 #include <vector>
 #include "../include/database.hpp"
-#include "../include/database_project.hpp"
 #include "../include/database_chats.hpp"
+#include "../include/database_project.hpp"
 
 int main() {
     std::ifstream input("../../../database.config");
@@ -21,26 +21,20 @@ int main() {
                  )
                      .email
               << "User creating\n";
-    std::cout << messless::DatabaseCompany::create_user(
-                     db, "amogus11@gmail.com", "zalupa", "Vladimir", "Krasnoe\
-    Solnyshko", 1, "employee"
-                 )
-                     .email
-              << "User creating\n";
-    */messless::PrivateUserInfo user_info1 = messless::DatabaseUser::login_user(
+    */
+    messless::PrivateUserInfo user_info1 = messless::DatabaseUser::login_user(
         db, "amogus@gmail.com", "quwuqewq!!!"
-    );/*
-    std::cout<<
-    messless::DatabaseProject::create_project(db,user_info1,"my_project","")<<"Creating \
-    project\n";
-    std::cout<<
-    messless::DatabaseProject::get_project_id(db,user_info1,"my_project")<<"Project \
-    id\n";*/
+    ); /*
+     std::cout<<
+     messless::DatabaseProject::create_project(db,user_info1,"my_project","")<<"Creating
+     \ project\n"; std::cout<<
+     messless::DatabaseProject::get_project_id(db,user_info1,"my_project")<<"Project
+     \ id\n";*/
     unsigned int prID =
         messless::DatabaseProject::get_project_id(db, user_info1, "my_project");
     messless::PrivateUserInfo user_info2 =
         messless::DatabaseUser::login_user(db, "amogus11@gmail.com", "zalupa");
-     //messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
+    // messless::DatabaseProject::add_user_in_project(db,user_info2,prID,"moderator");
     /*std::vector<messless::User> project1_users =
         messless::DatabaseProject::get_project_user_list(db, prID);
     for (auto &x : project1_users) {
@@ -63,22 +57,31 @@ int main() {
         std::cout << x.task_name << " " << x.condition << " " << x.deadline
                   << '\n';
     }*/
-    /*unsigned int chat_id_user_info1_company_chat = messless::DatabaseChats::get_chat_id(db,messless::DatabaseChats::get_company_id(db,user_info1),0);
+    /*unsigned int chat_id_user_info1_company_chat =
+    messless::DatabaseChats::get_chat_id(db,messless::DatabaseChats::get_company_id(db,user_info1),0);
     std::cout<<messless::DatabaseChats::get_company_id(db,user_info1)<<'\n';
-    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my message","");
-    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"wow message","");
-    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my message","");
+    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my
+    message","");
+    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"wow
+    message","");
+    messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my
+    message","");
     messless::DatabaseChats::send_message(db,chat_id_user_info1_company_chat,user_info1,"my","");
-    std::vector<messless::Message> m = messless::DatabaseChats::get_all_messages(db,chat_id_user_info1_company_chat);
+    std::vector<messless::Message> m =
+    messless::DatabaseChats::get_all_messages(db,chat_id_user_info1_company_chat);
     for (auto &x: m){
-        std::cout<<x.sender.name<<' '<<x.sender.surname<<' '<<x.text_message<<'\n';
+        std::cout<<x.sender.name<<' '<<x.sender.surname<<'
+    '<<x.text_message<<'\n';
     }*/
-    auto x = messless::DatabaseCompany::get_company_user_list(db,user_info1);
-    for (auto y:x){
-        std::cout<<y.name<<' '<<y.surname<<' '<<y.email<<' '<<y.user_role<<'\n';
+    auto x = messless::DatabaseCompany::get_company_user_list(db, user_info1);
+    for (auto y : x) {
+        std::cout << y.name << ' ' << y.surname << ' ' << y.email << ' '
+                  << y.user_role << '\n';
     }
-    //unsigned int new_project = messless::DatabaseProject::create_project(db,user_info1,"new_project","bio");
-    //messless::DatabaseProject::add_user_in_project(db,user_info2.email,new_project,"employee");
-    //unsigned int new_task = messless::DatabaseProject::create_new_task(db,new_project,"do do","qweqw","2023-07-21 00:00:00",)
-
+    // unsigned int new_project =
+    // messless::DatabaseProject::create_project(db,user_info1,"new_project","bio");
+    // messless::DatabaseProject::add_user_in_project(db,user_info2.email,new_project,"employee");
+    // unsigned int new_task =
+    // messless::DatabaseProject::create_new_task(db,new_project,"do
+    // do","qweqw","2023-07-21 00:00:00",)
 }

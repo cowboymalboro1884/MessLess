@@ -32,7 +32,8 @@ public:
     static std::vector<Message>
     get_all_messages(Database &db, unsigned int chat_id);
 
-    static User from_private_user_info_to_user(Database &db, PrivateUserInfo user_info);
+    static User
+    from_private_user_info_to_user(Database &db, PrivateUserInfo user_info);
 };
 }  // namespace messless
 #endif
