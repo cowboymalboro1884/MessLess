@@ -49,11 +49,13 @@ void ClientSocket::read_data() {
         qDebug() << "sending data to user";
         qDebug() << json_responce;
         send_data(json_responce.toJson());
-    } else if (json_responce.object().value("recipient").toString() == "to company") {
+    } else if (json_responce.object().value("recipient").toString() == "to concrete user") {
         qDebug() << "sending data to concrete user";
         qDebug() << json_responce;
         qint32 user_id_to_send = server->get_emails()[json_responce.object().value("email").toString()];
         server->get_clients()[user_id_to_send]->send_data(json_responce.toJson());
+    } else {
+        qDebug() << "ошибся, брат";
     }
 }
 
