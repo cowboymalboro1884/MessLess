@@ -37,7 +37,7 @@ void ClientSocket::read_data() {
         server->get_companies()[json_responce.object().value("company_id").toInt()].insert(get_id());
         server->get_emails()[json_responce.object().value("email").toString()] = get_id();
     }
-    qDebug() << json_responce.object().value("company_id").toString();
+    qDebug() << "aboba" << json_responce.object().value("company_id").toString();
     if(json_responce.object().value("recipient").toString() == "to company") {
         int company_id = json_responce.object().value("company_id").toString().toInt();
         qDebug() << "sending data to company" << company_id;
