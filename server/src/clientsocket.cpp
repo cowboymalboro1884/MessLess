@@ -56,6 +56,7 @@ void ClientSocket::read_data() {
         qint32 user_id_to_send = server->get_emails()[json_responce.object().value("email").toString()];
         server->get_clients()[user_id_to_send]->send_data(json_responce.toJson());
     } else {
+        qDebug() << json_responce.object().value("recipient").toString();
         qDebug() << "ошибся, брат";
     }
 }
