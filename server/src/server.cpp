@@ -70,8 +70,8 @@ QHash<QString, qint32>& Server::get_emails() {
     return clients_emails;
 }
 
-void Server::send_message_to_company(const qint32 id_company, const QJsonDocument& message){
-    for(qint32 socket_id : get_companies()[id_company]) {
+void Server::send_message_to_company(int id_company, const QJsonDocument& message){
+    for(int socket_id : get_companies()[id_company]) {
         qDebug() << socket_id;
         get_clients()[socket_id]->send_data(message.toJson());
     }
