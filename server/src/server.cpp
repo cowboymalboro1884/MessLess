@@ -58,15 +58,15 @@ bool Server::connect_to_database(std::string &config_file) {
     return m_db->connection.is_open();
 }
 
-QMap<qint32, ClientSocket*>& Server::get_clients() {
+QMap<int, ClientSocket*>& Server::get_clients() {
     return connected_sockets;
 }
 
-QMap<qint32, QSet<qint32> >& Server::get_companies() {
+QMap<int, QSet<int> >& Server::get_companies() {
     return companies;
 }
 
-QHash<QString, qint32>& Server::get_emails() {
+QHash<QString, int>& Server::get_emails() {
     return clients_emails;
 }
 
