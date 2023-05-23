@@ -110,6 +110,7 @@ QJsonDocument RequestHolder::get_projects(const QJsonObject &request) const noex
     json_response_object["type"] = "got_projects_to_update";
     json_response_object["status"] = "success";
     json_response_object["message"] = QString::fromStdString(message_to_send);
+    json_response_object["recipient"] = "to sender";    
     QJsonDocument doc(json_response_object);
 
     qDebug() << "----------------------------";
