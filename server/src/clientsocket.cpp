@@ -29,31 +29,35 @@ ClientSocket::~ClientSocket() {
 void ClientSocket::read_data() {
     QByteArray data = socket->readAll();
     QJsonDocument json_responce = request_holder->proccess_data(data);
-
-    if((json_responce["type"] == "got_status_of_authorization" ||
-            json_responce["type"] == "got_status_of_registration") &&
-            (json_responce["status"] == "success")) {
+    
+    QString event_type = json_responce.object().value("type").toString();
+    QString status = json_responce.object().value("status").toString();
+    int company_id = json_responce.object().value("company_id").toInt();
+    QString email = json_responce.object().value("email").toString();
+    QString recipient = json_responce.object().value("recipient").toString();
+    if((event_type == "got_status_of_authorization" ||
+        event_type == "got_status_of_registration") &&
+        (status == "success")) {
         qDebug() << "moving to companies";
-        server->get_companies()[json_responce.object().value("company_id").toInt()].insert(get_id());
-        server->get_emails()[json_responce.object().value("email").toString()] = get_id();
+        server->get_companies()[company_id].insert(get_id());
+        server->get_emails()[email] = get_id();
     }
-    qDebug() << "aboba" << json_responce.object().value("company_id").toString();
-    if(json_responce.object().value("recipient").toString() == "to company") {
-        int company_id = json_responce.object().value("company_id").toString().toInt();
+    qDebug() << "company_id:" << email;
+    if(recipient == "to company") {
         qDebug() << "sending data to company" << company_id;
-        qDebug() << server->get_companies()[json_responce.object().value("company_id").toInt()].empty();
-        for(auto socket_id : server->get_companies()[json_responce.object().value("company_id").toInt()]){
-            qDebug() << "socket: " << socket_id;
+        qDebug() << server->get_companies()[company_id].empty();
+        for(auto socket_id : server->get_companies()[company_id]){
+            qDebug() << "sending to socket: " << socket_id;
         }
         server->send_message_to_company(company_id, json_responce);
-    } else if (json_responce.object().value("recipient").toString() == "to sender") {
+    } else if (recipient == "to sender") {
         qDebug() << "sending data to user";
         qDebug() << json_responce;
         send_data(json_responce.toJson());
     } else if (json_responce.object().value("recipient").toString() == "to concrete user") {
         qDebug() << "sending data to concrete user";
         qDebug() << json_responce;
-        qint32 user_id_to_send = server->get_emails()[json_responce.object().value("email").toString()];
+        int user_id_to_send = server->get_emails()[email];
         server->get_clients()[user_id_to_send]->send_data(json_responce.toJson());
     } else {
         qDebug() << json_responce.object().value("recipient").toString();
