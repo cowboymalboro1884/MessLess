@@ -41,8 +41,8 @@ void ClientSocket::read_data() {
     if(json_responce.object().value("recipient").toString() == "to company") {
         int company_id = json_responce.object().value("company_id").toString().toInt();
         qDebug() << "sending data to company" << company_id;
-        qDebug() << server->get_companies()[json_responce.object().value("company_id").toString().toInt()].empty();
-        for(auto socket_id : server->get_companies()[json_responce.object().value("company_id").toString().toInt()]){
+        qDebug() << server->get_companies()[json_responce.object().value("company_id").toInt()].empty();
+        for(auto socket_id : server->get_companies()[json_responce.object().value("company_id").toInt()]){
             qDebug() << "socket: " << socket_id;
         }
         server->send_message_to_company(company_id, json_responce);
