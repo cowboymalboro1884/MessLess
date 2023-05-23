@@ -26,7 +26,7 @@ QJsonDocument RequestHolder::validate_user(const QJsonObject &request) const noe
         auth_response.set_status("failed");
         auth_response.set_error_text("couldn't authorize");
     } else {
-        qint32 company_id = messless::DatabaseChats::get_company_id(*database, is_login_success);
+        int company_id = messless::DatabaseChats::get_company_id(*database, is_login_success);
         qDebug() << company_id;
         auth_response.set_company_id(company_id);
         auth_response.set_status("success");
@@ -51,7 +51,7 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
     QString entered_company_bio = request.value("company_bio").toString();
     QString entered_company_name = request.value("company_name").toString();
 
-    qint32 company_id = messless::DatabaseCompany::create_company(
+    int company_id = messless::DatabaseCompany::create_company(
         *database, entered_company_name.toStdString(),
         entered_company_bio.toStdString()
     );
@@ -74,8 +74,6 @@ QJsonDocument RequestHolder::register_company_with_admin(const QJsonObject &requ
         reg_response.set_error_text("couldn't register");
 
     }else {
-        unsigned int company_id = messless::DatabaseChats::get_company_id(*database, is_registration_success);
-
         reg_response.set_company_id(company_id);
         reg_response.set_status("success");
         reg_response.set_recipient("to sender");
@@ -110,7 +108,7 @@ QJsonDocument RequestHolder::get_projects(const QJsonObject &request) const noex
     json_response_object["type"] = "got_projects_to_update";
     json_response_object["status"] = "success";
     json_response_object["message"] = QString::fromStdString(message_to_send);
-    json_response_object["recipient"] = "to sender";    
+    json_response_object["recipient"] = "to sender";
     QJsonDocument doc(json_response_object);
 
     qDebug() << "----------------------------";
