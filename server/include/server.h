@@ -16,9 +16,9 @@ class Server : public QObject {
     Q_OBJECT
 
     QMutex client_mutex;
-    QMap<qint32, ClientSocket *> connected_sockets;
-    QMap<qint32, QSet<qint32> > companies;
-    QHash<QString, qint32> clients_emails;
+    QMap<int, ClientSocket *> connected_sockets;
+    QMap<int, QSet<int> > companies;
+    QHash<QString, int> clients_emails;
     messless::Database *m_db;
     qint16 PORT;
 
@@ -32,9 +32,9 @@ public:
     void send_message_to_company(const qint32 id_company, const QJsonDocument& message);
     void send_message_to_array_of_users(const std::vector<QString>& users, const QJsonDocument& message);
 
-    QMap<qint32, ClientSocket *>& get_clients(); // socket_id --> clientsocket*
-    QMap<qint32, QSet<qint32> >& get_companies();  // company_id --> set of socket_id
-    QHash<QString, qint32>& get_emails();
+    QMap<int, ClientSocket *>& get_clients(); // socket_id --> clientsocket*
+    QMap<int, QSet<int> >& get_companies();  // company_id --> set of socket_id
+    QHash<QString, int>& get_emails();
     ChatManager *chat_m;
 
     static Server &get_instance() {
