@@ -1,5 +1,6 @@
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QDataStream>
 #include "server.h"
 #include "requestholder.h"
 
