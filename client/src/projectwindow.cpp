@@ -9,6 +9,7 @@ ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window, QString p
     ui->setupUi(this);
     m_main_window->setEnabled(false);
     this->setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle("MessLess("+project_name+")");
     ui->project_name->setText(project_name);
     update_tasks();
     connect(ui->add_new_task, &QPushButton::clicked, [&]{
@@ -34,9 +35,9 @@ void ProjectWindow::add_new_task(){
 }
 
 void ProjectWindow::update_tasks(){
-    QLayout *to_do = ui->task_to_do->layout();
-    QLayout *in_progress = ui->task_in_progress->layout();
-    QLayout *done = ui->task_done->layout();
+    QLayout *to_do = ui->task_to_do_layout->layout();//изменил что-то
+    QLayout *in_progress = ui->task_in_progress_layout->layout();
+    QLayout *done = ui->task_done_layout->layout();
     for(const auto &i: m_main_window->tasks){
         QLabel *task = new QLabel(i.task_name);
         task->setAlignment(Qt::AlignHCenter);

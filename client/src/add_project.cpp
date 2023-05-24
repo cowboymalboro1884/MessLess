@@ -7,7 +7,7 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   this->setFixedSize(400, 200);
   main_wind->setEnabled(false);
   this->setAttribute(Qt::WA_DeleteOnClose);
-
+    setWindowTitle("MessLess");
   connect(ui->addProject, &QPushButton::clicked,
           [&] { //мб надо будт изменить на this
             main_wind->project_name=get_project_name();

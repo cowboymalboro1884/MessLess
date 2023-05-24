@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui_Main(new Ui::MainWindow) {
   ui_Main->setupUi(this);
+  setWindowTitle("MessLess");
   connect(&ui_Auth, SIGNAL(login_button_clicked()), this,
           SLOT(authorizeUser()));
   connect(&ui_Auth, SIGNAL(register_button_clicked()), this,
@@ -35,7 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-void MainWindow::authorizeUser() { emit got_auth_data(); }
+void MainWindow::authorizeUser() {
+    emit got_auth_data();
+
+}
 
 QString MainWindow::get_username() { return ui_Auth.getLogin(); }
 //наверное нужно удалить обе

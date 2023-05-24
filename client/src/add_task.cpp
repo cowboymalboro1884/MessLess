@@ -10,7 +10,7 @@ AddTask::AddTask(QWidget *parent, ProjectWindow *project_window) :
     this->setFixedSize(400, 200);
     m_project_window->setEnabled(false);
     this->setAttribute(Qt::WA_DeleteOnClose);
-
+    setWindowTitle("MessLess");
     connect(ui->add_task, &QPushButton::clicked, [&]{
         m_project_window->name = get_task_name();
         m_project_window->description = get_task_description();
