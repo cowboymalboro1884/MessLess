@@ -71,8 +71,8 @@ public:
     static void add_user_to_task(
         Database &db,
         unsigned int task_id,
-        unsigned int user_id,
-        unsigned int role
+        const std::string &email,
+        const std::string &role_description
     );
 
     static bool is_project_exist(

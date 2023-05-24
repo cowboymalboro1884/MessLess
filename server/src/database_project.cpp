@@ -193,16 +193,24 @@ unsigned int DatabaseProject::create_new_task(
 void DatabaseProject::add_user_to_task(
     Database &db,
     unsigned int task_id,
-    unsigned int user_id,
-    unsigned int role
+    const std::string &email,
+    const std::string &role_description,
 ) {
     pqxx::work worker(db.connection);
+    unsigned int user_id = worker.query_value<int>(
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+        "';"
+    );
+    unsigned int user_role_id = worker.query_value<int>(
+        "SELECT id FROM roles WHERE role_description='" +
+        db.shield_string(role_description) + "';"
+    );
     worker.exec(
         "INSERT INTO users_tasks_relationship (user_id,task_id,role) VALUES "
         "('" +
         db.shield_string(std::to_string(user_id)) + "','" +
         db.shield_string(std::to_string(task_id)) + "','" +
-        db.shield_string(std::to_string(role)) + "');"
+        db.shield_string(std::to_string(user_role_id)) + "');"
     );
     worker.commit();
 }
