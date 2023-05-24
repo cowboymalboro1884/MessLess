@@ -105,7 +105,7 @@ QJsonDocument RequestHolder::get_projects(const QJsonObject &request) const noex
     response_to_send.set_status("success");
     response_to_send.set_message(QString::fromStdString(message_to_send));
 
-    qDebug() << QString::fromStdString(message_to_send);
+    qDebug() << response_to_send.message;
     qDebug() << "----------------------------";
     return response_to_send.to_qjson_document();
 }
