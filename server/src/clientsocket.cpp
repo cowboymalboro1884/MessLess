@@ -80,10 +80,17 @@ void ClientSocket::disconnected() {
 }
 
 void ClientSocket::send_data(const QByteArray &response) {
-    socket->write(QByteArray::number(response.size()));
-    qDebug() << response.size() << QByteArray::number(response.size()).size();
-    socket->write(response);
+    void ClientSocket::send_data(const QByteArray &response) {
+    qDebug() << response.size() << (quint16)response.size();
+    
+    QByteArray block; 
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out << (quint16)response.size();
+    out << response;
+    socket->write(block);
     socket->flush();
+}
+
 }
 
 qint16 ClientSocket::get_id() const {
