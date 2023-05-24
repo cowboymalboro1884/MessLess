@@ -80,6 +80,7 @@ void ClientSocket::disconnected() {
 }
 
 void ClientSocket::send_data(const QByteArray &response) {
+    socket->write(QByteArray::number(response.size()));
     socket->write(response);
     socket->flush();
 }
