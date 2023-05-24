@@ -27,6 +27,11 @@ public:
         const std::string &user_role
     );
 
+    static void delete_user_from_project(
+        Database &db,
+        const std::string &email
+    );
+
     static unsigned int get_project_id(
         Database &db,
         PrivateUserInfo &user,
@@ -76,9 +81,9 @@ public:
         const std::string &project_name
     );
 
-    void delete_project(Database &db, unsigned int project_id);
+    static void delete_project(Database &db, unsigned int project_id);
 
-    void delete_task(Database &db, unsigned int task_id);
+    static void delete_task(Database &db, unsigned int task_id);
 };
 }  // namespace messless
 #endif
