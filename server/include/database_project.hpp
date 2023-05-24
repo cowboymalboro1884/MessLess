@@ -27,10 +27,8 @@ public:
         const std::string &user_role
     );
 
-    static void delete_user_from_project(
-        Database &db,
-        const std::string &email
-    );
+    static void
+    delete_user_from_project(Database &db, const std::string &email);
 
     static unsigned int get_project_id(
         Database &db,
