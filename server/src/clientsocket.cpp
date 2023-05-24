@@ -82,6 +82,7 @@ void ClientSocket::disconnected() {
 
 void ClientSocket::send_data(const QByteArray &response) {
     qDebug() << response.size() << (quint16)response.size();
+    qDebug() << response;
     
     QByteArray block; 
     QDataStream out(&block, QIODevice::WriteOnly);
