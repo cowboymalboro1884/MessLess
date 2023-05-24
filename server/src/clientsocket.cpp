@@ -80,7 +80,6 @@ void ClientSocket::disconnected() {
 }
 
 void ClientSocket::send_data(const QByteArray &response) {
-    void ClientSocket::send_data(const QByteArray &response) {
     qDebug() << response.size() << (quint16)response.size();
     
     QByteArray block; 
@@ -89,8 +88,6 @@ void ClientSocket::send_data(const QByteArray &response) {
     out << response;
     socket->write(block);
     socket->flush();
-}
-
 }
 
 qint16 ClientSocket::get_id() const {
