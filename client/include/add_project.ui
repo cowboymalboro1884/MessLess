@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>add_project</class>
+ <widget class="QWidget" name="add_project">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>198</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(245, 245, 245);
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="name_label">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>15</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Project name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="name_lineEdit">
+     <property name="styleSheet">
+      <string notr="true">border: 1px solid black;
+     border-radius: 4px;
+background-color: white;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="addProject">
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+     background-color: rgb(80, 108, 200);
+	color: white;
+border: 1px black;
+
+     border-radius: 4px;
+	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+width:326px;
+height:26px;
+}
+
+QPushButton:hover{
+border: 1px solid rgb(255, 255, 255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Add project</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="description_label">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>15</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Description</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLineEdit" name="description_lineEdit">
+     <property name="styleSheet">
+      <string notr="true">border: 1px solid black;
+     border-radius: 4px;
+background-color: white;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
