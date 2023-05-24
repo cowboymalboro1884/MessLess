@@ -340,6 +340,27 @@ void DatabaseProject::delete_task(Database &db, unsigned int task_id) {
     worker.commit();
 }
 
+void DatabaseProject::delete_user_from_project(
+    Database &db,
+    const std::string &email
+) {
+    try {
+        pqxx::work worker(db.connection);
+        unsigned int user_id = worker.query_value<int>(
+            "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
+            "';"
+        );
+        worker.exec(
+            "DELETE FROM users_projects_relationship WHERE user_id=" +
+            db.shield_string(std::to_string(user_id)) + ";"
+        );
+        worker.commit();
+    }
+    catch(...){
+        return;
+    }
+}
+
 }  // namespace messless
 
 #endif
