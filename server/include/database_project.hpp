@@ -22,10 +22,13 @@ public:
 
     static void add_user_in_project(
         Database &db,
-        const std::string& email,
+        const std::string &email,
         unsigned int project_id,
         const std::string &user_role
     );
+
+    static void
+    delete_user_from_project(Database &db, const std::string &email);
 
     static unsigned int get_project_id(
         Database &db,
@@ -66,8 +69,8 @@ public:
     static void add_user_to_task(
         Database &db,
         unsigned int task_id,
-        unsigned int user_id,
-        unsigned int role
+        const std::string &email,
+        const std::string &role_description
     );
 
     static bool is_project_exist(
@@ -76,9 +79,9 @@ public:
         const std::string &project_name
     );
 
-    void delete_project(Database &db, unsigned int project_id);
+    static void delete_project(Database &db, unsigned int project_id);
 
-    void delete_task(Database &db, unsigned int task_id);
+    static void delete_task(Database &db, unsigned int task_id);
 };
 }  // namespace messless
 #endif
