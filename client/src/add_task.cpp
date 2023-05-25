@@ -16,13 +16,13 @@ AddTask::AddTask(QWidget *parent, ProjectWindow *project_window) :
         m_project_window->description = get_task_description();
         m_project_window->deadline = get_task_deadline();
         m_project_window->add_new_task();
-        if(true){//убрать заглушку
-            m_project_window->clear_tasks();
-            m_project_window->update_tasks();
-           this->close();
-        }else{
-        ////TODO добавить ошибку
-        }
+//        if(true){//убрать заглушку
+//            m_project_window->clear_tasks();
+//            m_project_window->update_tasks();
+//           this->close();
+//        }else{
+//        ////TODO добавить ошибку
+//        }
 
     });
 }

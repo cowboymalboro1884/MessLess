@@ -27,7 +27,7 @@ public:
   Ui::MainWindow *get_ui() const;
   void display(); // прототип пользовательской функции отображения
   void update_projects();
-
+  void update_tasks();
   void clear_projects();
   QString get_username();
   QString get_password();
@@ -37,15 +37,17 @@ public:
   QString task_description;
   QString task_deadline;
   bool flag;
+  QString current_window;
   std::vector<std::string> projects; //нужен будет для сортировки
   std::vector<client::network::Task> tasks;
+  std::unordered_map<std::string, std::vector<client::network::Task>> all_tasks;
   QBoxLayout *techArea;
   QScrollArea *scroll;
   auth_window ui_Auth; // экземпляры окна авторизации и окна регистрации
   reg_window ui_Reg;   // принадлежат главному окну
-//  ProjectWindow ui_project;
   void add_new_project();
   void add_new_task();
+
 private:
   Ui::MainWindow *ui_Main;
 
@@ -57,6 +59,7 @@ private slots:
 
 
 signals:
+  void update_current_tasks();
   void got_auth_data();
   void got_register_data();
   void got_new_project_data();

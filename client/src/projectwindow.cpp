@@ -16,6 +16,7 @@ ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window, QString p
        AddTask *add_task_window = new AddTask(nullptr, this);
        add_task_window->show();
     });
+    connect(main_window, SIGNAL(update_current_tasks()), this, SLOT(delete_and_update_tasks()));
 
 
 }
@@ -24,6 +25,7 @@ ProjectWindow::~ProjectWindow()
 {
     qDebug() << "project window deleted";
     m_main_window->setEnabled(true);
+    m_main_window->current_window="main_window";
     delete ui;
 }
 
@@ -53,22 +55,27 @@ void ProjectWindow::update_tasks(){
 
 void ProjectWindow::clear_tasks(){
     QLayoutItem *task;
-    while((task=ui->task_to_do->takeAt(0))!=nullptr){
+    while((task=ui->task_to_do_layout->takeAt(0))!=nullptr){
         delete task->widget();
         delete task;
 
     }
-    while((task=ui->task_in_progress->takeAt(0))!=nullptr){
+    while((task=ui->task_in_progress_layout->takeAt(0))!=nullptr){
         delete task->widget();
         delete task;
 
     }
-    while((task=ui->task_done->takeAt(0))!=nullptr){
+    while((task=ui->task_done_layout->takeAt(0))!=nullptr){
         delete task->widget();
         delete task;
 
     }
 
+}
+
+void ProjectWindow::delete_and_update_tasks(){
+    clear_tasks();
+    update_tasks();
 }
 
 

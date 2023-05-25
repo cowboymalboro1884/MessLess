@@ -35,6 +35,7 @@ void Client::got_register_data() {
 
 
 void Client::got_auth_data() {
+    //TODO:обработать ошибку
   m_socketwrapper->validate_user_request(m_window->ui_Auth.getLogin(),
                                             m_window->ui_Auth.getPass());
 }
@@ -69,7 +70,10 @@ void Client::got_status_of_authorization_slot(network::PrivateUserInfo new_user)
       qDebug() << "name:" << user.email;
       m_window->ui_Auth.close();
       m_window->ui_Reg.close();
+
       m_window->show();
+      m_window->current_window="main_window";
+      //TODO:обработать ошибку
       m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
     } else {
       //добавить ошибку
@@ -93,7 +97,12 @@ void Client::somebody_updated_project_slot() {
 void Client::got_tasks_to_update_slot(std::vector<network::Task> tasks_to_update, QString project_name) {
     m_window->tasks = tasks_to_update;
     m_window->flag = true;
+    m_window->all_tasks[project_name.toStdString()]=tasks_to_update;
     // ....... !!!! обновление тасок для конкретного проекта
+    if(m_window->current_window==project_name){
+        m_window->update_tasks();
+    }
+
 }
 
 Client::~Client() { m_window->deleteLater(); }

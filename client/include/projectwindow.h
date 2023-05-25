@@ -25,6 +25,8 @@ private:
     Ui::ProjectWindow *ui;
     MainWindow *m_main_window;
 
+private slots:
+    void delete_and_update_tasks();
 };
 
 #endif // PROJECTWINDOW_H

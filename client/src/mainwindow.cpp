@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui_Main(new Ui::MainWindow) {
   ui_Main->setupUi(this);
+  this->current_window="auth_window";
   setWindowTitle("MessLess");
   connect(&ui_Auth, SIGNAL(login_button_clicked()), this,
           SLOT(authorizeUser()));
@@ -32,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui_Main->accButton, &QPushButton::clicked, [&]{
       ui_Main->tabWidget->setCurrentIndex(0);
   });
-
 
 }
 
@@ -78,6 +78,7 @@ void MainWindow::update_projects() {
           if (true){ //потом изменить flag вместо заглушки
             ProjectWindow *project_window = new ProjectWindow(nullptr, this, project_name);
             project_window->show();
+            current_window=project_name;
           } else{
               //добавить ошибку
           }
@@ -86,17 +87,23 @@ void MainWindow::update_projects() {
   }
 }
 
+void MainWindow::update_tasks(){
+    emit update_current_tasks();
+}
+
 void MainWindow::display() { ui_Auth.show(); }
 
 Ui::MainWindow *MainWindow::get_ui() const { return ui_Main; }
 
 void MainWindow::registerWindowShow() {
   ui_Auth.hide();
+  this->current_window="reg_window";
   ui_Reg.show();
 }
 
 void MainWindow::authorizeWindowShow() {
   ui_Auth.show();
+  this->current_window="auth_window";
   ui_Reg.hide();
 }
 
