@@ -45,7 +45,6 @@ HEADERS += \
     include/request_handler.hpp \
     include/response_template.hpp \
     include/server.hpp \
-
     include/encrypting.hpp \
     include/database.hpp \
     include/database_chats.hpp \
