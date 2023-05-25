@@ -34,7 +34,9 @@ void Server::incoming_connection() {
     ClientSocket *connected_socket = new ClientSocket(
         next_connection->socketDescriptor(), this, next_connection, m_db
     );
+    qDebug() << "1";
     client_handler->get_clients()[connected_socket->get_id()] = connected_socket;
+    qDebug() << "2";    
 }
 
 void Server::sock_disc(ClientSocket *socket) {
