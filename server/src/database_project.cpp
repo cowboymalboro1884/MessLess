@@ -355,7 +355,7 @@ void DatabaseProject::delete_user_from_project(
     try {
         pqxx::work worker(db.connection);
         unsigned int user_id = worker.query_value<int>(
-            "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
+            "SELECT id FROM users WHERE email='" + db.shield_string(email) +
             "';"
         );
         worker.exec(
