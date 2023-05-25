@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
       ui_Main->tabWidget->setCurrentIndex(1);
   });
   connect(ui_Main->chatButton, &QPushButton::clicked, [&]{
-      ui_Main->tabWidget->setCurrentIndex(0);
+      ui_Main->tabWidget->setCurrentIndex(2);
   });
   connect(ui_Main->accButton, &QPushButton::clicked, [&]{
-      ui_Main->tabWidget->setCurrentIndex(2);
+      ui_Main->tabWidget->setCurrentIndex(0);
   });
 
 
