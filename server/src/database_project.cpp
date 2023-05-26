@@ -299,7 +299,7 @@ void DatabaseProject::change_task_condition(
 ) {
     pqxx::work worker(db.connection);
     worker.exec(
-        "UPDATE tasks SET condition = '" + db.shield_string(new_condition) +
+        "UPDATE tasks SET condition ='" + db.shield_string(new_condition) +
         "' WHERE task_id=" + db.shield_string(std::to_string(task_id)) + " ;"
     );
     worker.commit();
@@ -326,8 +326,23 @@ unsigned int DatabaseProject::get_task_id(
 
 void DatabaseProject::delete_project(Database &db, unsigned int project_id) {
     pqxx::work worker(db.connection);
+    pqxx::result res = worker.exec(
+        "SELECT id FROM tasks WHERE project_id=" +
+        db.shield_string(std::to_string(project_id)) + ";"
+    );
+    for (auto row : res) {
+        unsigned int id = std::stoi(row[0].c_str());
+        worker.exec(
+            "DELETE FROM users_tasks_relationship WHERE task_id=" +
+            db.shield_string(std::to_string(id)) + ";"
+            );
+    }
     worker.exec(
         "DELETE FROM tasks WHERE project_id=" +
+        db.shield_string(std::to_string(project_id)) + ";"
+    );
+    worker.exec(
+        "DELETE FROM users_projects_relationship WHERE project_id=" +
         db.shield_string(std::to_string(project_id)) + ";"
     );
     worker.exec(
@@ -343,22 +358,55 @@ void DatabaseProject::delete_task(Database &db, unsigned int task_id) {
         "DELETE FROM tasks WHERE id=" +
         db.shield_string(std::to_string(task_id)) + ";"
     );
+    worker.exec(
+        "DELETE FROM users_tasks_relationship WHERE task_id=" +
+        db.shield_string(std::to_string(task_id)) + ";"
+    );
     worker.commit();
 }
 
 void DatabaseProject::delete_user_from_project(
     Database &db,
-    const std::string &email
+    const std::string &email,
+    unsigned int project_id
 ) {
     try {
         pqxx::work worker(db.connection);
         unsigned int user_id = worker.query_value<int>(
-            "SELECT id FROM users WHERE email='" +
-            db.shield_string(user.email) + "';"
+            "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+            "';"
         );
+        pqxx::result res = worker.exec(
+            "SELECT id FROM tasks WHERE project_id=" +
+            db.shield_string(std::to_string(project_id)) + ";"
+        );
+        for (auto row : res) {
+            unsigned int id = std::stoi(row[0].c_str());
+            try {
+                unsigned int count = worker.query_value<int>(
+                    "SELECT COUNT(*) FROM users_tasks_relationship WHERE "
+                    "task_id=" +
+                    db.shield_string(std::to_string(id)) + ";"
+                );
+                worker.exec(
+                    "DELETE FROM users_tasks_relationship WHERE task_id=" +
+                    db.shield_string(std::to_string(id)) + "AND user_id=" +
+                    db.shield_string(std::to_string(user_id)) + ";"
+                );
+                if (count == 1) {
+                    worker.exec(
+                        "DELETE FROM tasks WHERE id=" +
+                        db.shield_string(std::to_string(id)) + ";"
+                    );
+                }
+            } catch (...) {
+                continue;
+            }
+        }
         worker.exec(
             "DELETE FROM users_projects_relationship WHERE user_id=" +
-            db.shield_string(std::to_string(user_id)) + ";"
+            db.shield_string(std::to_string(user_id)) + " AND project_id=" +
+            db.shield_string(std::to_string(project_id)) + ";"
         );
         worker.commit();
     } catch (...) {
