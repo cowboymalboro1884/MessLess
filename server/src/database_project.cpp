@@ -194,12 +194,11 @@ void DatabaseProject::add_user_to_task(
     Database &db,
     unsigned int task_id,
     const std::string &email,
-    const std::string &role_description,
+    const std::string &role_description
 ) {
     pqxx::work worker(db.connection);
     unsigned int user_id = worker.query_value<int>(
-        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
-        "';"
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) + "';"
     );
     unsigned int user_role_id = worker.query_value<int>(
         "SELECT id FROM roles WHERE role_description='" +
@@ -313,7 +312,6 @@ unsigned int DatabaseProject::get_task_id(
 ) {
     try {
         pqxx::work worker(db.connection);
-
         unsigned int task_id = worker.query_value<int>(
             "SELECT id FROM tasks WHERE task_name='" +
             db.shield_string(task_name) + "' AND project_id=" +
@@ -355,16 +353,15 @@ void DatabaseProject::delete_user_from_project(
     try {
         pqxx::work worker(db.connection);
         unsigned int user_id = worker.query_value<int>(
-            "SELECT id FROM users WHERE email='" + db.shield_string(user.email) +
-            "';"
+            "SELECT id FROM users WHERE email='" +
+            db.shield_string(user.email) + "';"
         );
         worker.exec(
             "DELETE FROM users_projects_relationship WHERE user_id=" +
             db.shield_string(std::to_string(user_id)) + ";"
         );
         worker.commit();
-    }
-    catch(...){
+    } catch (...) {
         return;
     }
 }
