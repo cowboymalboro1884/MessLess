@@ -161,11 +161,9 @@ unsigned int DatabaseProject::create_new_task(
             db.shield_string(description) + "','" + db.shield_string("1") +
             "','" + db.shield_string(deadline) + "');"
         );
-        std::cout<<1<<'\n';
         unsigned int task_id = worker.query_value<int>(
             "SELECT id FROM tasks ORDER BY id DESC LIMIT 1;"
         );
-        std::cout<<2<<'\n';
         lock.unlock();
         for (auto &current_user : users) {
             unsigned int current_user_id = worker.query_value<int>(
@@ -185,7 +183,6 @@ unsigned int DatabaseProject::create_new_task(
                 db.shield_string(std::to_string(role_id)) + "');"
             );
         }
-        std::cout<<3<<'\n';
         worker.commit();
         return task_id;
     } catch (...) {
@@ -338,7 +335,7 @@ void DatabaseProject::delete_project(Database &db, unsigned int project_id) {
         worker.exec(
             "DELETE FROM users_tasks_relationship WHERE task_id=" +
             db.shield_string(std::to_string(id)) + ";"
-            );
+        );
     }
     worker.exec(
         "DELETE FROM tasks WHERE project_id=" +
