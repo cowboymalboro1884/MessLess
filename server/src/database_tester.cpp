@@ -34,8 +34,8 @@ int main() {
     messless::DatabaseProject::add_user_to_task(
         db, task_id, user_info2.email, "employee"
     );
-
-    for (auto x:messless::DatabaseProject::get_tasks(db,new_project)){
+    auto y = messless::DatabaseProject::get_tasks(db,new_project);
+    for (auto x:y){
         std::cout<<x.task_name<<'\n';
     }
     std::cout<<'\n';
