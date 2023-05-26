@@ -194,7 +194,7 @@ void DatabaseProject::add_user_to_task(
     Database &db,
     unsigned int task_id,
     const std::string &email,
-    const std::string &role_description,
+    const std::string &role_description
 ) {
     pqxx::work worker(db.connection);
     unsigned int user_id = worker.query_value<int>(
