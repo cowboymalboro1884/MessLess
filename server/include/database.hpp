@@ -40,6 +40,7 @@ public:
         const std::string &connection_string,
         const std::string &private_salt
     );
+    bool is_open();
     friend class DatabaseUser;
     friend class DatabaseCompany;
     friend class DatabaseProject;

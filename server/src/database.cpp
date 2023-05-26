@@ -33,6 +33,10 @@ std::string Database::shield_string(const std::string &unprotected_string) {
     return connection.esc(unprotected_string);
 }
 
+bool Database::is_open() {
+    return connection.is_open();
+}
+
 PrivateUserInfo DatabaseUser::login_user(
     Database &db,
     const std::string &email,
