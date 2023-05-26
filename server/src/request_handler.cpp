@@ -147,7 +147,7 @@ QJsonDocument RequestHandler::get_projects(const QJsonObject &request
 
     for (const std::string &str : projects_to_update) {
         message_to_send += str + '|';
-        qDebug() << str;
+        qDebug() << QString::fromStdString(str);
     }
 
     ProjectResponse response_to_send("got_projects_to_update");
