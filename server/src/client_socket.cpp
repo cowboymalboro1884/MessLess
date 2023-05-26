@@ -17,7 +17,7 @@ ClientSocket::ClientSocket(
       m_db(db_),
       m_socket_descriptor(ID) {
     qDebug() << "client" << ID << "connected";
-    request_holder = new RequestHolder(m_db);
+    request_holder = new RequestHandler(m_db);
     connect(socket, SIGNAL(readyRead()), this, SLOT(read_data()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
