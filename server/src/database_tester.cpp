@@ -15,7 +15,7 @@ int main() {
         messless::DatabaseUser::login_user(db, "ab", "ab");
     messless::PrivateUserInfo user_info2 =
         messless::DatabaseUser::login_user(db, "abtest", "abtest");
-
+    messless::DatabaseProject::delete_project(db,messless::DatabaseProject::get_project_id(db,user_info1,"new_project"));
     unsigned int new_project = messless::DatabaseProject::create_project(
         db, user_info1, "new_project", "bio"
     );
@@ -23,7 +23,10 @@ int main() {
     messless::DatabaseProject::add_user_in_project(
         db, user_info2.email, new_project, "employee"
     );
-
+    auto t = messless::DatabaseChats::from_private_user_info_to_user(
+        db, user_info1
+    );
+    std::cout<<t.surname<<' '<<t.name<<' '<<t.email<<' '<<t.user_role<<'\n';
     unsigned int task_id = messless::DatabaseProject::create_new_task(
         db, new_project, "new task", "bio", "2013-07-21 00:00:00",
         {messless::DatabaseChats::from_private_user_info_to_user(
