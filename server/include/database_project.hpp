@@ -85,6 +85,8 @@ public:
     static void delete_project(Database &db, unsigned int project_id);
 
     static void delete_task(Database &db, unsigned int task_id);
+
+    static void delete_user_from_task(Database &db, unsigned int task_id,const std::string&email);
 };
 }  // namespace messless
 #endif

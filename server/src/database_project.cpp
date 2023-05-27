@@ -43,8 +43,7 @@ unsigned int DatabaseProject::create_project(
         worker.commit();
         add_user_in_project(db, user.email, project_id, "admin");
         return project_id;
-    }
-    catch(...){
+    } catch (...) {
         return 0;
     }
 }
@@ -419,6 +418,34 @@ void DatabaseProject::delete_user_from_project(
     }
 }
 
-}  // namespace messless
+void DatabaseProject::delete_user_from_task(
+    Database &db,
+    unsigned int task_id,
+    const std::string &email
+) {
+    pqxx::work worker(db.connection);
+    unsigned int user_id = worker.query_value<int>(
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+        "';"
+    );
+    unsigned int count = worker.query_value<int>(
+        "SELECT COUNT(*) FROM users_tasks_relationship WHERE "
+        "task_id=" +
+        db.shield_string(std::to_string(task_id)) + ";"
+    );
+    worker.exec(
+        "DELETE FROM users_tasks_relationship WHERE task_id=" +
+        db.shield_string(std::to_string(task_id)) + "AND user_id=" +
+        db.shield_string(std::to_string(user_id)) + ";"
+    );
+    if (count == 1) {
+        worker.exec(
+            "DELETE FROM tasks WHERE id=" +
+            db.shield_string(std::to_string(task_id)) + ";"
+        );
+    }
+}
+
+}// namespace messless
 
 #endif
