@@ -28,8 +28,10 @@ ClientSocket::~ClientSocket() {
 
 void ClientSocket::read_data() {
     QByteArray data = socket->readAll();
+    qDebug() << "1";
     QJsonDocument json_responce = request_holder->proccess_data(data);
-
+    qDebug() << "2";
+    qDebug() << json_responce;
     QString event_type = json_responce.object().value("type").toString();
     QString status = json_responce.object().value("status").toString();
     int company_id = json_responce.object().value("company_id").toInt();
