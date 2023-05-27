@@ -27,6 +27,8 @@ QJsonDocument RequestHandler::proccess_data(const QByteArray &incoming_data
         }
 
         REQUEST_TYPE request_type = request_types[event_type];
+        qDebug() << event_type;
+        qDebug() << (request_type == 0);
         return (this->*requests_handlers[request_type])(json_data.object());
     } else {
         qDebug() << "RH: Got wrong request";
