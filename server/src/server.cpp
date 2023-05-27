@@ -23,9 +23,7 @@ bool Server::start_server(qint16 port, std::string &config_file) {
             qDebug() << "Couldn't connect to database";
             return false;
         }
-        qDebug() << "1";
         client_handler = new ClientHandler(this);
-        qDebug() << "2";
     } else {
         qDebug() << "Couldn't start server";
         return false;
@@ -39,6 +37,7 @@ void Server::incoming_connection() {
     ClientSocket *connected_socket = new ClientSocket(
         next_connection->socketDescriptor(), this, next_connection, m_db
     );
+    
     client_handler->get_clients()[connected_socket->get_id()] = connected_socket;
 }
 
