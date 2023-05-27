@@ -1,4 +1,4 @@
-#include "request_handler.hpp"
+#include "query_types.hpp"
 
 using namespace templates::ResponseTemplate;
 
