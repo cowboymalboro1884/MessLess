@@ -26,7 +26,7 @@ enum REQUEST_TYPE {
     DELETE_TASK
 };
 
-std::map<QString, REQUEST_TYPE> inline request_types = {
+inline std::map<QString, REQUEST_TYPE> request_types = {
     {"authorization", VALIDATE_USER},
     {"registration", REGISTER_COMPANY_WITH_ADMIN},
     {"add_user_to_company", ADD_USER_TO_COMPANY},
@@ -46,10 +46,10 @@ std::map<QString, REQUEST_TYPE> inline request_types = {
     {"change_task_condition", CHANGE_TASK_CONDITION},
     {"delete_task", DELETE_TASK}};
 
-std::map<
+inline std::map<
     REQUEST_TYPE,
     QJsonDocument (RequestHandler::*)(const QJsonObject &) const>
-    inline requests_handlers = {
+    requests_handlers = {
         {VALIDATE_USER, &RequestHandler::validate_user},
         {REGISTER_COMPANY_WITH_ADMIN,
          &RequestHandler::register_company_with_admin},
