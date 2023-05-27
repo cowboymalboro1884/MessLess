@@ -26,7 +26,7 @@ enum REQUEST_TYPE {
     DELETE_TASK
 };
 
-std::map<QString, REQUEST_TYPE> request_types = {
+std::map<QString, REQUEST_TYPE> inline request_types = {
     {"authorization", VALIDATE_USER},
     {"registration", REGISTER_COMPANY_WITH_ADMIN},
     {"add_user_to_company", ADD_USER_TO_COMPANY},
