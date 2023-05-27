@@ -10,38 +10,43 @@ unsigned int DatabaseProject::create_project(
     const std::string &project_name,
     const std::string &biography
 ) {
-    pqxx::work worker(db.connection);
-    unsigned int company_id = worker.query_value<int>(
-        "SELECT company_id FROM users WHERE email='" +
-        db.shield_string(user.email) + "';"
-    );
-    std::unique_lock lock(db.database_mutex);
-    worker.exec(
-        "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
-        db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(project_name) + "','" + db.shield_string(biography) +
-        "')"
-    );
-    unsigned int project_id = worker.query_value<int>(
-        "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
-    );
-    worker.exec(
-        "INSERT INTO chats (company_id,project_id) VALUES ('" +
-        db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(std::to_string(project_id)) + "')"
-    );
-    unsigned int chat_id =
-        worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+    try {
+        pqxx::work worker(db.connection);
+        unsigned int company_id = worker.query_value<int>(
+            "SELECT company_id FROM users WHERE email='" +
+            db.shield_string(user.email) + "';"
         );
-    worker.exec(
-        "UPDATE projects SET chat_id ='" +
-        db.shield_string(std::to_string(chat_id)) + "' WHERE id='" +
-        db.shield_string(std::to_string(project_id)) + "';"
-    );
-    lock.unlock();
-    worker.commit();
-    add_user_in_project(db, user.email, project_id, "admin");
-    return project_id;
+        std::unique_lock lock(db.database_mutex);
+        worker.exec(
+            "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
+            db.shield_string(std::to_string(company_id)) + "','" +
+            db.shield_string(project_name) + "','" +
+            db.shield_string(biography) + "')"
+        );
+        unsigned int project_id = worker.query_value<int>(
+            "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
+        );
+        worker.exec(
+            "INSERT INTO chats (company_id,project_id) VALUES ('" +
+            db.shield_string(std::to_string(company_id)) + "','" +
+            db.shield_string(std::to_string(project_id)) + "')"
+        );
+        unsigned int chat_id = worker.query_value<int>(
+            "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+        );
+        worker.exec(
+            "UPDATE projects SET chat_id ='" +
+            db.shield_string(std::to_string(chat_id)) + "' WHERE id='" +
+            db.shield_string(std::to_string(project_id)) + "';"
+        );
+        lock.unlock();
+        worker.commit();
+        add_user_in_project(db, user.email, project_id, "admin");
+        return project_id;
+    }
+    catch(...){
+        return 0;
+    }
 }
 
 unsigned int DatabaseProject::get_project_id(
