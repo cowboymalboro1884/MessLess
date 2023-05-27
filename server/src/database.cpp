@@ -11,10 +11,6 @@ Database::Database(
     : connection(connection_string.c_str()), crypt(private_salt) {
 }
 
-bool Database::is_open() {
-    return connection.is_open();
-}
-
 void Database::do_query_without_answer(const std::string &query) {
     pqxx::work worker(connection);
     worker.exec(query);
@@ -35,6 +31,10 @@ void Database::do_queries_without_answer(std::vector<std::string> &queries) {
 
 std::string Database::shield_string(const std::string &unprotected_string) {
     return connection.esc(unprotected_string);
+}
+
+bool Database::is_open() {
+    return connection.is_open();
 }
 
 PrivateUserInfo DatabaseUser::login_user(
