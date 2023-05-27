@@ -49,7 +49,7 @@ std::map<QString, REQUEST_TYPE> request_types = {
 std::map<
     REQUEST_TYPE,
     QJsonDocument (RequestHandler::*)(const QJsonObject &) const>
-    requests_handlers = {
+    inline requests_handlers = {
         {VALIDATE_USER, &RequestHandler::validate_user},
         {REGISTER_COMPANY_WITH_ADMIN,
          &RequestHandler::register_company_with_admin},
