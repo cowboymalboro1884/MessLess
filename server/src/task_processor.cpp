@@ -102,3 +102,7 @@ QJsonDocument RequestHandler::delete_user_from_task(const QJsonObject &request
 ) const {
     // TODO
 }
+
+QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
+    //TODO
+}
