@@ -38,7 +38,7 @@ public:
 
 public slots:
     void
-    send_to_concrete_user(const QString &email, const QJsonDocument &response);
+    send_to_concrete_user(const QString &, const QJsonDocument &);
 
     void send_message_to_project_user_list(
         const QJsonArray &users,
