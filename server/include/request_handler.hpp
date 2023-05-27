@@ -57,21 +57,18 @@ public:
 
     [[nodiscard]] messless::PrivateUserInfo extract_user_info_from_qjson(
         const QJsonObject &request
-    ) const noexcept;
+    ) const noexcept{
+        std::string email = request.value("email").toString().toStdString();
+        std::string password = request.value("password").toString().toStdString();
+        std::string user_role = request.value("user_role").toString().toStdString();
+    
+        return {email, password, user_role};  
+    };
 
     [[nodiscard]] std::string get_raw_projects_and_tasks(
         messless::PrivateUserInfo user
     ) const noexcept;
 };
 
-messless::PrivateUserInfo RequestHandler::extract_user_info_from_qjson(
-    const QJsonObject &request
-) const noexcept {
-    std::string email = request.value("email").toString().toStdString();
-    std::string password = request.value("password").toString().toStdString();
-    std::string user_role = request.value("user_role").toString().toStdString();
-
-    return {email, password, user_role};
-}
 
 #endif  // REQUEST_HANDLER_H
