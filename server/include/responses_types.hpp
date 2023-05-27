@@ -28,7 +28,7 @@ enum ResponseTypes {
     GOT_MESSAGE_TO_PROJECT_CHAT,
 };
 
-std::map<ResponseTypes, QString> response_types = {
+std::map<ResponseTypes, QString> inline response_types = {
     {ERROR, "error"},
     {GOT_STATUS_OF_AUTHORIZATION, "got_status_of_authorization"},
     {GOT_STATUS_OF_REGISTRATION, "got_status_of_registration"},
