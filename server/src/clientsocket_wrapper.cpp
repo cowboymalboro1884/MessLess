@@ -80,7 +80,8 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
 
 void ClientSocket::write_byte_data(const QByteArray &response) {
     qDebug() << response.size() << (quint16)response.size();
-
+    
+    qDebug() << response;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out << (quint16)response.size();
