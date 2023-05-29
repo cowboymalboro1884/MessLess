@@ -83,6 +83,7 @@ void ClientSocket::write_byte_data(const QByteArray &response) {
     qDebug() << response;
     QByteArray block_size;
     QDataStream out(&block_size, QIODevice::WriteOnly);
+    qDebug() << quint32(response.size());
     out << quint32(response.size());
     socket->write(block_size);
     
