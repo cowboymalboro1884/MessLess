@@ -19,7 +19,7 @@ class Server;
 
 class ClientHandler : public QObject {
     Q_OBJECT
-        
+
     Server *owner;
 
     QMap<int, QSet<int> > companies;
@@ -33,21 +33,16 @@ public:
     QHash<QString, int> &get_emails();
     QMap<int, ClientSocket *> &get_clients();
 
-    void send_message_to_company(
-        const qint32 id_company,
-        const QJsonDocument &message
-    );
+    void move_to_companies(int socket_id, const QString &email, int company_id);
 
 public slots:
+
+    void send_message_to_company(int, const QJsonDocument &);
+
+    void send_message_to_concrete_user(const QString &, const QJsonDocument &);
+
     void
-    send_to_concrete_user(const QString &, const QJsonDocument &);
-
-    void send_message_to_project_user_list(
-        const QJsonArray &users,
-        const QJsonDocument &response
-    );
-
-    void move_to_companies(int socket_id, const QString &email, int company_id);
+    send_message_to_project_user_list(const QJsonArray &, const QJsonDocument &);
 };
 
 #endif  // CLIENT_HANDLER_HPP
