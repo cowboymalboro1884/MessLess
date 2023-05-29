@@ -18,6 +18,8 @@ class PrivateUserInfo;
 class Server;
 
 class ClientHandler : public QObject {
+    Q_OBJECT
+        
     Server *owner;
 
     QMap<int, QSet<int> > companies;
