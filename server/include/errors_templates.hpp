@@ -1,5 +1,6 @@
 #ifndef ERRORS_TEMPLATES_H
 #define ERRORS_TEMPLATES_H
+
 #include "response_template.hpp"
 
 namespace templates::ResponseTemplate {
@@ -30,6 +31,17 @@ struct InvalidJSONError : AbstractJSONResponseError {
 private:
     InvalidJSONError()
         : AbstractJSONResponseError("GOT INVALID QUERY: Invalid JSON"){};
+};
+
+struct InvalidRequestTypeError : AbstractJSONResponseError {
+    static InvalidRequestTypeError &get_instance() {
+        static InvalidRequestTypeError instance;
+        return instance;
+    }
+
+private:
+    InvalidRequestTypeError()
+        : AbstractJSONResponseError("GOT INVALID QUERY: Invalid request type"){};
 };
 
 struct MissingRequestTypeError : AbstractJSONResponseError {
