@@ -18,7 +18,7 @@ void ClientHandler::move_to_companies(
     get_emails()[email] = socket_id;
 }
 
-void ClientHandler::send_to_concrete_user(
+void ClientHandler::send_message_to_concrete_user(
     const QString &email,
     const QJsonDocument &response
 ) {
