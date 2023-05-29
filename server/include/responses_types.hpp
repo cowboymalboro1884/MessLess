@@ -2,6 +2,7 @@
 #define RESPONSES_TYPES_H
 
 #include <QString>
+#include <QObject>
 #include <map>
 
 enum RecipientType {
