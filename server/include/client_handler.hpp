@@ -27,7 +27,7 @@ class ClientHandler : public QObject {
     QMap<int, ClientSocket *> connected_sockets;
 
 public:
-    ClientHandler(Server *owner_) : owner(owner_){};
+    ClientHandler(Server *owner_, QObject *parent = nullptr) : owner(owner_), QObject(parent) {};
 
     QMap<int, QSet<int> > &get_companies();
     QHash<QString, int> &get_emails();
