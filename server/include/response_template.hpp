@@ -297,7 +297,7 @@ struct ProjectIsDeleted final : AbstractJSONResponse {
         : AbstractJSONResponse(
               response_types[NEW_CONDITION_OF_PROJECTS],
               "success",
-              TO_SENDER
+              TO_PROJECT_USER_LIST
           ),
           project_name(QString::fromStdString(project_name_)){};
 
