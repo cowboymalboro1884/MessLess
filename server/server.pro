@@ -3,8 +3,11 @@ QT += core
 QT += network
 QT += websockets
 
-LIBS += -lpqxx -lpq -L /root/lpqxx -lboost_system -L/root/cryptopp -lcryptopp
+LIBS += -lpqxx -lpq -L /root/lpqxx
 
+LIBS += -lboost_system
+
+LIBS += -L/root/cryptopp -lcryptopp
 INCLUDEPATH += /root/cryptopp
 
 TARGET = server
@@ -17,13 +20,19 @@ CONFIG -= app_bundle
 # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        src/clientsocket.cpp \
-	src/database.cpp \
-	src/databaseproject.cpp \
-	src/encrypting.cpp \
-	src/main.cpp \
-	src/requestholder.cpp \
-	src/server.cpp
+    src/chat_processor.cpp \
+    src/client_handler.cpp \
+    src/clientsocket_wrapper.cpp \
+    src/main.cpp \
+    src/project_processor.cpp \
+    src/request_handler.cpp \
+    src/server.cpp \
+    src/database.cpp \
+    src/database_chats.cpp \
+    src/database_project.cpp \
+    src/encrypting.cpp \
+    src/task_processor.cpp \
+    src/validating_processor.cpp
 
 QMAKE_CXXFLAGS += -O2
 
@@ -35,9 +44,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 INCLUDEPATH += $$PWD/include
 
 HEADERS += \
-    include/clientsocket.h \
-    include/database.h \
-    include/databaseproject.h \
-    include/encrypting.h \
-    include/requestholder.h \
-    include/server.h
+    include/client_handler.hpp \
+    include/clientsocket_wrapper.hpp \
+    include/errors_templates.hpp \
+    include/query_types.hpp \
+    include/request_handler.hpp \
+    include/response_template.hpp \
+    include/responses_types.hpp \
+    include/server.hpp \
+    include/encrypting.hpp \
+    include/database.hpp \
+    include/database_chats.hpp \
+    include/database_project.hpp

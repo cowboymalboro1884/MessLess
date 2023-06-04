@@ -1,15 +1,23 @@
 #ifndef DATABASE_PROJECT_HPP
 #define DATABASE_PROJECT_HPP
 
-#include "database.h"
+#include "database.hpp"
 
 namespace messless {
-class Task{
+class Task {
 public:
     std::string task_name;
     std::string deadline;
     std::string condition;
 };
+
+class Project {
+public:
+    std::string project_name;
+    std::string project_id;
+    std::string project_bio;
+};
+
 class DatabaseProject {
 public:
     static unsigned int create_project(
@@ -21,9 +29,15 @@ public:
 
     static void add_user_in_project(
         Database &db,
-        PrivateUserInfo &user,
+        const std::string &email,
         unsigned int project_id,
         const std::string &user_role
+    );
+
+    static void delete_user_from_project(
+        Database &db,
+        const std::string &email,
+        unsigned int project_id
     );
 
     static unsigned int get_project_id(
@@ -38,8 +52,7 @@ public:
     static std::vector<User>
     get_project_user_list(Database &db, unsigned int project_id);
 
-    static std::vector<Task>
-    get_tasks(Database &db, unsigned int project_id);
+    static std::vector<Task> get_tasks(Database &db, unsigned int project_id);
 
     static unsigned int create_new_task(
         Database &db,
@@ -51,15 +64,23 @@ public:
         const std::vector<User> &users
     );
 
-    static void change_task_condition(Database &db, unsigned int task_id, const std::string& new_condition);
+    static void change_task_condition(
+        Database &db,
+        unsigned int task_id,
+        const std::string &new_condition
+    );
 
-    static unsigned int get_task_id(Database &db, unsigned int project_id, const std::string& task_name);
+    static unsigned int get_task_id(
+        Database &db,
+        unsigned int project_id,
+        const std::string &task_name
+    );
 
     static void add_user_to_task(
         Database &db,
         unsigned int task_id,
-        unsigned int user_id,
-        unsigned int role
+        const std::string &email,
+        const std::string &role_description
     );
 
     static bool is_project_exist(
@@ -68,9 +89,9 @@ public:
         const std::string &project_name
     );
 
-    void delete_project(Database &db, unsigned int project_id);
+    static void delete_project(Database &db, unsigned int project_id);
 
-    void delete_task(Database &db,unsigned int task_id);
+    static void delete_task(Database &db, unsigned int task_id);
 };
 }  // namespace messless
 #endif
