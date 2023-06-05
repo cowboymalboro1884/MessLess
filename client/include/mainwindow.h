@@ -11,8 +11,8 @@
 #include <QScrollArea>
 #include <QString>
 #include <QTcpSocket>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -56,7 +56,6 @@ private slots:
   void registerUser();
   void registerWindowShow();
   void authorizeWindowShow();
-
 
 signals:
   void update_current_tasks();

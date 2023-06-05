@@ -25,6 +25,9 @@ private:
     Ui::ProjectWindow *ui;
     MainWindow *m_main_window;
 
+signals:
+    void open_project_settings();
+
 private slots:
     void delete_and_update_tasks();
 };

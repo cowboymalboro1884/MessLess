@@ -37,34 +37,26 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QLabel" name="project_name">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>20</height>
-        </size>
-       </property>
+     <item row="2" column="0">
+      <widget class="QLabel" name="TODO">
        <property name="styleSheet">
         <string notr="true">color: rgb(80, 108, 200);
-font: 87 8pt &quot;Arial Black&quot;;</string>
+background-color: white;
+border-radius: 4px;
+border: 0.5px solid  rgb(80, 108, 200);
+font: 87 8pt &quot;Arial Black&quot;;
+</string>
        </property>
        <property name="text">
-        <string>Project Name</string>
+        <string>TO DO</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="INPROGRESS">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>20</height>
-        </size>
-       </property>
+     <item row="2" column="2">
+      <widget class="QLabel" name="DONE">
        <property name="styleSheet">
         <string notr="true">color: rgb(80, 108, 200);
 background-color: white;
@@ -73,36 +65,14 @@ border: 0.5px solid  rgb(80, 108, 200);
 font: 87 8pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
-        <string>IN PROGRESS</string>
+        <string>DONE</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="project_chat">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-background-color: rgb(80, 108, 200);
-	color: white;
-border: 1px black;
-     border-radius: 4px;
-	height:28px;
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
-}
-
-
-QPushButton:hover{
-border: 1px solid rgb(255, 255, 255);
-}</string>
-       </property>
-       <property name="text">
-        <string>Chat</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <layout class="QVBoxLayout" name="task_in_progress">
        <item>
         <widget class="QScrollArea" name="task_in_progress_scroll_area">
@@ -138,7 +108,7 @@ border: 0.5px solid rgb(80, 108, 200);</string>
             <x>0</x>
             <y>0</y>
             <width>206</width>
-            <height>303</height>
+            <height>338</height>
            </rect>
           </property>
           <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -147,7 +117,7 @@ border: 0.5px solid rgb(80, 108, 200);</string>
              <x>0</x>
              <y>0</y>
              <width>211</width>
-             <height>351</height>
+             <height>341</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="task_in_progress_layout"/>
@@ -157,116 +127,7 @@ border: 0.5px solid rgb(80, 108, 200);</string>
        </item>
       </layout>
      </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="add_new_task">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-background-color: rgb(80, 108, 200);
-	color: white;
-border: 1px black;
-     border-radius: 4px;
-	height:28px;
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
-}
-
-
-QPushButton:hover{
-border: 1px solid rgb(255, 255, 255);
-}</string>
-       </property>
-       <property name="text">
-        <string>Add new task</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="DONE">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(80, 108, 200);
-background-color: white;
-border-radius: 4px;
-border: 0.5px solid  rgb(80, 108, 200);
-font: 87 8pt &quot;Arial Black&quot;;</string>
-       </property>
-       <property name="text">
-        <string>DONE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <layout class="QVBoxLayout" name="task_done">
-       <property name="spacing">
-        <number>7</number>
-       </property>
-       <item>
-        <widget class="QScrollArea" name="task_done_scroll_area">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>208</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: white;
-border-radius: 8px;
-border: 0.5px solid rgb(80, 108, 200);</string>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>206</width>
-            <height>303</height>
-           </rect>
-          </property>
-          <widget class="QWidget" name="verticalLayoutWidget_3">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>211</width>
-             <height>351</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="task_done_layout"/>
-          </widget>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="TODO">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(80, 108, 200);
-background-color: white;
-border-radius: 4px;
-border: 0.5px solid  rgb(80, 108, 200);
-font: 87 8pt &quot;Arial Black&quot;;
-</string>
-       </property>
-       <property name="text">
-        <string>TO DO</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <layout class="QVBoxLayout" name="task_to_do">
        <property name="spacing">
         <number>1</number>
@@ -299,7 +160,7 @@ border: 0.5px solid rgb(80, 108, 200);</string>
             <x>0</x>
             <y>0</y>
             <width>198</width>
-            <height>303</height>
+            <height>338</height>
            </rect>
           </property>
           <widget class="QWidget" name="verticalLayoutWidget">
@@ -308,7 +169,7 @@ border: 0.5px solid rgb(80, 108, 200);</string>
              <x>0</x>
              <y>0</y>
              <width>201</width>
-             <height>351</height>
+             <height>341</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="task_to_do_layout"/>
@@ -318,7 +179,124 @@ border: 0.5px solid rgb(80, 108, 200);</string>
        </item>
       </layout>
      </item>
-     <item row="4" column="1">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="project_chat">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+background-color: rgb(80, 108, 200);
+	color: white;
+border: 1px black;
+     border-radius: 4px;
+	height:28px;
+	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+}
+
+
+QPushButton:hover{
+border: 1px solid rgb(255, 255, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Chat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <layout class="QVBoxLayout" name="task_done">
+       <property name="spacing">
+        <number>7</number>
+       </property>
+       <item>
+        <widget class="QScrollArea" name="task_done_scroll_area">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>208</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;
+border-radius: 8px;
+border: 0.5px solid rgb(80, 108, 200);</string>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>206</width>
+            <height>338</height>
+           </rect>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>211</width>
+             <height>341</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="task_done_layout"/>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="INPROGRESS">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(80, 108, 200);
+background-color: white;
+border-radius: 4px;
+border: 0.5px solid  rgb(80, 108, 200);
+font: 87 8pt &quot;Arial Black&quot;;</string>
+       </property>
+       <property name="text">
+        <string>IN PROGRESS</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="project_name">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 8pt &quot;Arial Black&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Project Name</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
       <widget class="QPushButton" name="settings">
        <property name="maximumSize">
         <size>

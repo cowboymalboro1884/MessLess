@@ -24,11 +24,17 @@ public slots:
   void got_project_tasks();
   void got_add_task_data();
 
-  void got_status_of_registration_slot(client::network::PrivateUserInfo);
-  void got_status_of_authorization_slot(client::network::PrivateUserInfo);
+  void got_status_of_registration_slot(
+      client::network::PrivateUserInfo,
+      std::unordered_map<std::string, std::vector<network::Task>>);
+  void got_status_of_authorization_slot(
+      client::network::PrivateUserInfo,
+      std::unordered_map<std::string, std::vector<network::Task>>);
   void got_projects_to_update_slot(std::vector<std::string> projects_to_update);
   void somebody_updated_project_slot();
-  void got_tasks_to_update_slot(std::vector<client::network::Task> tasks_to_update, QString project_name);
+  void
+  got_tasks_to_update_slot(std::vector<client::network::Task> tasks_to_update,
+                           QString project_name);
 
 private:
   MainWindow *m_window;
@@ -36,7 +42,6 @@ private:
   QString m_password;
   network::SocketWrapper *m_socketwrapper;
   network::PrivateUserInfo user;
-
 };
 } // namespace client
 #endif // CLIENT_H

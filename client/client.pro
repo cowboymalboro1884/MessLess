@@ -13,37 +13,52 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/add_user.cpp \
+    src/delete_task.cpp \
+    src/delete_task.cpp \
+    src/project_settings.cpp \
     src/add_project.cpp \
     src/add_task.cpp \
     src/auth_window.cpp \
     src/client.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/project_settings.cpp \
     src/projectwindow.cpp \
     src/reg_window.cpp \
     src/socketwrapper.cpp \
 
 HEADERS += \
+    include/add_user.h \
+    include/delete_task.h \
     include/add_task.h \
     include/auth_window.h \
     include/client.h \
+    include/delete_task.h \
     include/mainwindow.h \
+    include/project_settings.h \
     include/projectwindow.h \
     include/reg_window.h \
     include/socketwrapper.h \
     include/add_project.h \
     include/projectwindow.h \
-    include/add_task.h
+    include/add_task.h \
+    include/project_settings.h
 
 FORMS += \
+    include/add_user.ui \
+    include/delete_task.ui \
     include/add_task.ui \
     include/auth_window.ui \
+    include/delete_task.ui \
     include/mainwindow.ui \
+    include/project_settings.ui \
     include/projectwindow.ui \
     include/reg_window.ui \
     include/add_project.ui/ \
     include/projectwindow.ui \
-    include/add_task.ui
+    include/add_task.ui \
+    include/project_settings.ui
 
 #win64:RC_FILE = icon.rc
 
