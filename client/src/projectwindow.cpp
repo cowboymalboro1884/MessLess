@@ -39,7 +39,7 @@ void ProjectWindow::update_tasks() {
   QLayout *in_progress = ui->task_in_progress_layout->layout();
   QLayout *done = ui->task_done_layout->layout();
   for (const auto &i : m_main_window->all_tasks[m_main_window->current_window.toStdString()]) {
-    QLabel *task = new QLabel(QString::fromStdString(i.task_name));
+    QLabel *task = new QLabel(i.task_name);
     task->setAlignment(Qt::AlignHCenter);
     if (i.condition == "to do") {
       to_do->addWidget(task);

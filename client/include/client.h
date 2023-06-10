@@ -1,14 +1,15 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "include/mainwindow.h"
-#include "socketwrapper.h"
+#include "mainwindow.h"
+#include "network_manager.h"
+#include "response_types.h"
 
 #include <QObject>
 
 namespace client {
 
-class Client : public QObject {
+struct Client : public QObject {
   Q_OBJECT
 public:
   Client(QObject *parent = nullptr);
@@ -24,24 +25,20 @@ public slots:
   void got_project_tasks();
   void got_add_task_data();
 
-  void got_status_of_registration_slot(
-      client::network::PrivateUserInfo,
-      std::unordered_map<std::string, std::vector<network::Task>>);
-  void got_status_of_authorization_slot(
-      client::network::PrivateUserInfo,
-      std::unordered_map<std::string, std::vector<network::Task>>);
+  void got_status_of_registration_slot(PrivateUserInfo);
+  void got_status_of_authorization_slot(PrivateUserInfo);
   void got_projects_to_update_slot(std::vector<std::string> projects_to_update);
   void somebody_updated_project_slot();
-  void
-  got_tasks_to_update_slot(std::vector<client::network::Task> tasks_to_update,
-                           QString project_name);
+  void got_tasks_to_update_slot(std::vector<Task> tasks_to_update, QString project_name);
 
 private:
+  QThread* network_thread;
   MainWindow *m_window;
   QString m_username;
   QString m_password;
-  network::SocketWrapper *m_socketwrapper;
-  network::PrivateUserInfo user;
+  NetworkManager* m_network_manager;
+  PrivateUserInfo user;
+
 };
 } // namespace client
 #endif // CLIENT_H

@@ -4,7 +4,6 @@
 #include "auth_window.h"
 #include "reg_window.h"
 #include "socketwrapper.h"
-
 #include <QBoxLayout>
 #include <QMainWindow>
 #include <QPushButton>
@@ -13,6 +12,7 @@
 #include <QTcpSocket>
 #include <unordered_map>
 #include <vector>
+
 
 namespace Ui {
 class MainWindow;
@@ -39,8 +39,8 @@ public:
   bool flag;
   QString current_window;
   std::vector<std::string> projects; //нужен будет для сортировки
-  std::vector<client::network::Task> tasks;
-  std::unordered_map<std::string, std::vector<client::network::Task>> all_tasks;
+  std::vector<Task> tasks;
+  std::unordered_map<std::string, std::vector<Task>> all_tasks;
   QBoxLayout *techArea;
   QScrollArea *scroll;
   auth_window ui_Auth; // экземпляры окна авторизации и окна регистрации
