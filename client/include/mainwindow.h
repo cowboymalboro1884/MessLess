@@ -38,7 +38,7 @@ public:
   QString task_deadline;
   bool flag;
   QString current_window;
-  std::vector<std::string> projects; //нужен будет для сортировки
+//  std::vector<std::string> projects; //нужен будет для сортировки
   std::vector<Task> tasks;
   std::unordered_map<std::string, std::vector<Task>> all_tasks;
   QBoxLayout *techArea;

@@ -18,12 +18,6 @@ public:
     QString project_id;
 };
 
-class Task {
-public:
-    QString task_name;
-    QString deadline;
-    QString condition;
-};
 
 class Message {
 public:

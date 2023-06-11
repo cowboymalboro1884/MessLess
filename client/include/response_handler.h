@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <unordered_map>
 
 class PrivateUserInfo {
 public:
@@ -12,6 +13,14 @@ public:
     QString password;
     QString user_role;
 };
+
+class Task {
+public:
+    QString task_name;
+    QString deadline;
+    QString condition;
+};
+
 
 
 struct ResponseHandler : QObject {
@@ -45,6 +54,8 @@ signals:
     void got_status_of_authorization(PrivateUserInfo new_user) const;
     void got_status_of_registration(PrivateUserInfo new_user) const;
     void get_new_condition_of_projects() const;
+    void get_new_task_of_project(QString) const;
+    void got_projects_with_tasks(std::unordered_map<std::string, std::vector<Task>>) const;
 
 public slots:
     void proccess_data(const QByteArray &);

@@ -10,8 +10,8 @@ Client::Client(QObject *parent)
                     SLOT(got_register_data()));
             connect(m_window, SIGNAL(got_new_project_data()), this,
             SLOT(got_add_project_data()));
-            connect(m_window, SIGNAL(got_project_tasks()), this,
-            SLOT(got_project_tasks()));
+//            connect(m_window, SIGNAL(got_project_tasks()), this,
+//            SLOT(got_project_tasks()));
             connect(m_window, SIGNAL(got_new_task_data()), this,
             SLOT(got_add_task_data()));
       };
@@ -41,9 +41,10 @@ void Client::start() {
       this,
       SLOT(got_status_of_authorization_slot(PrivateUserInfo)));
       connect(m_network_manager->m_response_handler, SIGNAL(get_new_condition_of_projects()), this,SLOT(somebody_updated_project_slot()));
+      connect(m_network_manager->m_response_handler, SIGNAL(get_new_task_of_project(QString)), this,SLOT(got_project_tasks(QString)));
 
       //сообщение для будущего меня, пытаюсь законнектить сигналы и слоты уже на получение инфы, но происходит беда хз
-
+      connect(m_network_manager->m_response_handler, SIGNAL(got_projects_with_tasks(std::unordered_map<std::string, std::vector<Task> >)), this, SLOT(got_projects_to_update_slot(std::unordered_map<std::string, std::vector<Task> >)));
 
 //      connect(m_network_manager->m_response_handler,
 //      SIGNAL(got_projects_to_update(std::vector<std::string>)), this,
@@ -77,8 +78,8 @@ void Client::got_add_project_data() {
                                                       m_window->project_description);
 }
 
-void Client::got_project_tasks() {
-    m_network_manager->m_query_sender->get_tasks_of_projects(user.email, user.password, user.user_role, m_window->project_name);
+void Client::got_project_tasks(QString project_name) {
+    m_network_manager->m_query_sender->get_tasks_of_projects(user.email, user.password, user.user_role, project_name);
 
 }
 
@@ -118,9 +119,9 @@ void Client::got_status_of_authorization_slot(PrivateUserInfo new_user) {
 }
 
 void Client::got_projects_to_update_slot(
-    std::vector<std::string> projects_to_update
+    std::unordered_map<std::string, std::vector<Task>> projects_to_update
 ) {
-    m_window->projects = projects_to_update;
+    m_window->all_tasks = projects_to_update;
     m_window->clear_projects();
     m_window->update_projects();
     qDebug() << "проекты обновлены";

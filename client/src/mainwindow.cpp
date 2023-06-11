@@ -53,9 +53,9 @@ void MainWindow::update_projects() {
 
   QLayout *lay = ui_Main->project_lay->layout();
 
-  for (const auto &i : projects) {
-    qDebug() << QString::fromStdString(i);
-    QPushButton *button = new QPushButton(QString::fromStdString(i));
+  for (const auto &i : all_tasks) {
+    qDebug() << QString::fromStdString(i.first);
+    QPushButton *button = new QPushButton(QString::fromStdString(i.first));
     project_name = button->text();
     //возможно, что тут есть ошибки
     connect(button, &QPushButton::clicked, [=] {

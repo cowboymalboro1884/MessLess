@@ -22,12 +22,12 @@ public slots:
   void got_auth_data();
   void got_register_data();
   void got_add_project_data();
-  void got_project_tasks();
+  void got_project_tasks(QString project_name);
   void got_add_task_data();
 
   void got_status_of_registration_slot(PrivateUserInfo);
   void got_status_of_authorization_slot(PrivateUserInfo);
-  void got_projects_to_update_slot(std::vector<std::string> projects_to_update);
+  void got_projects_to_update_slot(std::unordered_map<std::string, std::vector<Task>> projects_to_update);
   void somebody_updated_project_slot();
   void got_tasks_to_update_slot(std::vector<Task> tasks_to_update, QString project_name);
 

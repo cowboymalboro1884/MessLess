@@ -152,6 +152,7 @@ void ResponseHandler::new_condition_of_projects(const QJsonObject &request
 void ResponseHandler::new_condition_of_tasks(const QJsonObject &request) const {
     QString project_name = request["project_name"].toString();
     // just emit that need to update tasks of
+    get_new_task_of_project(std::move(project_name));
 }
 
 void ResponseHandler::update_projects(const QJsonObject &request) const {
@@ -161,7 +162,7 @@ void ResponseHandler::update_projects(const QJsonObject &request) const {
     std::unordered_map<std::string, std::vector<Task>> projects_with_tasks =
         extract_projects_with_tasks_from_json(request);
 
-    // emit smth
+    emit got_projects_with_tasks(projects_with_tasks);
 }
 
 void ResponseHandler::update_tasks(const QJsonObject &request) const {
