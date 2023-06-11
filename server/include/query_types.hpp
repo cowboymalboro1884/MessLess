@@ -6,7 +6,7 @@
 #include "request_handler.hpp"
 
 enum REQUEST_TYPE {
-    VALIDATE_USER,
+    CHECK_CREDENTIALS,
     REGISTER_COMPANY_WITH_ADMIN,
     ADD_USER_TO_COMPANY,
 
@@ -26,31 +26,31 @@ enum REQUEST_TYPE {
     DELETE_TASK
 };
 
-inline std::map<QString, REQUEST_TYPE> request_types = {
-    {"authorization", VALIDATE_USER},
+std::map<QString, REQUEST_TYPE> request_types = {
+    {"authorization", CHECK_CREDENTIALS},
     {"registration", REGISTER_COMPANY_WITH_ADMIN},
-    {"add_user_to_company", ADD_USER_TO_COMPANY},
+    {"add user to company", ADD_USER_TO_COMPANY},
 
-    {"get_projects", GET_PROJECTS_OF_COMPANY},
-    {"get_tasks", GET_TASKS_OF_PROJECT},
+    {"get projects", GET_PROJECTS_OF_COMPANY},
+    {"get tasks", GET_TASKS_OF_PROJECT},
 
-    {"send_message_to_company", SEND_MESSAGE_TO_COMPANY_CHAT},
-    {"send_message_to_project", SEND_MESSAGE_TO_PROJECT_CHAT},
+    {"send message to company", SEND_MESSAGE_TO_COMPANY_CHAT},
+    {"send message to project", SEND_MESSAGE_TO_PROJECT_CHAT},
 
-    {"add_project", CREATE_PROJECT},
-    {"add_user_to_project", ADD_USER_TO_PROJECT},
-    {"delete_user_from_project", DELETE_USER_FROM_PROJECT},
-    {"delete_project", DELETE_PROJECT},
+    {"create project", CREATE_PROJECT},
+    {"add user to project", ADD_USER_TO_PROJECT},
+    {"delete user from project", DELETE_USER_FROM_PROJECT},
+    {"delete project", DELETE_PROJECT},
 
-    {"create_task", CREATE_TASK},
-    {"change_task_condition", CHANGE_TASK_CONDITION},
-    {"delete_task", DELETE_TASK}};
+    {"create task", CREATE_TASK},
+    {"change task condition", CHANGE_TASK_CONDITION},
+    {"delete task", DELETE_TASK}};
 
-inline std::map<
+std::map<
     REQUEST_TYPE,
     QJsonDocument (RequestHandler::*)(const QJsonObject &) const>
     requests_handlers = {
-        {VALIDATE_USER, &RequestHandler::validate_user},
+        {CHECK_CREDENTIALS, &RequestHandler::validate_user},
         {REGISTER_COMPANY_WITH_ADMIN,
          &RequestHandler::register_company_with_admin},
         {ADD_USER_TO_COMPANY, &RequestHandler::add_user_to_company},
