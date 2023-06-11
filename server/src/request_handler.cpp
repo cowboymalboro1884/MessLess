@@ -12,7 +12,8 @@ QJsonDocument RequestHandler::proccess_data(const QByteArray &incoming_data
 
     if (json_data_error.errorString().toInt() == QJsonParseError::NoError) {
         QString event_type = json_data.object().value("type").toString();
-
+        
+        qDebug() << event_type;
         if (!event_type.size()) {
             qDebug() << "RH: Missing request type";            
             return MissingRequestTypeError::get_instance().to_qjson_document();
