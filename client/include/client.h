@@ -21,7 +21,7 @@ public:
 public slots:
   void got_auth_data();
   void got_register_data();
-  void got_add_project_data();
+  void got_add_project_data(const QString &project_name, const QString &project_description);
   void got_project_tasks(QString project_name);
   void got_add_task_data();
 

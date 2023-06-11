@@ -8,8 +8,8 @@ Client::Client(QObject *parent)
             SLOT(got_auth_data()));
             connect(m_window, SIGNAL(got_register_data()), this,
                     SLOT(got_register_data()));
-            connect(m_window, SIGNAL(got_new_project_data()), this,
-            SLOT(got_add_project_data()));
+            connect(m_window, SIGNAL(got_new_project_data(const QString &, const QString &)), this,
+            SLOT(got_add_project_data(const QString &, const QString &)));
 //            connect(m_window, SIGNAL(got_project_tasks()), this,
 //            SLOT(got_project_tasks()));
             connect(m_window, SIGNAL(got_new_task_data()), this,
@@ -73,9 +73,9 @@ void Client::got_auth_data() {
     );
 }
 
-void Client::got_add_project_data() {
-    m_network_manager->m_query_sender->create_project(user.email, user.password, user.user_role, m_window->project_name,
-                                                      m_window->project_description);
+void Client::got_add_project_data(const QString &project_name, const QString &project_description) {
+    m_network_manager->m_query_sender->create_project(user.email, user.password, user.user_role, project_name,
+                                                      project_description);
 }
 
 void Client::got_project_tasks(QString project_name) {

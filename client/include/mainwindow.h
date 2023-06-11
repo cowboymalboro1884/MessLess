@@ -32,7 +32,7 @@ public:
   QString get_username();
   QString get_password();
   QString project_name;
-  QString project_description;
+//  QString project_description;
   QString task_name;
   QString task_description;
   QString task_deadline;
@@ -45,7 +45,7 @@ public:
   QScrollArea *scroll;
   auth_window ui_Auth; // экземпляры окна авторизации и окна регистрации
   reg_window ui_Reg;   // принадлежат главному окну
-  void add_new_project();
+  void add_new_project(const QString &project_name, const QString &project_description);
   void add_new_task();
 
 private:
@@ -61,7 +61,7 @@ signals:
   void update_current_tasks();
   void got_auth_data();
   void got_register_data();
-  void got_new_project_data();
+  void got_new_project_data(const QString &, const QString &);
   void got_project_tasks();
   void got_new_task_data();
 };

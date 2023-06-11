@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
+  //TODO добавить обновление сообщений и проектов в функции ниже при переходе
   connect(ui_Main->projectsButton, &QPushButton::clicked,
           [&] { ui_Main->tabWidget->setCurrentIndex(1); });
   connect(ui_Main->chatButton, &QPushButton::clicked,
@@ -45,7 +46,7 @@ void MainWindow::clear_projects() {
   }
 }
 
-void MainWindow::add_new_project() { emit got_new_project_data(); }
+void MainWindow::add_new_project(const QString &project_name, const QString &project_description) { emit got_new_project_data(project_name, project_description); }
 
 void MainWindow::add_new_task() { emit got_new_task_data(); }
 

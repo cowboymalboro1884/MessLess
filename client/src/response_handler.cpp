@@ -4,6 +4,7 @@ std::unordered_map<std::string, std::vector<Task>>
 extract_projects_with_tasks_from_json(const QJsonObject &request) {
     QJsonArray raw_projects_with_tasks =
         request["projects_with_tasks"].toArray();
+//    qDebug() << raw_projects_with_tasks;
     std::unordered_map<std::string, std::vector<Task>> projects_with_tasks;
     for (const auto &project : raw_projects_with_tasks) {
         QJsonObject project_obj = project.toObject();
@@ -16,7 +17,9 @@ extract_projects_with_tasks_from_json(const QJsonObject &request) {
                 task_obj["task_condition"].toString(),
                 task_obj["task_deadline"].toString()});
         }
+
     }
+//    for(auto i : projects_with_tasks) qDebug()<< QString::fromStdString(i.first);
     return projects_with_tasks;
 }
 
@@ -80,7 +83,7 @@ void ResponseHandler::got_status_of_user_authorization(
 
     std::unordered_map<std::string, std::vector<Task>> projects_with_tasks =
         extract_projects_with_tasks_from_json(request); // projects
-
+// for(auto i : projects_with_tasks) qDebug()<< QString::fromStdString(i.first);
     QJsonArray raw_company_chat = request["company_chat"].toArray();
     std::vector<Message> company_chat = extract_chat_from_json_array(raw_company_chat); // company chat
     
@@ -97,6 +100,7 @@ void ResponseHandler::got_status_of_user_authorization(
     }
 
     emit got_status_of_authorization(sender);
+    emit got_projects_with_tasks(projects_with_tasks);
 }
 
 void ResponseHandler::got_status_of_user_and_company_registration(
@@ -131,6 +135,7 @@ void ResponseHandler::got_status_of_user_and_company_registration(
     
     // emit smth (same as previous func, may be one signal) 
     emit got_status_of_registration(sender);
+    emit got_projects_with_tasks(projects_with_tasks);
 
 }
 
