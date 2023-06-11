@@ -28,6 +28,8 @@ void NetworkManager::run() {
     );
 }
 
-NetworkManager::~NetworkManager(){
-
+NetworkManager::~NetworkManager() {
+    delete m_query_sender;
+    delete m_response_handler;
+    delete m_socket_wrap;
 }

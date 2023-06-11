@@ -1,6 +1,6 @@
 #ifndef RESPONSE_TYPES_H
 #define RESPONSE_TYPES_H
-#include <map>
+#include <unordered_map>
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -9,13 +9,7 @@
 #include "response_handler.h"
 
 
-class PrivateUserInfo {
-public:
-    QString status;
-    QString email;
-    QString password;
-    QString user_role;
-};
+
 
 class Project {
 public:

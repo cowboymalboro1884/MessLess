@@ -9,12 +9,12 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
   connect(ui->addProject, &QPushButton::clicked,
-          [&] { //мб надо будт изменить на this
+          [&] { //TODO мб надо будт изменить на this
             main_wind->project_name = get_project_name();
             main_wind->project_description = get_project_description();
             main_wind->add_new_project();
             if (!main_wind->flag) {
-              //написать какой-нибудь popup с ошибкой
+              //TODO написать какой-нибудь popup с ошибкой
             } else {
               this->close();
               main_wind->clear_projects();

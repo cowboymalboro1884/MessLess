@@ -1,4 +1,3 @@
-
 #include "include/response_types.h"
 
 std::unordered_map<std::string, std::vector<Task>>
@@ -94,10 +93,10 @@ void ResponseHandler::got_status_of_user_authorization(
         QString project_name = project_chat_object["project_name"].toString();
         QJsonArray raw_chat = project_chat_object["raw_chat"].toArray();
 
-        project_chats[ project_name.toStdString()] = extract_chat_from_json_array(raw_chat);
+        project_chats[project_name.toStdString()] = extract_chat_from_json_array(raw_chat);
     }
 
-    // emit smth
+    emit got_status_of_authorization(sender);
 }
 
 void ResponseHandler::got_status_of_user_and_company_registration(

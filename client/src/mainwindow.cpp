@@ -1,9 +1,6 @@
 #include "include/mainwindow.h"
 #include "include/add_project.h"
-#include "include/auth_window.h"
 #include "include/projectwindow.h"
-#include "include/reg_window.h"
-#include "include/socketwrapper.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
 

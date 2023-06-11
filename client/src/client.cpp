@@ -32,25 +32,30 @@ void Client::start() {
         // need to delete
     }
 
+//      connect(m_network_manager->m_response_handler,
+//      SIGNAL(got_status_of_registration(PrivateUserInfo)),
+//      this,
+//      SLOT(got_status_of_registration_slot(PrivateUserInfo)));
+      connect(m_network_manager->m_response_handler,
+      SIGNAL(got_status_of_authorization(PrivateUserInfo)),
+      this,
+      SLOT(got_status_of_authorization_slot(PrivateUserInfo)));
 
 
-      connect(m_network_manager->m_response_handler,
-      SIGNAL(got_status_of_registration(client::network::PrivateUserInfo)),
-      this,
-      SLOT(got_status_of_registration_slot(client::network::PrivateUserInfo)));
-      connect(m_network_manager->m_response_handler,
-      SIGNAL(got_status_of_authorization(client::network::PrivateUserInfo)),
-      this,
-      SLOT(got_status_of_authorization_slot(client::network::PrivateUserInfo)));
-      connect(m_network_manager->m_response_handler,
-      SIGNAL(got_projects_to_update(std::vector<std::string>)), this,
-      SLOT(got_projects_to_update_slot(std::vector<std::string>)));
-      connect(m_network_manager->m_response_handler, SIGNAL(somebody_updated_project()), this,
-      SLOT(somebody_updated_project_slot())); connect(m_network_manager->m_response_handler,
-      SIGNAL(got_tasks_to_update(std::vector<client::network::Task>,
-      QString)), this,
-      SLOT(got_tasks_to_update_slot(std::vector<client::network::Task>,
-      QString)));
+      //сообщение для будущего меня, пытаюсь законнектить сигналы и слоты уже на получение инфы, но происходит беда хз
+
+
+//      connect(m_network_manager->m_response_handler,
+//      SIGNAL(got_projects_to_update(std::vector<std::string>)), this,
+//      SLOT(got_projects_to_update_slot(std::vector<std::string>)));
+//      connect(m_network_manager->m_response_handler, SIGNAL(somebody_updated_project()), this,
+//      SLOT(somebody_updated_project_slot())); connect(m_network_manager->m_response_handler,
+//      SIGNAL(got_tasks_to_update(std::vector<client::network::Task>,
+//      QString)), this,
+//      SLOT(got_tasks_to_update_slot(std::vector<client::network::Task>,
+//      QString)));
+
+
 }
 
 void Client::got_register_data() {
@@ -83,23 +88,23 @@ void Client::got_add_task_data() {
                                                    m_window->task_description, m_window->task_deadline,
                                                    m_window->project_name);
 
-    got_project_tasks();
+//    got_project_tasks();
 }
 
 void Client::got_status_of_registration_slot(PrivateUserInfo new_user) {
     user = std::move(new_user);
-    if (user.status == "success") {
+//    if (user.status == "success") {
         m_window->ui_Auth.close();
         m_window->ui_Reg.close();
         m_window->show();
-    } else {
-        // добавить ошибку
-    }
+//    } else {
+//        // добавить ошибку
+//    }
 }
 
 void Client::got_status_of_authorization_slot(PrivateUserInfo new_user) {
     user = std::move(new_user);
-    if (user.status == "success") {
+//    if (user.status == "success") {
         qDebug() << "name:" << user.email;
         m_window->ui_Auth.close();
         m_window->ui_Reg.close();
@@ -108,9 +113,9 @@ void Client::got_status_of_authorization_slot(PrivateUserInfo new_user) {
         m_window->current_window = "main_window";
         // TODO:обработать ошибку
         //       m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
-    } else {
-        // добавить ошибку
-    }
+//    } else {
+//        // добавить ошибку
+//    }
 }
 
 void Client::got_projects_to_update_slot(

@@ -6,6 +6,14 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+class PrivateUserInfo {
+public:
+    QString email;
+    QString password;
+    QString user_role;
+};
+
+
 struct ResponseHandler : QObject {
     Q_OBJECT
 
@@ -35,6 +43,9 @@ public:
 
 public slots:
     void proccess_data(const QByteArray &);
+
+signals:
+    void got_status_of_authorization(PrivateUserInfo);
 };
 
 #endif  // RESPONSE_HANDLER_H

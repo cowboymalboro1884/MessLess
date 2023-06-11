@@ -10,7 +10,7 @@
 struct QuerySender : public QObject {
     Q_OBJECT
 public:
-signals:
+public slots:
 
     void check_credentials(const QString &email, const QString &password);
 
