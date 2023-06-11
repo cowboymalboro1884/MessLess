@@ -17,7 +17,7 @@ QJsonDocument RequestHandler::proccess_data(const QByteArray &incoming_data
             qDebug() << "RH: Missing request type";            
             return MissingRequestTypeError::get_instance().to_qjson_document();
         }
-
+        qDebug() << event_type;
         if (request_types.find(event_type) == request_types.end()) {
             qDebug() << "RH: Got wrong request";
             return InvalidRequestTypeError::get_instance().to_qjson_document();
