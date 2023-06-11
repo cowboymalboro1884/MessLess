@@ -32,15 +32,15 @@ void Client::start() {
         // need to delete
     }
 
-//      connect(m_network_manager->m_response_handler,
-//      SIGNAL(got_status_of_registration(PrivateUserInfo)),
-//      this,
-//      SLOT(got_status_of_registration_slot(PrivateUserInfo)));
+      connect(m_network_manager->m_response_handler,
+      SIGNAL(got_status_of_registration(PrivateUserInfo)),
+      this,
+      SLOT(got_status_of_registration_slot(PrivateUserInfo)));
       connect(m_network_manager->m_response_handler,
       SIGNAL(got_status_of_authorization(PrivateUserInfo)),
       this,
       SLOT(got_status_of_authorization_slot(PrivateUserInfo)));
-
+      connect(m_network_manager->m_response_handler, SIGNAL(get_new_condition_of_projects()), this,SLOT(somebody_updated_project_slot()));
 
       //сообщение для будущего меня, пытаюсь законнектить сигналы и слоты уже на получение инфы, но происходит беда хз
 
@@ -67,7 +67,6 @@ void Client::got_register_data() {
 }
 
 void Client::got_auth_data() {
-    // TODO:обработать ошибку
     m_network_manager->m_query_sender->check_credentials(
         m_window->ui_Auth.getLogin(), m_window->ui_Auth.getPass()
     );
@@ -130,7 +129,8 @@ void Client::got_projects_to_update_slot(
 void Client::somebody_updated_project_slot() {
     m_window->flag = true;
     qDebug() << "flag: " << m_window->flag;
-    //    m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
+//        m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
+    m_network_manager->m_query_sender->get_projects_of_company(user.email, user.password, user.user_role);
 }
 
 void Client::got_tasks_to_update_slot(

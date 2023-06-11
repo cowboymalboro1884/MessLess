@@ -130,17 +130,23 @@ void ResponseHandler::got_status_of_user_and_company_registration(
     }
     
     // emit smth (same as previous func, may be one signal) 
+    emit got_status_of_registration(sender);
+
 }
 
 void ResponseHandler::got_status_of_user_registration(const QJsonObject &request
 ) const {
     qDebug() << "all okey =)";
     // all okey ...
+    //TODO узнать, что нам нужно
+
 }
 
 void ResponseHandler::new_condition_of_projects(const QJsonObject &request
 ) const {
-    // just emit that need to update projects
+    // возможно что-то не то делаю, спросить потом у дани, что вообще делает эта фукнция
+    emit get_new_condition_of_projects();
+
 }
 
 void ResponseHandler::new_condition_of_tasks(const QJsonObject &request) const {

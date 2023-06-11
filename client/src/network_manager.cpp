@@ -8,13 +8,13 @@ NetworkManager::NetworkManager(
     client = client_;
     ip = std::move(ip_);
     port = port_;
+    m_response_handler = new ResponseHandler();
+    m_query_sender = new QuerySender();
 }
 
 void NetworkManager::run() {
     m_socket_wrap = new SocketWrapper("194.87.210.109", 1339);
     m_socket_wrap->connect_to_host();
-    m_response_handler = new ResponseHandler();
-    m_query_sender = new QuerySender();
 
     connect(
         m_query_sender,

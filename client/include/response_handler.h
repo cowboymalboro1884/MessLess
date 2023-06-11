@@ -41,11 +41,15 @@ public:
 
     void recieved_message_to_project(const QJsonObject &request) const;
 
+signals:
+    void got_status_of_authorization(PrivateUserInfo new_user) const;
+    void got_status_of_registration(PrivateUserInfo new_user) const;
+    void get_new_condition_of_projects() const;
+
 public slots:
     void proccess_data(const QByteArray &);
 
-signals:
-    void got_status_of_authorization(PrivateUserInfo);
+
 };
 
 #endif  // RESPONSE_HANDLER_H
