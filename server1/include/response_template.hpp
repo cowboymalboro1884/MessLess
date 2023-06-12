@@ -157,7 +157,7 @@ struct GetProjectsWithUserResponse : AbstractJSONResponse {
         main_data["type"] = event_type;
         main_data["recipient"] = recipient;
 
-        main_data["projects_of_company"] = projects_of_company;
+        main_data["projects_with_tasks"] = projects_of_company;
         return QJsonDocument(main_data);
     }
 };
