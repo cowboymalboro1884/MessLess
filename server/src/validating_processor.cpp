@@ -1,7 +1,4 @@
-#include "query_types.hpp"
-
-using namespace templates::ResponseTemplate;
-using namespace messless;
+#include "request_handler.hpp"
 
 void RequestHandler::get_actual_global_condition_response(
     SendActualGlobalConditionResponse &response,
@@ -109,6 +106,8 @@ QJsonDocument RequestHandler::add_user_to_company(const QJsonObject &request
 ) const {  // DONE
     qDebug() << "got for add user to company" << request;
 
+    PrivateUserInfo sender = extract_user_info_from_qjson(request);
+
     std::string entered_email_to_add =
         request["email_to_add"].toString().toStdString();
     std::string entered_password_to_add =
@@ -116,21 +115,9 @@ QJsonDocument RequestHandler::add_user_to_company(const QJsonObject &request
     std::string entered_user_role_to_add =
         request["user_role_to_add"].toString().toStdString();
 
-    std::string sender_email = request["sender_email"].toString().toStdString();
-    std::string sender_password =
-        request["sender_password"].toString().toStdString();
-    std::string sender_user_role =
-        request["sender_user_role"].toString().toStdString();
-
     std::string entered_name = request["name"].toString().toStdString();
     std::string entered_surname = request["surname"].toString().toStdString();
 
-    std::string entered_company_bio =
-        request["company_bio"].toString().toStdString();
-    std::string entered_company_name =
-        request["company_name"].toString().toStdString();
-
-    PrivateUserInfo sender{sender_email, sender_password, sender_user_role};
 
     int company_id = DatabaseChats::get_company_id(*database, sender);
 
@@ -143,7 +130,5 @@ QJsonDocument RequestHandler::add_user_to_company(const QJsonObject &request
         return RegistrationUserError::get_instance().to_qjson_document();
     }
 
-    RegistrationUserIsSuccess registration_response;
-
-    return registration_response.to_qjson_document();
+    return RegistrationUserIsSuccess().to_qjson_document();
 }
