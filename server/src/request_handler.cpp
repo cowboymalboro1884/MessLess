@@ -13,7 +13,7 @@ QJsonDocument RequestHandler::proccess_data(const QByteArray &incoming_data
     if (json_data_error.errorString().toInt() == QJsonParseError::NoError) {
         QString event_type = json_data.object().value("type").toString();
         
-        qDebug() << event_type;
+        qDebug() << json_data;
         if (!event_type.size()) {
             qDebug() << "RH: Missing request type";            
             return MissingRequestTypeError::get_instance().to_qjson_document();
@@ -25,9 +25,7 @@ QJsonDocument RequestHandler::proccess_data(const QByteArray &incoming_data
         }
 
         REQUEST_TYPE request_type = request_types[event_type];
-
-        qDebug() << event_type;
-
+        
         return (this->*requests_handlers[request_type])(json_data.object());
     } else {
         qDebug() << "RH: Got invalid JSON";
