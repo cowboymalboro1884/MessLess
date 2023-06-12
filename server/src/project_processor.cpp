@@ -67,6 +67,7 @@ QJsonDocument RequestHandler::create_project(const QJsonObject &request
     qDebug() << "----------------------------";
     qDebug() << "got for create project";
     qDebug() << request;
+    qDebug() << request.value("sender_email").toString();
     PrivateUserInfo sender = extract_user_info_from_qjson(request);
     qDebug() << QString::fromStdString(sender.email);
     qDebug() << QString::fromStdString(sender.user_role);
