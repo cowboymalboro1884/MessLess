@@ -62,7 +62,7 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
         }
         case TO_PROJECT_USER_LIST: {
             emit send_message_to_project_user_list(
-                json_response.object()["email_of_recipients"].toArray(), json_response
+                json_response.object()["emails_of_recipients"].toArray(), json_response
             );
             break;
         }
