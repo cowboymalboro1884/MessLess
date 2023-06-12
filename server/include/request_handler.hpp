@@ -59,12 +59,11 @@ public:
     [[nodiscard]] messless::PrivateUserInfo extract_user_info_from_qjson(
         const QJsonObject &request
     ) const noexcept {
-        std::string email = request.value("email").toString().toStdString();
+        std::string email = request.value("sender_email").toString().toStdString();
         std::string password =
-            request.value("password").toString().toStdString();
+            request.value("sender_password").toString().toStdString();
         std::string user_role =
-            request.value("user_role").toString().toStdString();
-        qDebug() << QString::fromStdString(email);
+            request.value("sender_user_role").toString().toStdString();
 
         return {email, password, user_role};
     };
