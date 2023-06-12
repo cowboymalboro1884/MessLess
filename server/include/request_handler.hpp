@@ -64,6 +64,7 @@ public:
             request.value("password").toString().toStdString();
         std::string user_role =
             request.value("user_role").toString().toStdString();
+        qDebug() << QString::fromStdString(email);
 
         return {email, password, user_role};
     };
