@@ -1,6 +1,4 @@
-#include "query_types.hpp"
-
-using namespace templates::ResponseTemplate;
+#include "request_handler.hpp"
 
 QJsonArray RequestHandler::get_raw_chat(int company_id, int project_id)
     const noexcept {  // DONE
