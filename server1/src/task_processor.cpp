@@ -39,7 +39,7 @@ QJsonDocument RequestHandler::create_task(const QJsonObject &request
         }
 
         response_to_send.set_recipients(recipients);
-
+        return response_to_send.to_qjson_document();
     } else {
         return UnableToCreateTask::get_instance().to_qjson_document();
     }
