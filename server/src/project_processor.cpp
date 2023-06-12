@@ -68,6 +68,8 @@ QJsonDocument RequestHandler::create_project(const QJsonObject &request
     qDebug() << "got for create project";
 
     PrivateUserInfo sender = extract_user_info_from_qjson(request);
+    qDebug() << sender.name;
+    qDebug() << sender.user_role;
 
     std::string project_name =
         request.value("project_name").toString().toStdString();
