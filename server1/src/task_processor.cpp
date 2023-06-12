@@ -35,6 +35,7 @@ QJsonDocument RequestHandler::create_task(const QJsonObject &request
         QJsonArray recipients;
         for (auto user : user_list) {
             QJsonObject email;
+                        qDebug() << QString::fromStdString(user.email);
             email["email"] = QString::fromStdString(user.email);
         }
 
