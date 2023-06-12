@@ -1,7 +1,4 @@
-#include "query_types.hpp"
-
-using namespace templates::ResponseTemplate;
-using namespace messless;
+#include "request_handler.hpp"
 
 QJsonDocument RequestHandler::create_task(const QJsonObject &request
 ) const {  // DONE
@@ -123,9 +120,6 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
     qDebug() << "----------------------------\ngot for create_task\n";
 
     std::string task_name = request.value("task_name").toString().toStdString();
-    std::string description =
-        request.value("description").toString().toStdString();
-    std::string deadline = request.value("deadline").toString().toStdString();
 
     std::string project_name =
         request.value("project_name").toString().toStdString();
@@ -133,8 +127,6 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
     PrivateUserInfo sender = extract_user_info_from_qjson(request);
 
     qDebug() << "task name:" << QString::fromStdString(task_name);
-    qDebug() << "description:" << QString::fromStdString(description);
-    qDebug() << "deadline:" << QString::fromStdString(deadline);
     qDebug() << "project name:" << QString::fromStdString(project_name);
 
     int project_id =
@@ -144,7 +136,7 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
         DatabaseProject::get_project_user_list(*database, project_id);
 
     int task_id = DatabaseProject::get_task_id(*database, project_id, task_name);
-    
+
     DatabaseProject::delete_task(*database, task_id);
 
     int status = 1;
@@ -162,5 +154,5 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
     } else {
         return UnableToCreateTask::get_instance().to_qjson_document();
     }
-    
+
 }
