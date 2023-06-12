@@ -1,7 +1,4 @@
-#include "query_types.hpp"
-
-using namespace templates::ResponseTemplate;
-using namespace messless;
+#include "request_handler.cpp"
 
 QJsonArray RequestHandler::get_raw_projects_and_tasks(
     PrivateUserInfo user  // DONE
@@ -45,19 +42,8 @@ QJsonDocument RequestHandler::get_projects(const QJsonObject &request
 
     PrivateUserInfo sender = extract_user_info_from_qjson(request);
 
-    std::vector<std::string> projects_to_update =
-        DatabaseProject::get_projects(*database, sender);
-
-    QJsonArray json_projects_of_company;
-
-    for (const std::string &str : projects_to_update) {
-        QJsonObject project_object;
-        project_object["project_name"] = QString::fromStdString(str);
-        json_projects_of_company.append(project_object);
-    }
-
     GetProjectsWithUserResponse response;
-    response.set_projects_of_company(json_projects_of_company);
+    response.set_projects_of_company(get_raw_projects_and_tasks(sender));
 
     return response.to_qjson_document();
 }
@@ -66,11 +52,8 @@ QJsonDocument RequestHandler::create_project(const QJsonObject &request
 ) const {  // DONE
     qDebug() << "----------------------------";
     qDebug() << "got for create project";
-    qDebug() << request;
-    qDebug() << request.value("sender_email").toString();
+
     PrivateUserInfo sender = extract_user_info_from_qjson(request);
-    qDebug() << QString::fromStdString(sender.email);
-    qDebug() << QString::fromStdString(sender.user_role);
 
     std::string project_name =
         request.value("project_name").toString().toStdString();
@@ -111,7 +94,7 @@ QJsonDocument RequestHandler::add_or_delete_user_in_project(
         request["user_role_changed"].toString().toStdString();
 
     std::string user_email_changed =
-        request.value("user_deleted_email").toString().toStdString();
+        request.value("user_email_changed").toString().toStdString();
 
     unsigned int project_id =
         DatabaseProject::get_project_id(*database, sender, project_name);
@@ -120,7 +103,7 @@ QJsonDocument RequestHandler::add_or_delete_user_in_project(
         DatabaseProject::delete_user_from_project(
             *database, user_email_changed, project_id
         );
-    } else if (request["type"] == "add_user_in_project") {
+    } else if (request["type"] == "add user in project") {
         DatabaseProject::add_user_in_project(
             *database, user_email_changed, project_id, user_role_changed
         );
