@@ -31,6 +31,7 @@ void ClientHandler::send_message_to_project_user_list(
     const QJsonDocument &message
 ) {
     for (const auto &obj : users) {
+                qDebug() << obj["email"].toString();
         get_clients()[get_emails()[obj["email"].toString()]]->write_byte_data(
             message.toJson()
         );
