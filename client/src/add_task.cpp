@@ -10,7 +10,9 @@ AddTask::AddTask(QWidget *parent, ProjectWindow *project_window)
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
   connect(ui->add_task, &QPushButton::clicked, [&] {
-    m_project_window->add_new_task(ui->task_name_edit->text(), ui->task_description_edit->text(), ui->task_deadline_edit->text());
+    m_project_window->add_new_task(ui->task_name_edit->text(),
+                                   ui->task_description_edit->text(),
+                                   ui->task_deadline_edit->text());
     this->close();
   });
 }

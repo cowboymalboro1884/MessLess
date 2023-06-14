@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
-  //TODO добавить обновление сообщений и проектов в функции ниже при переходе
+  // TODO добавить обновление сообщений и проектов в функции ниже при переходе
   connect(ui_Main->projectsButton, &QPushButton::clicked,
           [&] { ui_Main->tabWidget->setCurrentIndex(1); });
   connect(ui_Main->chatButton, &QPushButton::clicked,
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::authorizeUser() { emit got_auth_data(); }
 
 QString MainWindow::get_username() { return ui_Auth.getLogin(); }
-//наверное нужно удалить обе
+// наверное нужно удалить обе
 QString MainWindow::get_password() { return ui_Auth.getPass(); }
 
 void MainWindow::registerUser() { emit got_register_data(); }
@@ -46,12 +46,20 @@ void MainWindow::clear_projects() {
   }
 }
 
-void MainWindow::add_new_project(const QString &project_name, const QString &project_description) { emit got_new_project_data(project_name, project_description); }
+void MainWindow::add_new_project(const QString &project_name,
+                                 const QString &project_description) {
+  emit got_new_project_data(project_name, project_description);
+}
 
-void MainWindow::add_new_task(const QString &task_name, const QString &task_description, const QString &task_deadline) { emit got_new_task_data(task_name, task_description, task_deadline); }
+void MainWindow::add_new_task(const QString &task_name,
+                              const QString &task_description,
+                              const QString &task_deadline) {
+  emit got_new_task_data(task_name, task_description, task_deadline);
+}
 
-void MainWindow::change_task_condition(const QString &name, const QString &condition){
-       emit update_task_condition(name, condition);
+void MainWindow::change_task_condition(const QString &name,
+                                       const QString &condition) {
+  emit update_task_condition(name, condition);
 }
 
 void MainWindow::update_projects() {
@@ -64,11 +72,11 @@ void MainWindow::update_projects() {
     project_name = button->text();
     connect(button, &QPushButton::clicked, [=] {
       project_name = button->text();
-        ProjectWindow *project_window =
-            new ProjectWindow(nullptr, this, project_name);
-        project_window->show();
-        current_window = project_name;
-        update_tasks();
+      ProjectWindow *project_window =
+          new ProjectWindow(nullptr, this, project_name);
+      project_window->show();
+      current_window = project_name;
+      update_tasks();
     });
     lay->addWidget(button);
   }
@@ -96,6 +104,6 @@ MainWindow::~MainWindow() {
   qDebug() << "MainWindow Destroyed";
   delete ui_Main;
 
-  //Возможно нужно будет поудалять все
+  // Возможно нужно будет поудалять все
   exit(0);
 }

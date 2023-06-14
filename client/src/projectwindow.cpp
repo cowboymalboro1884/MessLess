@@ -1,6 +1,6 @@
 #include "include/projectwindow.h"
-#include "ui_projectwindow.h"
 #include "include/project_settings.h"
+#include "ui_projectwindow.h"
 
 ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window,
                              QString project_name)
@@ -14,8 +14,9 @@ ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window,
 
   connect(main_window, SIGNAL(update_current_tasks()), this,
           SLOT(delete_and_update_tasks()));
-  connect(ui->settings, &QPushButton::clicked, [&]{
-    ProjectSettings *project_settings_window = new ProjectSettings(nullptr, this);
+  connect(ui->settings, &QPushButton::clicked, [&] {
+    ProjectSettings *project_settings_window =
+        new ProjectSettings(nullptr, this);
     project_settings_window->show();
   });
 }
@@ -27,7 +28,9 @@ ProjectWindow::~ProjectWindow() {
   delete ui;
 }
 
-void ProjectWindow::add_new_task(const QString &task_name, const QString &task_description, const QString &task_deadline){
+void ProjectWindow::add_new_task(const QString &task_name,
+                                 const QString &task_description,
+                                 const QString &task_deadline) {
   m_main_window->add_new_task(task_name, task_description, task_deadline);
 }
 
@@ -35,19 +38,20 @@ void ProjectWindow::update_tasks() {
   QLayout *to_do = ui->task_to_do_layout->layout();
   QLayout *in_progress = ui->task_in_progress_layout->layout();
   QLayout *done = ui->task_done_layout->layout();
-  for (const auto &task : m_main_window->all_tasks[m_main_window->current_window.toStdString()]) {
+  for (const auto &task :
+       m_main_window->all_tasks[m_main_window->current_window.toStdString()]) {
     QPushButton *task_button = new QPushButton(task.task_name);
-    //если не будет работать, то возможно, что ошибка в &
-    connect(task_button, &QPushButton::clicked,[&]{
-        if (task.condition == "to do") {
-          m_main_window->change_task_condition(task.task_name, "in progress");
-        } else if (task.condition == "in progress") {
-          m_main_window->change_task_condition(task.task_name, "done");
-        } else {
-          m_main_window->change_task_condition(task.task_name, "to do");
-        }
-    } );
-//    task->setAlignment(Qt::AlignHCenter);
+    // если не будет работать, то возможно, что ошибка в &
+    connect(task_button, &QPushButton::clicked, [&] {
+      if (task.condition == "to do") {
+        m_main_window->change_task_condition(task.task_name, "in progress");
+      } else if (task.condition == "in progress") {
+        m_main_window->change_task_condition(task.task_name, "done");
+      } else {
+        m_main_window->change_task_condition(task.task_name, "to do");
+      }
+    });
+    //    task->setAlignment(Qt::AlignHCenter);
     if (task.condition == "to do") {
       to_do->addWidget(task_button);
     } else if (task.condition == "in progress") {
@@ -78,6 +82,3 @@ void ProjectWindow::delete_and_update_tasks() {
   clear_tasks();
   update_tasks();
 }
-
-
-
