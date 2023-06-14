@@ -13,7 +13,6 @@
 #include <unordered_map>
 #include <vector>
 
-
 namespace Ui {
 class MainWindow;
 }
@@ -38,9 +37,12 @@ public:
   void clear_projects();
   QString get_username();
   QString get_password();
-  void add_new_project(const QString &project_name, const QString &project_description);
-  void add_new_task(const QString &task_name, const QString &task_description, const QString &task_deadline);
+  void add_new_project(const QString &project_name,
+                       const QString &project_description);
+  void add_new_task(const QString &task_name, const QString &task_description,
+                    const QString &task_deadline);
   void change_task_condition(const QString &name, const QString &condition);
+
 private:
   Ui::MainWindow *ui_Main;
 
@@ -57,7 +59,7 @@ signals:
   void got_register_data();
   void got_new_project_data(const QString &, const QString &);
   void got_project_tasks();
-  void got_new_task_data(const QString &, const QString &, const QString&);
+  void got_new_task_data(const QString &, const QString &, const QString &);
 };
 
 #endif // MAINWINDOW_H
