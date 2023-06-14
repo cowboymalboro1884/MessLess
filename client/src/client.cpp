@@ -10,10 +10,9 @@ Client::Client(QObject *parent)
                     SLOT(got_register_data()));
             connect(m_window, SIGNAL(got_new_project_data(const QString &, const QString &)), this,
             SLOT(got_add_project_data(const QString &, const QString &)));
-//            connect(m_window, SIGNAL(got_project_tasks()), this,
-//            SLOT(got_project_tasks()));
-            connect(m_window, SIGNAL(got_new_task_data()), this,
-            SLOT(got_add_task_data()));
+            connect(m_window, SIGNAL(update_task_condition(const QString &, const QString &)), this, SLOT(got_new_task_condition(const QString &, const QString &)));
+            connect(m_window, SIGNAL(got_new_task_data(const QString &, const QString &, const QString &)), this,
+            SLOT(got_add_task_data(const QString &, const QString &, const QString &)));
       };
 
 void Client::start() {
@@ -41,11 +40,9 @@ void Client::start() {
       this,
       SLOT(got_status_of_authorization_slot(PrivateUserInfo)));
       connect(m_network_manager->m_response_handler, SIGNAL(get_new_condition_of_projects()), this,SLOT(somebody_updated_project_slot()));
-      connect(m_network_manager->m_response_handler, SIGNAL(get_new_task_of_project(QString)), this,SLOT(got_project_tasks(QString)));
-
-      //сообщение для будущего меня, пытаюсь законнектить сигналы и слоты уже на получение инфы, но происходит беда хз
+      connect(m_network_manager->m_response_handler, SIGNAL(get_new_task_of_project(const QString &)), this,SLOT(got_project_tasks(QString)));
       connect(m_network_manager->m_response_handler, SIGNAL(got_projects_with_tasks(std::unordered_map<std::string, std::vector<Task> >)), this, SLOT(got_projects_to_update_slot(std::unordered_map<std::string, std::vector<Task> >)));
-
+      connect(m_network_manager->m_response_handler, SIGNAL(got_new_tasks_of_project(const QString &, std::vector<Task>)), this, SLOT(got_tasks_to_update_slot(const QString &, std::vector<Task>)));
 //      connect(m_network_manager->m_response_handler,
 //      SIGNAL(got_projects_to_update(std::vector<std::string>)), this,
 //      SLOT(got_projects_to_update_slot(std::vector<std::string>)));
@@ -83,39 +80,30 @@ void Client::got_project_tasks(QString project_name) {
 
 }
 
-void Client::got_add_task_data() {
-    m_network_manager->m_query_sender->create_task(user.email, user.password, user.user_role, m_window->task_name,
-                                                   m_window->task_description, m_window->task_deadline,
+void Client::got_add_task_data(const QString &name, const QString &description, const QString &deadline) {
+    m_network_manager->m_query_sender->create_task(user.email, user.password, user.user_role, name,
+                                                   description, deadline,
                                                    m_window->project_name);
-
-//    got_project_tasks();
 }
 
 void Client::got_status_of_registration_slot(PrivateUserInfo new_user) {
     user = std::move(new_user);
-//    if (user.status == "success") {
         m_window->ui_Auth.close();
         m_window->ui_Reg.close();
         m_window->show();
-//    } else {
-//        // добавить ошибку
-//    }
+}
+
+void Client::got_new_task_condition(const QString &name, const QString &condition){
+    m_network_manager->m_query_sender->change_task_condition(user.email, user.password, user.user_role, name, m_window->current_window, condition);
 }
 
 void Client::got_status_of_authorization_slot(PrivateUserInfo new_user) {
     user = std::move(new_user);
-//    if (user.status == "success") {
         qDebug() << "name:" << user.email;
         m_window->ui_Auth.close();
         m_window->ui_Reg.close();
-
         m_window->show();
         m_window->current_window = "main_window";
-        // TODO:обработать ошибку
-        //       m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
-//    } else {
-//        // добавить ошибку
-//    }
 }
 
 void Client::got_projects_to_update_slot(
@@ -128,20 +116,15 @@ void Client::got_projects_to_update_slot(
 }
 
 void Client::somebody_updated_project_slot() {
-    m_window->flag = true;
-    qDebug() << "flag: " << m_window->flag;
-//        m_socketwrapper->get_projects_request(user.email,user.password,user.user_role);
     m_network_manager->m_query_sender->get_projects_of_company(user.email, user.password, user.user_role);
 }
 
 void Client::got_tasks_to_update_slot(
-    std::vector<Task> tasks_to_update,
-    QString project_name
+        const QString &project_name,
+    std::vector<Task> tasks_to_update
+
 ) {
-    m_window->tasks = tasks_to_update;
-    m_window->flag = true;
     m_window->all_tasks[project_name.toStdString()] = tasks_to_update;
-    // ....... !!!! обновление тасок для конкретного проекта
     if (m_window->current_window == project_name) {
         m_window->update_tasks();
     }

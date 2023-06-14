@@ -48,7 +48,11 @@ void MainWindow::clear_projects() {
 
 void MainWindow::add_new_project(const QString &project_name, const QString &project_description) { emit got_new_project_data(project_name, project_description); }
 
-void MainWindow::add_new_task() { emit got_new_task_data(); }
+void MainWindow::add_new_task(const QString &task_name, const QString &task_description, const QString &task_deadline) { emit got_new_task_data(task_name, task_description, task_deadline); }
+
+void MainWindow::change_task_condition(const QString &name, const QString &condition){
+       emit update_task_condition(name, condition);
+}
 
 void MainWindow::update_projects() {
 
@@ -58,19 +62,13 @@ void MainWindow::update_projects() {
     qDebug() << QString::fromStdString(i.first);
     QPushButton *button = new QPushButton(QString::fromStdString(i.first));
     project_name = button->text();
-    //возможно, что тут есть ошибки
     connect(button, &QPushButton::clicked, [=] {
       project_name = button->text();
-//      emit got_project_tasks();
-      if (true) { //потом изменить flag вместо заглушки
         ProjectWindow *project_window =
             new ProjectWindow(nullptr, this, project_name);
         project_window->show();
         current_window = project_name;
         update_tasks();
-      } else {
-        //добавить ошибку
-      }
     });
     lay->addWidget(button);
   }

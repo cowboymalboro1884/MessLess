@@ -15,9 +15,6 @@ public:
   explicit AddTask(QWidget *parent = nullptr,
                    ProjectWindow *project_window = nullptr);
   ~AddTask();
-  QString get_task_name();
-  QString get_task_description();
-  QString get_task_deadline();
 
 private:
   Ui::AddTask *ui;

@@ -4,12 +4,14 @@ std::unordered_map<std::string, std::vector<Task>>
 extract_projects_with_tasks_from_json(const QJsonObject &request) {
     QJsonArray raw_projects_with_tasks =
         request["projects_with_tasks"].toArray();
-//    qDebug() << raw_projects_with_tasks;
+    qDebug() << raw_projects_with_tasks;
     std::unordered_map<std::string, std::vector<Task>> projects_with_tasks;
     for (const auto &project : raw_projects_with_tasks) {
         QJsonObject project_obj = project.toObject();
         std::string project_name = project_obj["project_name"].toString().toStdString();
+
         QJsonArray tasks = project_obj["tasks_array"].toArray();
+        projects_with_tasks[project_name] = {};
         for (const auto &task : tasks) {
             QJsonObject task_obj = task.toObject();
             projects_with_tasks[project_name].push_back(Task{
@@ -17,9 +19,7 @@ extract_projects_with_tasks_from_json(const QJsonObject &request) {
                 task_obj["task_condition"].toString(),
                 task_obj["task_deadline"].toString()});
         }
-
     }
-//    for(auto i : projects_with_tasks) qDebug()<< QString::fromStdString(i.first);
     return projects_with_tasks;
 }
 
@@ -167,25 +167,29 @@ void ResponseHandler::update_projects(const QJsonObject &request) const {
     std::unordered_map<std::string, std::vector<Task>> projects_with_tasks =
         extract_projects_with_tasks_from_json(request);
 
+    for(auto i: projects_with_tasks) qDebug() << QString::fromStdString(i.first);
+
     emit got_projects_with_tasks(projects_with_tasks);
 }
 
 void ResponseHandler::update_tasks(const QJsonObject &request) const {
     QString project_name = request["project_name"].toString();
     QJsonArray tasks = request["tasks_of_project"].toArray();
-    
+    qDebug() << project_name;
+
     std::vector<Task> tasks_array; // tasks we got
     
     for (const auto &raw_task : tasks) {
         QJsonObject task_obj = raw_task.toObject();
+        qDebug() << task_obj["task_name"].toString();
         Task task{
             task_obj["task_name"].toString(),
             task_obj["task_condition"].toString(),
             task_obj["task_deadline"].toString()};
         tasks_array.push_back(std::move(task));
     }
-    
-    //emit smth 
+
+    emit got_new_tasks_of_project(std::move(project_name), tasks_array);
 }
 
 void ResponseHandler::recieved_message_to_company(const QJsonObject &request

@@ -52,16 +52,17 @@ inline std::map<QString, ResponseTypes> response_types = {
     {"registration new user is success", REGISTRATION_NEW_USER_IS_SUCCESS},
 
     {"got projects to update", GOT_PROJECTS_TO_UPDATE},
-    {"new_condition_of_projects", NEW_CONDITION_OF_PROJECTS},
+    {"new condition of projects", NEW_CONDITION_OF_PROJECTS},
 
-    {"got_tasks_to_update", GOT_TASKS_TO_UPDATE},
-    {"new_condition_of_tasks", NEW_CONDITION_OF_TASKS},
+    {"got tasks to update", GOT_TASKS_TO_UPDATE},
+    {"new condition of tasks", NEW_CONDITION_OF_TASKS},
 
-    {"got_message_to_company_chat", GOT_MESSAGE_TO_COMPANY_CHAT},
-    {"got_message_to_project_chat", GOT_MESSAGE_TO_PROJECT_CHAT}};
+    {"got message to company chat", GOT_MESSAGE_TO_COMPANY_CHAT},
+    {"got message to project chat", GOT_MESSAGE_TO_PROJECT_CHAT}};
 
 
 inline std::map<ResponseTypes, void (ResponseHandler::*) (const QJsonObject&) const> response_handlers = {
+            {ERROR, &ResponseHandler::error},
 
             {GOT_STATUS_OF_AUTHORIZATION_USER, &ResponseHandler::got_status_of_user_authorization},
             {GOT_STATUS_OF_REGISTRATION_USER_AND_COMPANY, &ResponseHandler::got_status_of_user_and_company_registration},
