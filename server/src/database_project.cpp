@@ -304,7 +304,7 @@ void DatabaseProject::change_task_condition(
     pqxx::work worker(db.connection);
     worker.exec(
         "UPDATE tasks SET condition ='" + db.shield_string(new_condition) +
-        "' WHERE task_id=" + db.shield_string(std::to_string(task_id)) + " ;"
+        "' WHERE id=" + db.shield_string(std::to_string(task_id)) + " ;"
     );
     worker.commit();
 }
