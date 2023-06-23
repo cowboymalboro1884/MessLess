@@ -35,9 +35,9 @@ QJsonDocument RequestHandler::create_task(const QJsonObject &request
         QJsonArray recipients;
         for (auto user : user_list) {
             QJsonObject email;
-                        qDebug() << QString::fromStdString(user.email);
+            qDebug() << QString::fromStdString(user.email);
             email["email"] = QString::fromStdString(user.email);
-                        recipients.append(email);
+            recipients.append(email);
         }
 
         response_to_send.set_recipients(recipients);
@@ -111,7 +111,8 @@ QJsonDocument RequestHandler::change_task_condition(const QJsonObject &request
             email["email"] = QString::fromStdString(user.email);
             recipients.append(email);
         }
-
+        response.set_recipients(recipients);
+        return response.to_qjson_document();
     } else {
         return UnableToChangTaskCondition::get_instance().to_qjson_document();
     }
