@@ -10,38 +10,42 @@ unsigned int DatabaseProject::create_project(
     const std::string &project_name,
     const std::string &biography
 ) {
-    pqxx::work worker(db.connection);
-    unsigned int company_id = worker.query_value<int>(
-        "SELECT company_id FROM users WHERE email='" +
-        db.shield_string(user.email) + "';"
-    );
-    std::unique_lock lock(db.database_mutex);
-    worker.exec(
-        "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
-        db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(project_name) + "','" + db.shield_string(biography) +
-        "')"
-    );
-    unsigned int project_id = worker.query_value<int>(
-        "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
-    );
-    worker.exec(
-        "INSERT INTO chats (company_id,project_id) VALUES ('" +
-        db.shield_string(std::to_string(company_id)) + "','" +
-        db.shield_string(std::to_string(project_id)) + "')"
-    );
-    unsigned int chat_id =
-        worker.query_value<int>("SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+    try {
+        pqxx::work worker(db.connection);
+        unsigned int company_id = worker.query_value<int>(
+            "SELECT company_id FROM users WHERE email='" +
+            db.shield_string(user.email) + "';"
         );
-    worker.exec(
-        "UPDATE projects SET chat_id ='" +
-        db.shield_string(std::to_string(chat_id)) + "' WHERE id='" +
-        db.shield_string(std::to_string(project_id)) + "';"
-    );
-    lock.unlock();
-    worker.commit();
-    add_user_in_project(db, user.email, project_id, "admin");
-    return project_id;
+        std::unique_lock lock(db.database_mutex);
+        worker.exec(
+            "INSERT INTO projects (company_id,project_name,bio) VALUES('" +
+            db.shield_string(std::to_string(company_id)) + "','" +
+            db.shield_string(project_name) + "','" +
+            db.shield_string(biography) + "')"
+        );
+        unsigned int project_id = worker.query_value<int>(
+            "SELECT id FROM projects ORDER BY id DESC LIMIT 1;"
+        );
+        worker.exec(
+            "INSERT INTO chats (company_id,project_id) VALUES ('" +
+            db.shield_string(std::to_string(company_id)) + "','" +
+            db.shield_string(std::to_string(project_id)) + "')"
+        );
+        unsigned int chat_id = worker.query_value<int>(
+            "SELECT id FROM chats ORDER BY id DESC LIMIT 1;"
+        );
+        worker.exec(
+            "UPDATE projects SET chat_id ='" +
+            db.shield_string(std::to_string(chat_id)) + "' WHERE id='" +
+            db.shield_string(std::to_string(project_id)) + "';"
+        );
+        lock.unlock();
+        worker.commit();
+        add_user_in_project(db, user.email, project_id, "admin");
+        return project_id;
+    } catch (...) {
+        return 0;
+    }
 }
 
 unsigned int DatabaseProject::get_project_id(
@@ -300,7 +304,7 @@ void DatabaseProject::change_task_condition(
     pqxx::work worker(db.connection);
     worker.exec(
         "UPDATE tasks SET condition ='" + db.shield_string(new_condition) +
-        "' WHERE task_id=" + db.shield_string(std::to_string(task_id)) + " ;"
+        "' WHERE id=" + db.shield_string(std::to_string(task_id)) + " ;"
     );
     worker.commit();
 }
@@ -411,6 +415,33 @@ void DatabaseProject::delete_user_from_project(
         worker.commit();
     } catch (...) {
         return;
+    }
+}
+
+void DatabaseProject::delete_user_from_task(
+    Database &db,
+    unsigned int task_id,
+    const std::string &email
+) {
+    pqxx::work worker(db.connection);
+    unsigned int user_id = worker.query_value<int>(
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) + "';"
+    );
+    unsigned int count = worker.query_value<int>(
+        "SELECT COUNT(*) FROM users_tasks_relationship WHERE "
+        "task_id=" +
+        db.shield_string(std::to_string(task_id)) + ";"
+    );
+    worker.exec(
+        "DELETE FROM users_tasks_relationship WHERE task_id=" +
+        db.shield_string(std::to_string(task_id)) +
+        "AND user_id=" + db.shield_string(std::to_string(user_id)) + ";"
+    );
+    if (count == 1) {
+        worker.exec(
+            "DELETE FROM tasks WHERE id=" +
+            db.shield_string(std::to_string(task_id)) + ";"
+        );
     }
 }
 
