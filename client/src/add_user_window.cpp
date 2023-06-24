@@ -15,11 +15,11 @@ AddUserWindow::AddUserWindow(QWidget *parent, MainWindow *main_window) :
     connect(ui->employer, &QPushButton::clicked, [&] {
       role = "employer";
     });
-    connect(ui->add_user, &QPushButton::clicked, [&] {
-        if(role.isEmpty() || ui->email1->text().isEmpty() || ui->name_1->text().isEmpty() || ui->surname_1->text().isEmpty() || ui->password_1->text().isEmpty()){
+    connect(ui->add_user_button, &QPushButton::clicked, [&] {
+        if(role.isEmpty() || ui->email_->text().isEmpty() || ui->name_->text().isEmpty() || ui->surname_->text().isEmpty() || ui->password_->text().isEmpty()){
             QMessageBox::warning(this, "Warning" ,"All fields must be filled out!");
         }else{
-            m_main_window->add_user_to_company(ui->email1->text(), ui->name_1->text(),ui->surname_1->text(),ui->password_1->text(),role);
+            m_main_window->add_user_to_company(ui->email_->text(), ui->name_->text(),ui->surname_->text(),ui->password_->text(),role);
             this->close();
         }
       });

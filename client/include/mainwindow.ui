@@ -56,7 +56,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="6" column="0">
-           <widget class="QLabel" name="role">
+           <widget class="QLabel" name="user_role">
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
@@ -73,7 +73,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="name">
+           <widget class="QLabel" name="user_name">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -87,7 +87,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="surname">
+           <widget class="QLabel" name="user_surname">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -101,7 +101,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="email">
+           <widget class="QLabel" name="user_email">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -115,7 +115,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLabel" name="email_">
+           <widget class="QLabel" name="user_email_">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -126,7 +126,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QLabel" name="role_">
+           <widget class="QLabel" name="user_role_">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -137,7 +137,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QLabel" name="company_">
+           <widget class="QLabel" name="user_company_">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -148,7 +148,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLabel" name="name_">
+           <widget class="QLabel" name="user_name_">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -159,7 +159,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QLabel" name="company">
+           <widget class="QLabel" name="user_company">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -173,7 +173,7 @@ font: 87 20pt &quot;Arial Black&quot;;</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="surname_">
+           <widget class="QLabel" name="user_surname_">
             <property name="styleSheet">
              <string notr="true">color: rgb(80, 108, 200);
 font: 87 20pt &quot;Arial Black&quot;;</string>
@@ -325,7 +325,7 @@ border: 0.5px solid  rgb(80, 108, 200);
 </string>
            </property>
            <layout class="QFormLayout" name="formLayout_3">
-            <item row="0" column="0">
+            <item row="0" column="0" colspan="2">
              <spacer name="verticalSpacer">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -333,28 +333,13 @@ border: 0.5px solid  rgb(80, 108, 200);
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>40</height>
+                <height>400</height>
                </size>
               </property>
              </spacer>
             </item>
-            <item row="1" column="0" colspan="2">
-             <layout class="QVBoxLayout" name="messages">
-              <item>
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="2" column="0" colspan="2">
+             <layout class="QVBoxLayout" name="messages"/>
             </item>
            </layout>
           </widget>
@@ -363,7 +348,7 @@ border: 0.5px solid  rgb(80, 108, 200);
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QLineEdit" name="message">
+           <widget class="QLineEdit" name="message_edit">
             <property name="styleSheet">
              <string notr="true">border: 1px solid black;
      border-radius: 4px;

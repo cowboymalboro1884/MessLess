@@ -19,6 +19,7 @@ AddUser::AddUser(QWidget *parent, ProjectWindow *project_window)
       if(role.isEmpty() || ui->email->text().isEmpty()){
           QMessageBox::warning(this, "Warning" ,"All fields must be filled out!");
       }else{
+          qDebug() << ui->email->text()<< role;
           m_project_window->add_user_to_project(ui->email->text(), role);
           this->close();
       }

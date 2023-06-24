@@ -30,18 +30,14 @@ public:
   std::vector<Message> company_messages;
   bool update_company_chat_flag;
   int message_counter;
-//  QBoxLayout *techArea;
-//  QScrollArea *scroll;
   auth_window ui_Auth;
   reg_window ui_Reg;
-  Ui::MainWindow *get_ui() const;
+  QString user_role;
   void display();
   void update_projects();
   void update_tasks();
   void clear_projects();
   void clear_messages();
-  QString get_username();
-  QString get_password();
   void add_new_project(const QString &project_name,
                        const QString &project_description);
   void add_new_task(const QString &task_name, const QString &task_description,
@@ -50,6 +46,9 @@ public:
   void add_user_to_project(const QString &email, const QString &role);
   void add_user_to_company(const QString &email, const QString &name, const QString &surname, const QString &password, const QString &role);
   void add_new_messages();
+  void hide_button();
+  void delete_project();
+  void delete_user(const QString &email);
 private:
   Ui::MainWindow *ui_Main;
 
@@ -70,6 +69,9 @@ signals:
   void got_project_user_data(const QString &, const QString &);
   void add_new_user_to_company(const QString &, const QString &, const QString &, const QString &, const QString &);
   void send_message(const QString &);
+  void delete_project_signal();
+  void delete_user_signal(const QString &);
+
 };
 
 #endif // MAINWINDOW_H

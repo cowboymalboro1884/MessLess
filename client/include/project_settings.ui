@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>690</width>
-    <height>300</height>
+    <width>420</width>
+    <height>160</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>420</width>
+    <height>160</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>420</width>
+    <height>160</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -24,7 +36,7 @@ border: 1px black;
 
      border-radius: 4px;
 	font: 63 20pt &quot;Yu Gothic UI Semibold&quot;;
-width:326px;
+width:100px;
 height:26px;
 }
 QPushButton:hover{
@@ -71,7 +83,7 @@ border: 1px solid rgb(255, 255, 255);
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QPushButton" name="delete_task">
+    <widget class="QPushButton" name="delete_project">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -79,7 +91,7 @@ border: 1px solid rgb(255, 255, 255);
       </size>
      </property>
      <property name="text">
-      <string>Delete task</string>
+      <string>Delete Project</string>
      </property>
     </widget>
    </item>

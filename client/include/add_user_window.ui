@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="9" column="0">
-      <widget class="QPushButton" name="add_user">
+      <widget class="QPushButton" name="add_user_button">
        <property name="styleSheet">
         <string notr="true">QPushButton {
      background-color: rgb(80, 108, 200);
@@ -52,7 +52,7 @@ border: 1px solid rgb(255, 255, 255);
       </widget>
      </item>
      <item row="6" column="0">
-      <widget class="QLabel" name="password1">
+      <widget class="QLabel" name="password">
        <property name="styleSheet">
         <string notr="true">color: rgb(80, 108, 200);
 font: 87 10pt &quot;Arial Black&quot;;
@@ -67,7 +67,7 @@ height: 20px;</string>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="email1">
+      <widget class="QLabel" name="email">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -91,7 +91,7 @@ height: 20px;</string>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="name1">
+      <widget class="QLabel" name="name">
        <property name="styleSheet">
         <string notr="true">color: rgb(80, 108, 200);
 font: 87 10pt &quot;Arial Black&quot;;
@@ -106,7 +106,7 @@ height: 20px;</string>
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLineEdit" name="surname_1">
+      <widget class="QLineEdit" name="surname_">
        <property name="styleSheet">
         <string notr="true">border: 1px solid black;
      border-radius: 4px;
@@ -115,7 +115,7 @@ background-color: white;</string>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLineEdit" name="name_1">
+      <widget class="QLineEdit" name="name_">
        <property name="styleSheet">
         <string notr="true">border: 1px solid black;
      border-radius: 4px;
@@ -150,7 +150,7 @@ font: 87 10pt &quot;Arial Black&quot;;</string>
       </layout>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="email_1">
+      <widget class="QLineEdit" name="email_">
        <property name="styleSheet">
         <string notr="true">border: 1px solid black;
      border-radius: 4px;
@@ -159,7 +159,7 @@ background-color: white;</string>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="surname1">
+      <widget class="QLabel" name="surname">
        <property name="styleSheet">
         <string notr="true">color: rgb(80, 108, 200);
 font: 87 10pt &quot;Arial Black&quot;;
@@ -174,7 +174,7 @@ height: 20px;</string>
       </widget>
      </item>
      <item row="7" column="0">
-      <widget class="QLineEdit" name="password_1">
+      <widget class="QLineEdit" name="password_">
        <property name="styleSheet">
         <string notr="true">border: 1px solid black;
      border-radius: 4px;

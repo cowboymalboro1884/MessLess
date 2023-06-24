@@ -35,6 +35,14 @@ void ProjectWindow::add_new_task(const QString &task_name,
   m_main_window->add_new_task(task_name, task_description, task_deadline);
 }
 
+void ProjectWindow::delete_project(){
+  m_main_window->delete_project();
+}
+
+void ProjectWindow::delete_user(const QString &email){
+  m_main_window->delete_user(email);
+}
+
 void ProjectWindow::add_user_to_project(const QString &name, const QString &role){
     m_main_window->add_user_to_project(name, role);
 }
@@ -81,6 +89,10 @@ void ProjectWindow::clear_tasks() {
     delete task->widget();
     delete task;
   }
+}
+
+void ProjectWindow::hide_settings(){
+  ui->settings->hide();
 }
 
 void ProjectWindow::delete_and_update_tasks() {

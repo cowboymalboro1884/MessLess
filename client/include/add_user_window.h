@@ -2,7 +2,6 @@
 #define ADD_USER_WINDOW_H
 
 #include "mainwindow.h"
-#include <QWidget>
 #include <QMessageBox>
 
 namespace Ui {
@@ -14,7 +13,7 @@ class AddUserWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit AddUserWindow(QWidget *parent = nullptr,MainWindow *main_window = nullptr);
+    explicit AddUserWindow(QWidget *parent = nullptr, MainWindow *main_window = nullptr);
     ~AddUserWindow();
 
 private:

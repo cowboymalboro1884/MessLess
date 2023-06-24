@@ -1,7 +1,7 @@
 #include "include/project_settings.h"
 #include "include/add_task.h"
 #include "include/add_user.h"
-#include "include/delete_task.h"
+#include "include/delete_user.h"
 #include "ui_project_settings.h"
 
 ProjectSettings::ProjectSettings(QWidget *parent, ProjectWindow *project_window)
@@ -18,11 +18,10 @@ ProjectSettings::ProjectSettings(QWidget *parent, ProjectWindow *project_window)
     AddTask *add_task_window = new AddTask(nullptr, m_project_window);
     add_task_window->show();
   });
-  connect(ui->delete_task, &QPushButton::clicked, [&] {
-    this->close(); // TODO: возможно тут будет ошибка из-за того, что окно
-                   // удаляется, надо будет исправить
-    DeleteTask *delete_task_window = new DeleteTask(nullptr, m_project_window);
-    delete_task_window->show();
+  connect(ui->delete_project, &QPushButton::clicked, [&] {
+    this->close();
+    project_window->delete_project();
+    project_window->close();
   });
   connect(ui->add_new_user, &QPushButton::clicked, [&] {
     this->close(); // TODO: возможно тут будет ошибка из-за того, что окно

@@ -1,5 +1,6 @@
 #include "include/mainwindow.h"
 #include "include/add_project.h"
+#include "include/add_user_window.h"
 #include "include/projectwindow.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
@@ -10,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
   this->current_window = "auth_window";
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
+  ui_Main->tabWidget->setCurrentIndex(1);
+  update_projects();
   connect(&ui_Auth, SIGNAL(login_button_clicked()), this,
           SLOT(authorizeUser()));
   connect(&ui_Auth, SIGNAL(register_button_clicked()), this,
@@ -22,10 +25,14 @@ MainWindow::MainWindow(QWidget *parent)
     add_project *chooseWindow = new add_project(nullptr, this);
     chooseWindow->show();
   });
-  // TODO добавить обновление сообщений и проектов в функции ниже при переходе
+  connect(ui_Main->add_user_button, &QPushButton::clicked, [&] {
+    AddUserWindow *add_user_window = new AddUserWindow(nullptr, this);
+    add_user_window->show();
+  });
   connect(ui_Main->projectsButton, &QPushButton::clicked, [&] {
     ui_Main->tabWidget->setCurrentIndex(1);
     current_window = "main_window";
+    clear_projects();
     update_projects();
   });
   connect(ui_Main->chatButton, &QPushButton::clicked,
@@ -41,14 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
             lay->addWidget(user_message);
         }
     }
-//    if(add_message_flag){
-//        add_message_flag=false;
-//        QLayout *lay = ui_Main->messages->layout();
-//        QPushButton *user = new QPushButton(new_message.name_of_sender+" "+message.surname_of_sender);
-//        QLabel *user_message = new QLabel(new_message.message_as_it_is);
-//        lay->addWidget(user);
-//        lay->addWidget(user_message);
-//    }
+
     add_new_messages();
 
   });
@@ -56,19 +56,16 @@ MainWindow::MainWindow(QWidget *parent)
           [&] { ui_Main->tabWidget->setCurrentIndex(0);
   current_window = "main_window_account";});
   connect(ui_Main->send_message, &QPushButton::clicked, [&] {
-    if (ui_Main->message->text().isEmpty()) {
+    if (ui_Main->message_edit->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "Enter message!");
     } else {
-      emit send_message(ui_Main->message->text());
+      emit send_message(ui_Main->message_edit->text());
+        ui_Main->message_edit->clear();
     }
   });
 }
 
 void MainWindow::authorizeUser() { emit got_auth_data(); }
-
-QString MainWindow::get_username() { return ui_Auth.getLogin(); }
-// наверное нужно удалить обе
-QString MainWindow::get_password() { return ui_Auth.getPass(); }
 
 void MainWindow::registerUser() { emit got_register_data(); }
 
@@ -96,7 +93,7 @@ void MainWindow::add_new_messages(){
 void MainWindow::clear_messages(){
     QLayoutItem *child;
     //возможно, что нужно до 1 цикл
-    while ((child = ui_Main->messages->takeAt(1)) != nullptr) {
+    while ((child = ui_Main->messages->takeAt(0)) != nullptr) {
       delete child->widget();
       delete child;
     }
@@ -131,9 +128,7 @@ void MainWindow::change_task_condition(const QString &name,
 }
 
 void MainWindow::update_projects() {
-
   QLayout *lay = ui_Main->project_lay->layout();
-
   for (const auto &i : all_tasks) {
     qDebug() << QString::fromStdString(i.first);
     QPushButton *button = new QPushButton(QString::fromStdString(i.first));
@@ -143,6 +138,9 @@ void MainWindow::update_projects() {
       ProjectWindow *project_window =
           new ProjectWindow(nullptr, this, project_name);
       project_window->show();
+     if(user_role=="employer"){
+         project_window->hide_settings();
+      }
       current_window = project_name;
       update_tasks();
     });
@@ -150,11 +148,21 @@ void MainWindow::update_projects() {
   }
 }
 
+void MainWindow::delete_project(){
+  emit delete_project_signal();
+}
+
+void MainWindow::delete_user(const QString &email){
+  emit delete_user_signal(email);
+}
+
 void MainWindow::update_tasks() { emit update_current_tasks(); }
 
 void MainWindow::display() { ui_Auth.show(); }
 
-Ui::MainWindow *MainWindow::get_ui() const { return ui_Main; }
+void MainWindow::hide_button(){
+      ui_Main->add_user_button->hide();
+}
 
 void MainWindow::registerWindowShow() {
   ui_Auth.hide();
@@ -172,7 +180,6 @@ MainWindow::~MainWindow() {
   qDebug() << "MainWindow Destroyed";
   clear_projects();
   delete ui_Main;
-  ////TODO мб здесь что-то не так
   ui_Auth.~auth_window();
   ui_Reg.~reg_window();
   exit(0);

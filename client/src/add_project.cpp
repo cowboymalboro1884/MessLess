@@ -10,14 +10,8 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   setWindowTitle("MessLess");
   connect(ui->addProject, &QPushButton::clicked,
           [&] {
-            main_wind->add_new_project(get_project_name(),
-                                       get_project_description());});
-}
-
-QString add_project::get_project_name() { return ui->name_lineEdit->text(); }
-
-QString add_project::get_project_description() {
-  return ui->description_lineEdit->text();
+            main_wind->add_new_project(ui->name_lineEdit->text(),
+                                       ui->description_lineEdit->text());});
 }
 
 add_project::~add_project() {
