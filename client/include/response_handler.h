@@ -30,7 +30,6 @@ public:
   QString file_path;
 };
 
-
 struct ResponseHandler : QObject {
   Q_OBJECT
 

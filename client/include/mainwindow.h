@@ -6,10 +6,10 @@
 #include "socketwrapper.h"
 #include <QBoxLayout>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QString>
-#include <QMessageBox>
 #include <QTcpSocket>
 #include <unordered_map>
 #include <vector>
@@ -44,11 +44,14 @@ public:
                     const QString &task_deadline);
   void change_task_condition(const QString &name, const QString &condition);
   void add_user_to_project(const QString &email, const QString &role);
-  void add_user_to_company(const QString &email, const QString &name, const QString &surname, const QString &password, const QString &role);
+  void add_user_to_company(const QString &email, const QString &name,
+                           const QString &surname, const QString &password,
+                           const QString &role);
   void add_new_messages();
   void hide_button();
   void delete_project();
   void delete_user(const QString &email);
+
 private:
   Ui::MainWindow *ui_Main;
 
@@ -67,11 +70,12 @@ signals:
   void got_project_tasks();
   void got_new_task_data(const QString &, const QString &, const QString &);
   void got_project_user_data(const QString &, const QString &);
-  void add_new_user_to_company(const QString &, const QString &, const QString &, const QString &, const QString &);
+  void add_new_user_to_company(const QString &, const QString &,
+                               const QString &, const QString &,
+                               const QString &);
   void send_message(const QString &);
   void delete_project_signal();
   void delete_user_signal(const QString &);
-
 };
 
 #endif // MAINWINDOW_H

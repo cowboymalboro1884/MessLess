@@ -11,13 +11,12 @@ DeleteTask::DeleteTask(QWidget *parent, ProjectWindow *project_window)
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
   connect(ui->delete_button, &QPushButton::clicked, [&] {
-      if(ui->email->text().isEmpty()){
-          QMessageBox::warning(this, "Warning" ,"Enter user email!");
-      }else{
-         project_window->delete_user(ui->email->text());
-      }
+    if (ui->email->text().isEmpty()) {
+      QMessageBox::warning(this, "Warning", "Enter user email!");
+    } else {
+      project_window->delete_user(ui->email->text());
+    }
   });
-
 }
 
 DeleteTask::~DeleteTask() {

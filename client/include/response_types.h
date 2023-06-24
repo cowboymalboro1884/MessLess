@@ -15,7 +15,6 @@ public:
   QString project_id;
 };
 
-
 enum ResponseTypes {
   ERROR,
 

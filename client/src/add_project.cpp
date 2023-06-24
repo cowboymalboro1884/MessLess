@@ -8,10 +8,10 @@ add_project::add_project(QWidget *parent, MainWindow *main_window)
   main_wind->setEnabled(false);
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
-  connect(ui->addProject, &QPushButton::clicked,
-          [&] {
-            main_wind->add_new_project(ui->name_lineEdit->text(),
-                                       ui->description_lineEdit->text());});
+  connect(ui->addProject, &QPushButton::clicked, [&] {
+    main_wind->add_new_project(ui->name_lineEdit->text(),
+                               ui->description_lineEdit->text());
+  });
 }
 
 add_project::~add_project() {

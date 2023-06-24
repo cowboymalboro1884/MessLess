@@ -31,8 +31,10 @@ Client::Client(QObject *parent) : m_window(new MainWindow()) {
                                    const QString &)));
   connect(m_window, SIGNAL(send_message(const QString &)), this,
           SLOT(send_message_to_company(const QString &)));
-  connect(m_window, SIGNAL(delete_project_signal()), this, SLOT(delete_project()));
-  connect(m_window, SIGNAL(delete_user_signal(const QString &)), this, SLOT(delete_user(const QString &)));
+  connect(m_window, SIGNAL(delete_project_signal()), this,
+          SLOT(delete_project()));
+  connect(m_window, SIGNAL(delete_user_signal(const QString &)), this,
+          SLOT(delete_user(const QString &)));
 };
 
 void Client::start() {
@@ -49,12 +51,14 @@ void Client::start() {
     // need to delete
   }
 
-  connect(m_network_manager->m_response_handler,
-          SIGNAL(got_status_of_registration(PrivateUserInfo)), this,
-          SLOT(got_status_of_authorization_or_registration_slot(PrivateUserInfo)));
-  connect(m_network_manager->m_response_handler,
-          SIGNAL(got_status_of_authorization(PrivateUserInfo)), this,
-          SLOT(got_status_of_authorization_or_registration_slot(PrivateUserInfo)));
+  connect(
+      m_network_manager->m_response_handler,
+      SIGNAL(got_status_of_registration(PrivateUserInfo)), this,
+      SLOT(got_status_of_authorization_or_registration_slot(PrivateUserInfo)));
+  connect(
+      m_network_manager->m_response_handler,
+      SIGNAL(got_status_of_authorization(PrivateUserInfo)), this,
+      SLOT(got_status_of_authorization_or_registration_slot(PrivateUserInfo)));
   connect(m_network_manager->m_response_handler,
           SIGNAL(get_new_condition_of_projects()), this,
           SLOT(somebody_updated_project_slot()));
@@ -95,12 +99,15 @@ void Client::got_add_project_data(const QString &project_name,
       project_description);
 }
 
-void Client::delete_project(){
-//  m_network_manager->m_query_sender->delete_project(user.email, user.password,user.user_role,m_window->current_window, )
+void Client::delete_project() {
+  //  m_network_manager->m_query_sender->delete_project(user.email,
+  //  user.password,user.user_role,m_window->current_window, )
 }
 
-void Client::delete_user(const QString &email){
-  m_network_manager->m_query_sender->delete_user_to_project(user.email, user.password, user.user_role, email, m_window->current_window);
+void Client::delete_user(const QString &email) {
+  m_network_manager->m_query_sender->delete_user_to_project(
+      user.email, user.password, user.user_role, email,
+      m_window->current_window);
 }
 
 void Client::got_project_tasks(QString project_name) {
@@ -115,16 +122,16 @@ void Client::got_add_task_data(const QString &name, const QString &description,
       m_window->project_name);
 }
 
-//void Client::got_status_of_registration_slot(PrivateUserInfo new_user) {
-//  user = std::move(new_user);
-//  m_window->ui_Auth.close();
-//  m_window->ui_Reg.close();
-//  m_window->user_role = user.user_role;
-//  if(m_window->user_role=="employer"){
-//      m_window->hide_button();
-//    }
-//  m_window->show();
-//}
+// void Client::got_status_of_registration_slot(PrivateUserInfo new_user) {
+//   user = std::move(new_user);
+//   m_window->ui_Auth.close();
+//   m_window->ui_Reg.close();
+//   m_window->user_role = user.user_role;
+//   if(m_window->user_role=="employer"){
+//       m_window->hide_button();
+//     }
+//   m_window->show();
+// }
 
 void Client::got_new_task_condition(const QString &name,
                                     const QString &condition) {
@@ -133,14 +140,15 @@ void Client::got_new_task_condition(const QString &name,
       condition);
 }
 
-void Client::got_status_of_authorization_or_registration_slot(PrivateUserInfo new_user) {
+void Client::got_status_of_authorization_or_registration_slot(
+    PrivateUserInfo new_user) {
   user = std::move(new_user);
   m_window->ui_Auth.close();
   m_window->ui_Reg.close();
   m_window->user_role = user.user_role;
-  if(m_window->user_role=="employer"){
-      m_window->hide_button();
-    }
+  if (m_window->user_role == "employer") {
+    m_window->hide_button();
+  }
   m_window->show();
   m_window->current_window = "main_window";
 }
@@ -187,15 +195,14 @@ void Client::send_message_to_company(const QString &message) {
 }
 
 void Client::got_company_messages_slot(const std::vector<Message> &messages) {
-    m_window->company_messages=std::move(messages);
-    m_window->update_company_chat_flag=true;
+  m_window->company_messages = std::move(messages);
+  m_window->update_company_chat_flag = true;
 }
 
 void Client::got_company_message_slot(Message message) {
-    m_window->company_messages.push_back(message);
-    m_window->message_counter++;
-    m_window->add_new_messages();
-
+  m_window->company_messages.push_back(message);
+  m_window->message_counter++;
+  m_window->add_new_messages();
 }
 
 Client::~Client() {

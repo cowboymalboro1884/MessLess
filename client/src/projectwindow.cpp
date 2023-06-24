@@ -35,16 +35,15 @@ void ProjectWindow::add_new_task(const QString &task_name,
   m_main_window->add_new_task(task_name, task_description, task_deadline);
 }
 
-void ProjectWindow::delete_project(){
-  m_main_window->delete_project();
-}
+void ProjectWindow::delete_project() { m_main_window->delete_project(); }
 
-void ProjectWindow::delete_user(const QString &email){
+void ProjectWindow::delete_user(const QString &email) {
   m_main_window->delete_user(email);
 }
 
-void ProjectWindow::add_user_to_project(const QString &name, const QString &role){
-    m_main_window->add_user_to_project(name, role);
+void ProjectWindow::add_user_to_project(const QString &name,
+                                        const QString &role) {
+  m_main_window->add_user_to_project(name, role);
 }
 
 void ProjectWindow::update_tasks() {
@@ -53,7 +52,7 @@ void ProjectWindow::update_tasks() {
   QLayout *done = ui->task_done_layout->layout();
   for (const auto &task :
        m_main_window->all_tasks[m_main_window->current_window.toStdString()]) {
-      qDebug() << task.condition;
+    qDebug() << task.condition;
     QPushButton *task_button = new QPushButton(task.task_name);
     connect(task_button, &QPushButton::clicked, [&] {
       if (task.condition == "to do") {
@@ -91,9 +90,7 @@ void ProjectWindow::clear_tasks() {
   }
 }
 
-void ProjectWindow::hide_settings(){
-  ui->settings->hide();
-}
+void ProjectWindow::hide_settings() { ui->settings->hide(); }
 
 void ProjectWindow::delete_and_update_tasks() {
   clear_tasks();

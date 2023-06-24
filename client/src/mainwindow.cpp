@@ -35,32 +35,33 @@ MainWindow::MainWindow(QWidget *parent)
     clear_projects();
     update_projects();
   });
-  connect(ui_Main->chatButton, &QPushButton::clicked,
-          [&] { ui_Main->tabWidget->setCurrentIndex(2);
-      current_window = "main_window_chat";
-    if(update_company_chat_flag){
-        update_company_chat_flag=false;
-        QLayout *lay = ui_Main->messages->layout();
-        for(const auto& message:company_messages){
-            QPushButton *user = new QPushButton(message.name_of_sender+" "+message.surname_of_sender);
-            QLabel *user_message = new QLabel(message.message_as_it_is);
-            lay->addWidget(user);
-            lay->addWidget(user_message);
-        }
+  connect(ui_Main->chatButton, &QPushButton::clicked, [&] {
+    ui_Main->tabWidget->setCurrentIndex(2);
+    current_window = "main_window_chat";
+    if (update_company_chat_flag) {
+      update_company_chat_flag = false;
+      QLayout *lay = ui_Main->messages->layout();
+      for (const auto &message : company_messages) {
+        QPushButton *user = new QPushButton(message.name_of_sender + " " +
+                                            message.surname_of_sender);
+        QLabel *user_message = new QLabel(message.message_as_it_is);
+        lay->addWidget(user);
+        lay->addWidget(user_message);
+      }
     }
 
     add_new_messages();
-
   });
-  connect(ui_Main->accButton, &QPushButton::clicked,
-          [&] { ui_Main->tabWidget->setCurrentIndex(0);
-  current_window = "main_window_account";});
+  connect(ui_Main->accButton, &QPushButton::clicked, [&] {
+    ui_Main->tabWidget->setCurrentIndex(0);
+    current_window = "main_window_account";
+  });
   connect(ui_Main->send_message, &QPushButton::clicked, [&] {
     if (ui_Main->message_edit->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "Enter message!");
     } else {
       emit send_message(ui_Main->message_edit->text());
-        ui_Main->message_edit->clear();
+      ui_Main->message_edit->clear();
     }
   });
 }
@@ -77,26 +78,30 @@ void MainWindow::clear_projects() {
   }
 }
 
-void MainWindow::add_new_messages(){
-    if(current_window == "main_window_chat"){
-        for(size_t index = company_messages.size()-1-message_counter; index < company_messages.size(); index++){
-            QLayout *lay = ui_Main->messages->layout();
-                    QPushButton *user = new QPushButton(company_messages[index].name_of_sender+" "+company_messages[index].surname_of_sender);
-                    QLabel *user_message = new QLabel(company_messages[index].message_as_it_is);
-                    lay->addWidget(user);
-                    lay->addWidget(user_message);
-        }
-        message_counter=0;
+void MainWindow::add_new_messages() {
+  if (current_window == "main_window_chat") {
+    for (size_t index = company_messages.size() - 1 - message_counter;
+         index < company_messages.size(); index++) {
+      QLayout *lay = ui_Main->messages->layout();
+      QPushButton *user =
+          new QPushButton(company_messages[index].name_of_sender + " " +
+                          company_messages[index].surname_of_sender);
+      QLabel *user_message =
+          new QLabel(company_messages[index].message_as_it_is);
+      lay->addWidget(user);
+      lay->addWidget(user_message);
     }
+    message_counter = 0;
+  }
 }
 
-void MainWindow::clear_messages(){
-    QLayoutItem *child;
-    //возможно, что нужно до 1 цикл
-    while ((child = ui_Main->messages->takeAt(0)) != nullptr) {
-      delete child->widget();
-      delete child;
-    }
+void MainWindow::clear_messages() {
+  QLayoutItem *child;
+  // возможно, что нужно до 1 цикл
+  while ((child = ui_Main->messages->takeAt(0)) != nullptr) {
+    delete child->widget();
+    delete child;
+  }
 }
 
 void MainWindow::add_new_project(const QString &project_name,
@@ -138,8 +143,8 @@ void MainWindow::update_projects() {
       ProjectWindow *project_window =
           new ProjectWindow(nullptr, this, project_name);
       project_window->show();
-     if(user_role=="employer"){
-         project_window->hide_settings();
+      if (user_role == "employer") {
+        project_window->hide_settings();
       }
       current_window = project_name;
       update_tasks();
@@ -148,11 +153,9 @@ void MainWindow::update_projects() {
   }
 }
 
-void MainWindow::delete_project(){
-  emit delete_project_signal();
-}
+void MainWindow::delete_project() { emit delete_project_signal(); }
 
-void MainWindow::delete_user(const QString &email){
+void MainWindow::delete_user(const QString &email) {
   emit delete_user_signal(email);
 }
 
@@ -160,9 +163,7 @@ void MainWindow::update_tasks() { emit update_current_tasks(); }
 
 void MainWindow::display() { ui_Auth.show(); }
 
-void MainWindow::hide_button(){
-      ui_Main->add_user_button->hide();
-}
+void MainWindow::hide_button() { ui_Main->add_user_button->hide(); }
 
 void MainWindow::registerWindowShow() {
   ui_Auth.hide();

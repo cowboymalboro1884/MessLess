@@ -17,8 +17,8 @@ public:
                        MainWindow *main_wind = nullptr);
   ~add_project();
 
-//signals:
-//  void create_project();
+  // signals:
+  //   void create_project();
 
 private:
   Ui::add_project *ui;
