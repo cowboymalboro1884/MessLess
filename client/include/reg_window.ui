@@ -44,7 +44,8 @@
      <item row="7" column="0">
       <widget class="QLabel" name="label_Confirm">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Confirm password:</string>
@@ -54,7 +55,8 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_Name">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Name:</string>
@@ -64,7 +66,9 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_Password">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Password:</string>
@@ -83,7 +87,8 @@ background-color: white;</string>
      <item row="0" column="1" colspan="2">
       <widget class="QLabel" name="label_Welcome">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Registration</string>
@@ -102,7 +107,7 @@ background-color: white;</string>
 border: 1px black;
 
      border-radius: 4px;
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+	font: 63 10pt &quot;Yu Gothic UI Semibold&quot;;
 width:117px;
 height:26px;
 }
@@ -118,7 +123,8 @@ border: 1px solid rgb(255, 255, 255);
      <item row="3" column="0">
       <widget class="QLabel" name="label_Surname">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Surname:</string>
@@ -137,7 +143,8 @@ background-color: white;</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_Email">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Email:</string>
@@ -156,7 +163,8 @@ background-color: white;</string>
      <item row="5" column="0">
       <widget class="QLabel" name="label_Company_bio">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Company bio:</string>
@@ -193,7 +201,8 @@ background-color: white;</string>
      <item row="4" column="0">
       <widget class="QLabel" name="label_Company_name">
        <property name="styleSheet">
-        <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+        <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
         <string>Company name:</string>
@@ -235,7 +244,7 @@ font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
 border: 1px black;
 
      border-radius: 4px;
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+	font: 63 10pt &quot;Yu Gothic UI Semibold&quot;;
 width:326px;
 height:26px;
 }

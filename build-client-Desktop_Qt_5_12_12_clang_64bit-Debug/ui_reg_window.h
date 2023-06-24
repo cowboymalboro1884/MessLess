@@ -64,19 +64,23 @@ public:
         gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         label_Confirm = new QLabel(reg_window);
         label_Confirm->setObjectName(QString::fromUtf8("label_Confirm"));
-        label_Confirm->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Confirm->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Confirm, 7, 0, 1, 1);
 
         label_Name = new QLabel(reg_window);
         label_Name->setObjectName(QString::fromUtf8("label_Name"));
-        label_Name->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Name->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Name, 2, 0, 1, 1);
 
         label_Password = new QLabel(reg_window);
         label_Password->setObjectName(QString::fromUtf8("label_Password"));
-        label_Password->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Password->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Password, 6, 0, 1, 1);
 
@@ -90,7 +94,8 @@ public:
 
         label_Welcome = new QLabel(reg_window);
         label_Welcome->setObjectName(QString::fromUtf8("label_Welcome"));
-        label_Welcome->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Welcome->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         label_Welcome->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(label_Welcome, 0, 1, 1, 2);
@@ -103,7 +108,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:117px;\n"
 "height:26px;\n"
 "}\n"
@@ -115,7 +120,8 @@ public:
 
         label_Surname = new QLabel(reg_window);
         label_Surname->setObjectName(QString::fromUtf8("label_Surname"));
-        label_Surname->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Surname->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Surname, 3, 0, 1, 1);
 
@@ -129,7 +135,8 @@ public:
 
         label_Email = new QLabel(reg_window);
         label_Email->setObjectName(QString::fromUtf8("label_Email"));
-        label_Email->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Email->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Email, 1, 0, 1, 1);
 
@@ -143,7 +150,8 @@ public:
 
         label_Company_bio = new QLabel(reg_window);
         label_Company_bio->setObjectName(QString::fromUtf8("label_Company_bio"));
-        label_Company_bio->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Company_bio->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Company_bio, 5, 0, 1, 1);
 
@@ -173,7 +181,8 @@ public:
 
         label_Company_name = new QLabel(reg_window);
         label_Company_name->setObjectName(QString::fromUtf8("label_Company_name"));
-        label_Company_name->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        label_Company_name->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(label_Company_name, 4, 0, 1, 1);
 
@@ -202,7 +211,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:326px;\n"
 "height:26px;\n"
 "}\n"

@@ -29,11 +29,17 @@ public slots:
   void got_new_task_condition(const QString &name, const QString &condition);
   void got_status_of_registration_slot(PrivateUserInfo);
   void got_status_of_authorization_slot(PrivateUserInfo);
+  ////TODO передавать всё по ссылке
   void got_projects_to_update_slot(
       std::unordered_map<std::string, std::vector<Task>> projects_to_update);
   void somebody_updated_project_slot();
   void got_tasks_to_update_slot(const QString &project_name,
                                 std::vector<Task> tasks_to_update);
+  void add_user_to_project(const QString &email, const QString &role);
+  void add_user_to_company(const QString &email, const QString &name, const QString &surname, const QString &password, const QString &role);
+  void send_message_to_company(const QString &message);
+  void got_company_messages_slot(const std::vector<Message> &messages);
+  void got_company_message_slot(Message message);
 
 private:
   QThread *network_thread;

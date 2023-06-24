@@ -16,8 +16,8 @@ extract_projects_with_tasks_from_json(const QJsonObject &request) {
       QJsonObject task_obj = task.toObject();
       projects_with_tasks[project_name].push_back(
           Task{task_obj["task_name"].toString(),
-               task_obj["task_condition"].toString(),
-               task_obj["task_deadline"].toString()});
+               task_obj["task_deadline"].toString(),
+               task_obj["task_condition"].toString()});
     }
   }
   return projects_with_tasks;
@@ -103,6 +103,7 @@ void ResponseHandler::got_status_of_user_authorization(
 
   emit got_status_of_authorization(sender);
   emit got_projects_with_tasks(projects_with_tasks);
+  emit got_company_messages(std::move(company_chat));
 }
 
 void ResponseHandler::got_status_of_user_and_company_registration(
@@ -139,6 +140,7 @@ void ResponseHandler::got_status_of_user_and_company_registration(
   // emit smth (same as previous func, may be one signal)
   emit got_status_of_registration(sender);
   emit got_projects_with_tasks(projects_with_tasks);
+  emit got_company_messages(std::move(company_chat));
 }
 
 void ResponseHandler::got_status_of_user_registration(
@@ -174,20 +176,22 @@ void ResponseHandler::update_projects(const QJsonObject &request) const {
 }
 
 void ResponseHandler::update_tasks(const QJsonObject &request) const {
-  QString project_name = request["project_name"].toString();
-  QJsonArray tasks = request["tasks_of_project"].toArray();
-  qDebug() << project_name;
+    QString project_name = request["project_name"].toString();
+        QJsonArray tasks = request["tasks_of_project"].toArray();
+        qDebug() << project_name;
 
-  std::vector<Task> tasks_array; // tasks we got
+        std::vector<Task> tasks_array; // tasks we got
 
-  for (const auto &raw_task : tasks) {
-    QJsonObject task_obj = raw_task.toObject();
-    qDebug() << task_obj["task_name"].toString();
-    Task task{task_obj["task_name"].toString(),
-              task_obj["task_condition"].toString(),
-              task_obj["task_deadline"].toString()};
-    tasks_array.push_back(std::move(task));
-  }
+        for (const auto &raw_task : tasks) {
+            QJsonObject task_obj = raw_task.toObject();
+            qDebug() << task_obj["task_name"].toString();
+            Task task{
+                task_obj["task_name"].toString(),
+                task_obj["task_deadline"].toString(),
+                task_obj["task_condition"].toString()};
+            tasks_array.push_back(std::move(task));
+        }
+
 
   emit got_new_tasks_of_project(std::move(project_name), tasks_array);
 }
@@ -203,6 +207,8 @@ void ResponseHandler::recieved_message_to_company(
   Message message{sender_name, sender_surname, sender_user_role, message_text,
                   file_link}; // message we got
                               // emit smth
+
+
 }
 
 void ResponseHandler::recieved_message_to_project(
@@ -218,7 +224,7 @@ void ResponseHandler::recieved_message_to_project(
   Message message{sender_name, sender_surname, sender_user_role, message_text,
                   file_link}; // message we got
 
-  // emit smth
+  got_company_message(message);
 }
 
 void ResponseHandler::error(const QJsonObject &request) const {

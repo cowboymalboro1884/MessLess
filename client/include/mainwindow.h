@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <QString>
+#include <QMessageBox>
 #include <QTcpSocket>
 #include <unordered_map>
 #include <vector>
@@ -26,8 +27,11 @@ public:
   QString project_name;
   QString current_window;
   std::unordered_map<std::string, std::vector<Task>> all_tasks;
-  QBoxLayout *techArea;
-  QScrollArea *scroll;
+  std::vector<Message> company_messages;
+  bool update_company_chat_flag;
+  int message_counter;
+//  QBoxLayout *techArea;
+//  QScrollArea *scroll;
   auth_window ui_Auth;
   reg_window ui_Reg;
   Ui::MainWindow *get_ui() const;
@@ -35,6 +39,7 @@ public:
   void update_projects();
   void update_tasks();
   void clear_projects();
+  void clear_messages();
   QString get_username();
   QString get_password();
   void add_new_project(const QString &project_name,
@@ -42,7 +47,9 @@ public:
   void add_new_task(const QString &task_name, const QString &task_description,
                     const QString &task_deadline);
   void change_task_condition(const QString &name, const QString &condition);
-
+  void add_user_to_project(const QString &email, const QString &role);
+  void add_user_to_company(const QString &email, const QString &name, const QString &surname, const QString &password, const QString &role);
+  void add_new_messages();
 private:
   Ui::MainWindow *ui_Main;
 
@@ -60,6 +67,9 @@ signals:
   void got_new_project_data(const QString &, const QString &);
   void got_project_tasks();
   void got_new_task_data(const QString &, const QString &, const QString &);
+  void got_project_user_data(const QString &, const QString &);
+  void add_new_user_to_company(const QString &, const QString &, const QString &, const QString &, const QString &);
+  void send_message(const QString &);
 };
 
 #endif // MAINWINDOW_H

@@ -18,6 +18,19 @@ Client::Client(QObject *parent) : m_window(new MainWindow()) {
           this,
           SLOT(got_add_task_data(const QString &, const QString &,
                                  const QString &)));
+  connect(m_window,
+          SIGNAL(got_project_user_data(const QString &, const QString &)), this,
+          SLOT(add_user_to_project(const QString &, const QString &)));
+  connect(m_window,
+          SIGNAL(add_new_user_to_company(const QString &, const QString &,
+                                         const QString &, const QString &,
+                                         const QString &)),
+          this,
+          SLOT(add_user_to_company(const QString &, const QString &,
+                                   const QString &, const QString &,
+                                   const QString &)));
+  connect(m_window, SIGNAL(send_message(const QString &)), this,
+          SLOT(send_message_to_company(const QString &)));
 };
 
 void Client::start() {
@@ -56,17 +69,9 @@ void Client::start() {
           SIGNAL(got_new_tasks_of_project(const QString &, std::vector<Task>)),
           this,
           SLOT(got_tasks_to_update_slot(const QString &, std::vector<Task>)));
-  //      connect(m_network_manager->m_response_handler,
-  //      SIGNAL(got_projects_to_update(std::vector<std::string>)), this,
-  //      SLOT(got_projects_to_update_slot(std::vector<std::string>)));
-  //      connect(m_network_manager->m_response_handler,
-  //      SIGNAL(somebody_updated_project()), this,
-  //      SLOT(somebody_updated_project_slot()));
-  //      connect(m_network_manager->m_response_handler,
-  //      SIGNAL(got_tasks_to_update(std::vector<client::network::Task>,
-  //      QString)), this,
-  //      SLOT(got_tasks_to_update_slot(std::vector<client::network::Task>,
-  //      QString)));
+  connect(m_network_manager->m_response_handler,
+          SIGNAL(got_company_messages(const std::vector<Message> &)), this,
+          SLOT(got_company_messages_slot(const std::vector<Message> &)));
 }
 
 void Client::got_register_data() {
@@ -137,13 +142,42 @@ void Client::somebody_updated_project_slot() {
 }
 
 void Client::got_tasks_to_update_slot(const QString &project_name,
-                                      std::vector<Task> tasks_to_update
-
-) {
+                                      std::vector<Task> tasks_to_update) {
   m_window->all_tasks[project_name.toStdString()] = tasks_to_update;
   if (m_window->current_window == project_name) {
     m_window->update_tasks();
   }
+}
+
+void Client::add_user_to_project(const QString &email, const QString &role) {
+  m_network_manager->m_query_sender->add_user_to_project(
+      user.email, user.password, user.user_role, email, role,
+      m_window->current_window);
+}
+
+void Client::add_user_to_company(const QString &email, const QString &name,
+                                 const QString &surname,
+                                 const QString &password, const QString &role) {
+  m_network_manager->m_query_sender->add_user_to_company(
+      user.email, user.password, user.user_role, email, password, role, name,
+      surname);
+}
+
+void Client::send_message_to_company(const QString &message) {
+  m_network_manager->m_query_sender->send_message_to_company(
+      user.email, user.password, user.user_role, message);
+}
+
+void Client::got_company_messages_slot(const std::vector<Message> &messages) {
+    m_window->company_messages=std::move(messages);
+    m_window->update_company_chat_flag=true;
+}
+
+void Client::got_company_message_slot(Message message) {
+    m_window->company_messages.push_back(message);
+    m_window->message_counter++;
+    m_window->add_new_messages();
+
 }
 
 Client::~Client() {

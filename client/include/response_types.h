@@ -15,14 +15,6 @@ public:
   QString project_id;
 };
 
-class Message {
-public:
-  QString name_of_sender;
-  QString surname_of_sender;
-  QString message_as_it_is;
-  QString user_role;
-  QString file_path;
-};
 
 enum ResponseTypes {
   ERROR,

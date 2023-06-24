@@ -9,7 +9,6 @@ auth_window::auth_window(QWidget *parent)
   setWindowTitle("Authorization");
   ui->errorMessage->hide();
   ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
-  //  this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 auth_window::~auth_window() {

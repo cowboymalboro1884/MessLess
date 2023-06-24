@@ -33,7 +33,7 @@ public:
     {
         if (add_project->objectName().isEmpty())
             add_project->setObjectName(QString::fromUtf8("add_project"));
-        add_project->resize(420, 198);
+        add_project->resize(420, 210);
         add_project->setStyleSheet(QString::fromUtf8("background-color:rgb(245, 245, 245);\n"
 ""));
         gridLayout = new QGridLayout(add_project);
@@ -41,7 +41,8 @@ public:
         name_label = new QLabel(add_project);
         name_label->setObjectName(QString::fromUtf8("name_label"));
         name_label->setMaximumSize(QSize(16777215, 15));
-        name_label->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        name_label->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         name_label->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(name_label, 0, 0, 1, 1);
@@ -76,7 +77,8 @@ public:
         description_label = new QLabel(add_project);
         description_label->setObjectName(QString::fromUtf8("description_label"));
         description_label->setMaximumSize(QSize(16777215, 15));
-        description_label->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        description_label->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         description_label->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(description_label, 2, 0, 1, 1);

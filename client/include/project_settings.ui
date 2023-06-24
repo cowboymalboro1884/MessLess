@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>690</width>
     <height>300</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@ QPushButton {
 border: 1px black;
 
      border-radius: 4px;
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+	font: 63 20pt &quot;Yu Gothic UI Semibold&quot;;
 width:326px;
 height:26px;
 }

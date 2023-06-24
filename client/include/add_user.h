@@ -19,6 +19,7 @@ public:
 private:
   Ui::AddUser *ui;
   ProjectWindow *m_project_window;
+  QString role;
 };
 
 #endif // ADD_USER_H

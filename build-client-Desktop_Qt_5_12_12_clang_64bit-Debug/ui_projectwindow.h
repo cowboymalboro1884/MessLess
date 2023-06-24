@@ -24,7 +24,7 @@ QT_BEGIN_NAMESPACE
 class Ui_ProjectWindow
 {
 public:
-    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
     QLabel *TODO;
     QLabel *DONE;
@@ -52,17 +52,17 @@ public:
     {
         if (ProjectWindow->objectName().isEmpty())
             ProjectWindow->setObjectName(QString::fromUtf8("ProjectWindow"));
-        ProjectWindow->resize(660, 440);
+        ProjectWindow->resize(689, 440);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(ProjectWindow->sizePolicy().hasHeightForWidth());
         ProjectWindow->setSizePolicy(sizePolicy);
-        ProjectWindow->setMinimumSize(QSize(660, 440));
-        ProjectWindow->setMaximumSize(QSize(660, 440));
+        ProjectWindow->setMinimumSize(QSize(689, 440));
+        ProjectWindow->setMaximumSize(QSize(689, 440));
         ProjectWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(251, 251, 251)"));
-        verticalLayout_2 = new QVBoxLayout(ProjectWindow);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        gridLayout_2 = new QGridLayout(ProjectWindow);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         TODO = new QLabel(ProjectWindow);
@@ -71,8 +71,7 @@ public:
 "background-color: white;\n"
 "border-radius: 4px;\n"
 "border: 0.5px solid  rgb(80, 108, 200);\n"
-"font: 87 8pt \"Arial Black\";\n"
-""));
+"font: 87 10pt \"Arial Black\";"));
         TODO->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(TODO, 2, 0, 1, 1);
@@ -83,7 +82,7 @@ public:
 "background-color: white;\n"
 "border-radius: 4px;\n"
 "border: 0.5px solid  rgb(80, 108, 200);\n"
-"font: 87 8pt \"Arial Black\";"));
+"font: 87 10pt \"Arial Black\";"));
         DONE->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(DONE, 2, 2, 1, 1);
@@ -101,11 +100,14 @@ public:
         task_in_progress_scroll_area->setMaximumSize(QSize(16777215, 10000));
         task_in_progress_scroll_area->setStyleSheet(QString::fromUtf8("background-color: white;\n"
 "border-radius: 8px;\n"
-"border: 0.5px solid rgb(80, 108, 200);"));
+"border: 0.5px solid rgb(80, 108, 200);\n"
+""));
         task_in_progress_scroll_area->setWidgetResizable(true);
+        task_in_progress_scroll_area->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 206, 338));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 206, 340));
+        scrollAreaWidgetContents_4->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);"));
         verticalLayoutWidget_2 = new QWidget(scrollAreaWidgetContents_4);
         verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
         verticalLayoutWidget_2->setGeometry(QRect(0, 0, 211, 341));
@@ -134,12 +136,14 @@ public:
 "border-radius: 8px;\n"
 "border: 0.5px solid rgb(80, 108, 200);"));
         task_to_do_scrollArea->setWidgetResizable(true);
+        task_to_do_scrollArea->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 198, 338));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 206, 340));
+        scrollAreaWidgetContents_2->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);"));
         verticalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 201, 341));
+        verticalLayoutWidget->setGeometry(QRect(0, 0, 211, 341));
         task_to_do_layout = new QVBoxLayout(verticalLayoutWidget);
         task_to_do_layout->setObjectName(QString::fromUtf8("task_to_do_layout"));
         task_to_do_layout->setContentsMargins(0, 0, 0, 0);
@@ -153,15 +157,15 @@ public:
         project_chat = new QPushButton(ProjectWindow);
         project_chat->setObjectName(QString::fromUtf8("project_chat"));
         project_chat->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"background-color: rgb(80, 108, 200);\n"
+"     background-color: rgb(80, 108, 200);\n"
 "	color: white;\n"
 "border: 1px black;\n"
+"\n"
 "     border-radius: 4px;\n"
-"	height:28px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
+"width:210px;\n"
+"height:26px;\n"
 "}\n"
-"\n"
-"\n"
 "QPushButton:hover{\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "}"));
@@ -185,7 +189,8 @@ public:
         task_done_scroll_area->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 206, 338));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 206, 340));
+        scrollAreaWidgetContents_3->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);"));
         verticalLayoutWidget_3 = new QWidget(scrollAreaWidgetContents_3);
         verticalLayoutWidget_3->setObjectName(QString::fromUtf8("verticalLayoutWidget_3"));
         verticalLayoutWidget_3->setGeometry(QRect(0, 0, 211, 341));
@@ -206,7 +211,7 @@ public:
 "background-color: white;\n"
 "border-radius: 4px;\n"
 "border: 0.5px solid  rgb(80, 108, 200);\n"
-"font: 87 8pt \"Arial Black\";"));
+"font: 87 10pt \"Arial Black\";"));
         INPROGRESS->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(INPROGRESS, 2, 1, 1, 1);
@@ -215,7 +220,7 @@ public:
         project_name->setObjectName(QString::fromUtf8("project_name"));
         project_name->setMaximumSize(QSize(16777215, 20));
         project_name->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
-"font: 87 8pt \"Arial Black\";"));
+"font: 87 10pt \"Arial Black\";"));
         project_name->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(project_name, 0, 1, 1, 1);
@@ -236,7 +241,7 @@ public:
         gridLayout->addWidget(settings, 0, 2, 1, 1);
 
 
-        verticalLayout_2->addLayout(gridLayout);
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
 
         retranslateUi(ProjectWindow);

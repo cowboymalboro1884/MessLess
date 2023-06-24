@@ -46,7 +46,8 @@ public:
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         task_name = new QLabel(AddTask);
         task_name->setObjectName(QString::fromUtf8("task_name"));
-        task_name->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        task_name->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         task_name->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(task_name, 0, 0, 1, 1);
@@ -61,7 +62,8 @@ public:
 
         task_deadline = new QLabel(AddTask);
         task_deadline->setObjectName(QString::fromUtf8("task_deadline"));
-        task_deadline->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        task_deadline->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         task_deadline->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(task_deadline, 4, 0, 1, 1);
@@ -82,7 +84,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:326px;\n"
 "height:26px;\n"
 "}\n"
@@ -94,7 +96,8 @@ public:
 
         task_description = new QLabel(AddTask);
         task_description->setObjectName(QString::fromUtf8("task_description"));
-        task_description->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        task_description->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         task_description->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(task_description, 2, 0, 1, 1);

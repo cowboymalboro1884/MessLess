@@ -54,7 +54,7 @@ public:
         errorMessage = new QLabel(auth_window);
         errorMessage->setObjectName(QString::fromUtf8("errorMessage"));
         errorMessage->setStyleSheet(QString::fromUtf8("color: red;\n"
-"font: 63 8pt \"Yu Gothic UI Semibold\";"));
+"font: 63 10pt \"Yu Gothic UI Semibold\";"));
         errorMessage->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(errorMessage, 4, 1, 1, 1);
@@ -65,7 +65,7 @@ public:
 "     background-color: rgb(216, 216, 216);\n"
 "border: 1px black;\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:93px;\n"
 "height:21px;\n"
 "}\n"
@@ -89,13 +89,15 @@ public:
 
         loginLabel = new QLabel(auth_window);
         loginLabel->setObjectName(QString::fromUtf8("loginLabel"));
-        loginLabel->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        loginLabel->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(loginLabel, 1, 0, 1, 1);
 
         passwordLabel = new QLabel(auth_window);
         passwordLabel->setObjectName(QString::fromUtf8("passwordLabel"));
-        passwordLabel->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        passwordLabel->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
 
         gridLayout->addWidget(passwordLabel, 2, 0, 1, 1);
 
@@ -115,7 +117,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:326px;\n"
 "height:26px;\n"
 "}\n"
@@ -134,7 +136,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "width:326px;\n"
 "height:26px;\n"
 "}\n"
@@ -147,15 +149,16 @@ public:
         labelWelcome = new QLabel(auth_window);
         labelWelcome->setObjectName(QString::fromUtf8("labelWelcome"));
         QFont font;
-        font.setFamily(QString::fromUtf8("Yu Gothic UI Semibold"));
-        font.setPointSize(8);
+        font.setFamily(QString::fromUtf8("Arial Black"));
+        font.setPointSize(10);
         font.setBold(false);
         font.setItalic(false);
-        font.setWeight(7);
+        font.setWeight(10);
         font.setKerning(true);
         labelWelcome->setFont(font);
         labelWelcome->setLayoutDirection(Qt::LeftToRight);
-        labelWelcome->setStyleSheet(QString::fromUtf8("font: 63 8pt \"Yu Gothic UI Semibold\";"));
+        labelWelcome->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 10pt \"Arial Black\";"));
         labelWelcome->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(labelWelcome, 0, 1, 1, 1);

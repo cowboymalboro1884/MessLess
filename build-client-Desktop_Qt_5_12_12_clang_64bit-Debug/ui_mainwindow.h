@@ -14,12 +14,13 @@
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -29,11 +30,22 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout_2;
     QTabWidget *tabWidget;
     QWidget *tab_2;
+    QVBoxLayout *verticalLayout_6;
     QGridLayout *gridLayout;
-    QPushButton *pushButton_2;
+    QLabel *role;
+    QLabel *name;
+    QLabel *surname;
+    QLabel *email;
+    QLabel *email_;
+    QLabel *role_;
+    QLabel *company_;
+    QLabel *name_;
+    QLabel *company;
+    QLabel *surname_;
+    QPushButton *add_user_button;
     QWidget *tab;
     QVBoxLayout *verticalLayout;
     QPushButton *newProjetButton;
@@ -44,12 +56,15 @@ public:
     QWidget *tab_3;
     QVBoxLayout *verticalLayout_3;
     QScrollArea *scrollArea_2;
-    QWidget *messages;
-    QVBoxLayout *verticalLayout_5;
-    QVBoxLayout *messages_scroll;
+    QWidget *scrollAreaWidgetContents_3;
+    QFormLayout *formLayout_3;
+    QSpacerItem *verticalSpacer;
+    QVBoxLayout *messages;
+    QPushButton *pushButton;
+    QLabel *label;
     QHBoxLayout *horizontalLayout_4;
-    QTextEdit *message;
-    QPushButton *send_button;
+    QLineEdit *message;
+    QPushButton *send_message;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *chatButton;
@@ -74,8 +89,8 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
-        verticalLayout_2 = new QVBoxLayout(centralwidget);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        gridLayout_2 = new QGridLayout(centralwidget);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setStyleSheet(QString::fromUtf8("QTabWidget:tab-bar\n"
@@ -88,12 +103,108 @@ public:
 ""));
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        gridLayout = new QGridLayout(tab_2);
+        tab_2->setStyleSheet(QString::fromUtf8("background-color:rgb(247, 247, 247)"));
+        verticalLayout_6 = new QVBoxLayout(tab_2);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        pushButton_2 = new QPushButton(tab_2);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        role = new QLabel(tab_2);
+        role->setObjectName(QString::fromUtf8("role"));
+        role->setLayoutDirection(Qt::LeftToRight);
+        role->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+        role->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(pushButton_2, 0, 0, 1, 1);
+        gridLayout->addWidget(role, 6, 0, 1, 1);
+
+        name = new QLabel(tab_2);
+        name->setObjectName(QString::fromUtf8("name"));
+        name->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+        name->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(name, 1, 0, 1, 1);
+
+        surname = new QLabel(tab_2);
+        surname->setObjectName(QString::fromUtf8("surname"));
+        surname->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+        surname->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(surname, 2, 0, 1, 1);
+
+        email = new QLabel(tab_2);
+        email->setObjectName(QString::fromUtf8("email"));
+        email->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+        email->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(email, 3, 0, 1, 1);
+
+        email_ = new QLabel(tab_2);
+        email_->setObjectName(QString::fromUtf8("email_"));
+        email_->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+
+        gridLayout->addWidget(email_, 3, 1, 1, 1);
+
+        role_ = new QLabel(tab_2);
+        role_->setObjectName(QString::fromUtf8("role_"));
+        role_->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+
+        gridLayout->addWidget(role_, 6, 1, 1, 1);
+
+        company_ = new QLabel(tab_2);
+        company_->setObjectName(QString::fromUtf8("company_"));
+        company_->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+
+        gridLayout->addWidget(company_, 5, 1, 1, 1);
+
+        name_ = new QLabel(tab_2);
+        name_->setObjectName(QString::fromUtf8("name_"));
+        name_->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+
+        gridLayout->addWidget(name_, 1, 1, 1, 1);
+
+        company = new QLabel(tab_2);
+        company->setObjectName(QString::fromUtf8("company"));
+        company->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+        company->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(company, 5, 0, 1, 1);
+
+        surname_ = new QLabel(tab_2);
+        surname_->setObjectName(QString::fromUtf8("surname_"));
+        surname_->setStyleSheet(QString::fromUtf8("color: rgb(80, 108, 200);\n"
+"font: 87 20pt \"Arial Black\";"));
+
+        gridLayout->addWidget(surname_, 2, 1, 1, 1);
+
+
+        verticalLayout_6->addLayout(gridLayout);
+
+        add_user_button = new QPushButton(tab_2);
+        add_user_button->setObjectName(QString::fromUtf8("add_user_button"));
+        add_user_button->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"     background-color: rgb(80, 108, 200);\n"
+"	color: white;\n"
+"border: 1px black;\n"
+"\n"
+"     border-radius: 4px;\n"
+"	font: 63 20pt \"Yu Gothic UI Semibold\";\n"
+"width:326px;\n"
+"height:40px;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"}"));
+
+        verticalLayout_6->addWidget(add_user_button);
 
         tabWidget->addTab(tab_2, QString());
         tab = new QWidget();
@@ -109,7 +220,7 @@ public:
 "border: 1px black;\n"
 "     border-radius: 4px;\n"
 "	height:26px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "}\n"
 "\n"
 "\n"
@@ -136,7 +247,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1098, 523));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1078, 501));
         formLayout = new QFormLayout(scrollAreaWidgetContents);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         formLayout->setLabelAlignment(Qt::AlignCenter);
@@ -157,50 +268,80 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         scrollArea_2 = new QScrollArea(tab_3);
         scrollArea_2->setObjectName(QString::fromUtf8("scrollArea_2"));
-        scrollArea_2->setStyleSheet(QString::fromUtf8("background-color:rgb(252, 252, 252)"));
         scrollArea_2->setWidgetResizable(true);
-        messages = new QWidget();
+        scrollArea_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        scrollAreaWidgetContents_3 = new QWidget();
+        scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 1078, 503));
+        scrollAreaWidgetContents_3->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"color: rgb(80, 108, 200);\n"
+"font:13px;\n"
+"qproperty-alignment: AlignCenter;\n"
+"}\n"
+"QPushButton{\n"
+"color: rgb(80, 108, 200);\n"
+"font:13px \"Arial Black\";;\n"
+"background-color: white;\n"
+"border-radius: 4px;\n"
+"border: 0.5px solid  rgb(80, 108, 200);\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+""));
+        formLayout_3 = new QFormLayout(scrollAreaWidgetContents_3);
+        formLayout_3->setObjectName(QString::fromUtf8("formLayout_3"));
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        formLayout_3->setItem(0, QFormLayout::LabelRole, verticalSpacer);
+
+        messages = new QVBoxLayout();
         messages->setObjectName(QString::fromUtf8("messages"));
-        messages->setGeometry(QRect(0, 0, 1098, 522));
-        verticalLayout_5 = new QVBoxLayout(messages);
-        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        messages_scroll = new QVBoxLayout();
-        messages_scroll->setObjectName(QString::fromUtf8("messages_scroll"));
+        pushButton = new QPushButton(scrollAreaWidgetContents_3);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
-        verticalLayout_5->addLayout(messages_scroll);
+        messages->addWidget(pushButton);
 
-        scrollArea_2->setWidget(messages);
+        label = new QLabel(scrollAreaWidgetContents_3);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        messages->addWidget(label);
+
+
+        formLayout_3->setLayout(1, QFormLayout::SpanningRole, messages);
+
+        scrollArea_2->setWidget(scrollAreaWidgetContents_3);
 
         verticalLayout_3->addWidget(scrollArea_2);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        message = new QTextEdit(tab_3);
+        message = new QLineEdit(tab_3);
         message->setObjectName(QString::fromUtf8("message"));
-        sizePolicy.setHeightForWidth(message->sizePolicy().hasHeightForWidth());
-        message->setSizePolicy(sizePolicy);
-        message->setMaximumSize(QSize(1000, 25));
-        message->setStyleSheet(QString::fromUtf8("height:50px;\n"
-"background-color:white;"));
+        message->setStyleSheet(QString::fromUtf8("border: 1px solid black;\n"
+"     border-radius: 4px;\n"
+"background-color: white;\n"
+"height:24px;\n"
+""));
 
         horizontalLayout_4->addWidget(message);
 
-        send_button = new QPushButton(tab_3);
-        send_button->setObjectName(QString::fromUtf8("send_button"));
+        send_message = new QPushButton(tab_3);
+        send_message->setObjectName(QString::fromUtf8("send_message"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(200);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(send_button->sizePolicy().hasHeightForWidth());
-        send_button->setSizePolicy(sizePolicy1);
-        send_button->setMaximumSize(QSize(200, 25));
-        send_button->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        sizePolicy1.setHeightForWidth(send_message->sizePolicy().hasHeightForWidth());
+        send_message->setSizePolicy(sizePolicy1);
+        send_message->setMaximumSize(QSize(200, 25));
+        send_message->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "background-color: rgb(80, 108, 200);\n"
 "	color: white;\n"
 "border: 1px black;\n"
 "     border-radius: 4px;\n"
 "	height:26px;\n"
 "	width: 200px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 10pt \"Yu Gothic UI Semibold\";\n"
 "}\n"
 "\n"
 "\n"
@@ -208,14 +349,14 @@ public:
 "border: 1px solid rgb(255, 255, 255);\n"
 "}"));
 
-        horizontalLayout_4->addWidget(send_button);
+        horizontalLayout_4->addWidget(send_message);
 
 
         verticalLayout_3->addLayout(horizontalLayout_4);
 
         tabWidget->addTab(tab_3, QString());
 
-        verticalLayout_2->addWidget(tabWidget);
+        gridLayout_2->addWidget(tabWidget, 0, 0, 1, 1);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -278,13 +419,13 @@ public:
         horizontalLayout_2->addItem(horizontalSpacer_4);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_2);
+        gridLayout_2->addLayout(horizontalLayout_2, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -293,11 +434,24 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton_2->setText(QApplication::translate("MainWindow", "PushButton", nullptr));
+        role->setText(QApplication::translate("MainWindow", "Role:", nullptr));
+        name->setText(QApplication::translate("MainWindow", "Name:", nullptr));
+        surname->setText(QApplication::translate("MainWindow", "Surname:", nullptr));
+        email->setText(QApplication::translate("MainWindow", "Email:", nullptr));
+        email_->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        role_->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        company_->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        name_->setText(QApplication::translate("MainWindow", "t", nullptr));
+        company->setText(QApplication::translate("MainWindow", "Company name:", nullptr));
+        surname_->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        add_user_button->setText(QApplication::translate("MainWindow", "Add user to company", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Chat", nullptr));
         newProjetButton->setText(QApplication::translate("MainWindow", "Add new project", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Projects", nullptr));
-        send_button->setText(QApplication::translate("MainWindow", "Send Message", nullptr));
+        pushButton->setText(QApplication::translate("MainWindow", "PushButton", nullptr));
+        label->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        message->setText(QString());
+        send_message->setText(QApplication::translate("MainWindow", "Send Message", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "\320\241\321\202\321\200\320\260\320\275\320\270\321\206\320\260", nullptr));
         chatButton->setText(QString());
         projectsButton->setText(QString());

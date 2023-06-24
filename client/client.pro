@@ -13,7 +13,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/add_user_window.cpp \
     src/add_user.cpp \
+    src/add_user_window.cpp \
     src/delete_task.cpp \
     src/network_manager.cpp \
     src/add_project.cpp \
@@ -30,8 +32,10 @@ SOURCES += \
     src/socketwrapper.cpp \
 
 HEADERS += \
+    include/add_user_window.h \
     include/add_task.h \
     include/add_user.h \
+    include/add_user_window.h \
     include/auth_window.h \
     include/client.h \
     include/delete_task.h \
@@ -49,8 +53,10 @@ HEADERS += \
     include/add_task.h
 
 FORMS += \
+    include/add_user_window.ui \
     include/add_task.ui \
     include/add_user.ui \
+    include/add_user_window.ui \
     include/auth_window.ui \
     include/delete_task.ui \
     include/mainwindow.ui \

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>198</height>
+    <height>210</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,8 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+      <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
      </property>
      <property name="text">
       <string>Project name</string>
@@ -78,7 +79,8 @@ border: 1px solid rgb(255, 255, 255);
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;</string>
+      <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;</string>
      </property>
      <property name="text">
       <string>Description</string>

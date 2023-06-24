@@ -19,6 +19,7 @@ public:
   void update_tasks();
   void add_new_task(const QString &task_name, const QString &task_description,
                     const QString &task_deadline);
+  void add_user_to_project(const QString &name, const QString &role);
   void clear_tasks();
 
 private:

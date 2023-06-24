@@ -21,6 +21,16 @@ public:
   QString condition;
 };
 
+class Message {
+public:
+  QString name_of_sender;
+  QString surname_of_sender;
+  QString message_as_it_is;
+  QString user_role;
+  QString file_path;
+};
+
+
 struct ResponseHandler : QObject {
   Q_OBJECT
 
@@ -56,6 +66,8 @@ signals:
   void got_projects_with_tasks(
       std::unordered_map<std::string, std::vector<Task>>) const;
   void got_new_tasks_of_project(const QString &, std::vector<Task>) const;
+  void got_company_messages(const std::vector<Message> &) const;
+  void got_company_message(Message) const;
 
 public slots:
   void proccess_data(const QByteArray &);

@@ -30,7 +30,7 @@ public:
     {
         if (ProjectSettings->objectName().isEmpty())
             ProjectSettings->setObjectName(QString::fromUtf8("ProjectSettings"));
-        ProjectSettings->resize(400, 300);
+        ProjectSettings->resize(690, 300);
         ProjectSettings->setStyleSheet(QString::fromUtf8("QWidget {\n"
 "	background-color:rgb(245, 245, 245);\n"
 "}\n"
@@ -40,7 +40,7 @@ public:
 "border: 1px black;\n"
 "\n"
 "     border-radius: 4px;\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
+"	font: 63 20pt \"Yu Gothic UI Semibold\";\n"
 "width:326px;\n"
 "height:26px;\n"
 "}\n"
