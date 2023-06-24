@@ -96,7 +96,7 @@ void MainWindow::add_new_messages(){
 void MainWindow::clear_messages(){
     QLayoutItem *child;
     //возможно, что нужно до 1 цикл
-    while ((child = ui_Main->messages->takeAt(0)) != nullptr) {
+    while ((child = ui_Main->messages->takeAt(1)) != nullptr) {
       delete child->widget();
       delete child;
     }
