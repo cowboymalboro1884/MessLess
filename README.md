@@ -22,4 +22,4 @@
 
 <img src="images/projects_list.jpg" width="500">
 
-<img src="images/login.jpg" width="500">
+<img src="images/login.jpg" width="500" align="center">
