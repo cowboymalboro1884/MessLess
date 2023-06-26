@@ -5,7 +5,8 @@ void RequestHandler::get_actual_global_condition_response(
     PrivateUserInfo &user
 ) const {  // DONE
     response.set_user_info(user);
-    GeneralUserInfo general_info = DatabaseUser::get_user_info(*database, user.email);
+    GeneralUserInfo general_info =
+        DatabaseUser::get_user_info(*database, user.email);
     response.set_general_info(general_info);
 
     int company_id = DatabaseChats::get_company_id(*database, user);
@@ -49,7 +50,6 @@ QJsonDocument RequestHandler::validate_user(const QJsonObject &request
     if (is_login_success.email.empty()) {
         return AuthorizationError::get_instance().to_qjson_document();
     }
-
 
     AuthorizationIsSuccess authorization_response;
     get_actual_global_condition_response(
@@ -118,7 +118,6 @@ QJsonDocument RequestHandler::add_user_to_company(const QJsonObject &request
 
     std::string entered_name = request["name"].toString().toStdString();
     std::string entered_surname = request["surname"].toString().toStdString();
-
 
     int company_id = DatabaseChats::get_company_id(*database, sender);
 

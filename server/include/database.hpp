@@ -27,7 +27,7 @@ public:
     std::string user_role;
 };
 
-class GeneralUserInfo{
+class GeneralUserInfo {
 public:
     std::string name;
     std::string surname;
@@ -35,6 +35,7 @@ public:
     std::string user_role;
     std::string company_name;
 };
+
 class Database : private boost::noncopyable {
     std::mutex database_mutex;
     pqxx::connection connection{};
@@ -62,10 +63,8 @@ public:
         const std::string &email,
         const std::string &password
     );  // returns user id or zero if user doesn't exist
-    static GeneralUserInfo get_user_info(
-        Database &db,
-        const std::string &email
-        );
+    static GeneralUserInfo
+    get_user_info(Database &db, const std::string &email);
 };
 
 class DatabaseCompany {

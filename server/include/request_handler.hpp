@@ -7,7 +7,6 @@
 #include <QJsonObject>
 #include <QTcpSocket>
 #include <random>
-
 #include "database.hpp"
 #include "database_chats.hpp"
 #include "database_project.hpp"
@@ -61,7 +60,8 @@ public:
     [[nodiscard]] messless::PrivateUserInfo extract_user_info_from_qjson(
         const QJsonObject &request
     ) const noexcept {
-        std::string email = request.value("sender_email").toString().toStdString();
+        std::string email =
+            request.value("sender_email").toString().toStdString();
         std::string password =
             request.value("sender_password").toString().toStdString();
         std::string user_role =

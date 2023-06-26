@@ -41,7 +41,8 @@ struct InvalidRequestTypeError : AbstractJSONResponseError {
 
 private:
     InvalidRequestTypeError()
-        : AbstractJSONResponseError("GOT INVALID QUERY: Invalid request type"){};
+        : AbstractJSONResponseError("GOT INVALID QUERY: Invalid request type"
+          ){};
 };
 
 struct MissingRequestTypeError : AbstractJSONResponseError {

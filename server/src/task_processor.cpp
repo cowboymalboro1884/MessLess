@@ -125,7 +125,8 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
     std::vector<User> user_list =
         DatabaseProject::get_project_user_list(*database, project_id);
 
-    int task_id = DatabaseProject::get_task_id(*database, project_id, task_name);
+    int task_id =
+        DatabaseProject::get_task_id(*database, project_id, task_name);
 
     DatabaseProject::delete_task(*database, task_id);
 
@@ -143,5 +144,4 @@ QJsonDocument RequestHandler::delete_task(const QJsonObject &request) const {
     } else {
         return UnableToCreateTask::get_instance().to_qjson_document();
     }
-
 }

@@ -59,12 +59,12 @@ QJsonDocument RequestHandler::create_project(const QJsonObject &request
     std::string project_bio =
         request.value("project_bio").toString().toStdString();
     if (!DatabaseProject::is_project_exist(*database, sender, project_name)) {
-
         [[maybe_unused]] unsigned int company_id =
             DatabaseChats::get_company_id(*database, sender);
-        [[maybe_unused]] unsigned int project_id = DatabaseProject::create_project(
-            *database, sender, project_name, project_bio
-        );
+        [[maybe_unused]] unsigned int project_id =
+            DatabaseProject::create_project(
+                *database, sender, project_name, project_bio
+            );
 
         return ProjectCreationIsSuccess(project_name).to_qjson_document();
     } else {
@@ -115,8 +115,9 @@ QJsonDocument RequestHandler::delete_project(const QJsonObject &request
     std::string project_name =
         request.value("project_name").toString().toStdString();
 
-    unsigned int project_id = DatabaseProject::get_project_id(*database, sender, project_name);
-    DatabaseProject::delete_project(*database,project_id);
+    unsigned int project_id =
+        DatabaseProject::get_project_id(*database, sender, project_name);
+    DatabaseProject::delete_project(*database, project_id);
 
     ProjectIsDeleted response(project_name);
 

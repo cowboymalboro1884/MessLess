@@ -5,8 +5,8 @@
 #include <QJsonDocument>
 #include <QMap>
 #include <QMutex>
-#include <QTcpServer>
 #include <QObject>
+#include <QTcpServer>
 #include <iostream>
 #include <sstream>
 #include "clientsocket_wrapper.hpp"
