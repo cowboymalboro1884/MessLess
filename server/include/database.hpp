@@ -33,7 +33,7 @@ public:
     std::string surname;
     std::string email;
     std::string user_role;
-    std::string company_name
+    std::string company_name;
 };
 class Database : private boost::noncopyable {
     std::mutex database_mutex;
