@@ -30,13 +30,12 @@ void ClientHandler::send_message_to_concrete_user(
         const QJsonDocument &response
 ) {
     qDebug() << 1;
-    int user_id_to_send = get_emails()[email];
-    qDebug() << email;
-    std::string encrypted_message_text = Encrypting::encrypt(
-            response.object()["message_text"].toString().toStdString(), get_encrypting_keys()[user_id_to_send].PublicKey);
-    response.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-    qDebug() << email;
-    if(get_clients()[user_id_to_send]){
+    if(get_emails()[email]){
+        int user_id_to_send = get_emails()[email];
+        std::string encrypted_message_text = Encrypting::encrypt(
+                response.object()["message_text"].toString().toStdString(), get_encrypting_keys()[user_id_to_send].PublicKey);
+        response.object()["message_text"] = QString::fromStdString(encrypted_message_text);
+        qDebug() << email;
         get_clients()[user_id_to_send]->write_byte_data(response.toJson());
     }
 }
