@@ -13,7 +13,7 @@ void ClientHandler::move_to_companies(
     const QString &email,
     int company_id
 ) {
-    qDebug() << "moving to companies";
+    qDebug() << "moving to companies" << company_id;
     get_companies()[company_id].insert(socket_id);
     get_emails()[email] = socket_id;
 }
