@@ -85,11 +85,11 @@ DatabaseUser::get_user_info(Database &db, const std::string &email) {
     );
     GeneralUserInfo info;
     info.name = worker.query_value<std::string>(
-        "SELECT name FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        "SELECT first_name FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
         ";"
     );
     info.surname = worker.query_value<std::string>(
-        "SELECT surname FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        "SELECT second_name FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
         ";"
     );
     info.email = worker.query_value<std::string>(
