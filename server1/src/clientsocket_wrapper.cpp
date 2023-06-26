@@ -39,10 +39,10 @@ void ClientSocket::disconnected() {
 }
 
 void ClientSocket::send_json_data(const QJsonDocument &json_response) {
-    QString event_type = json_response.object().value("type").toString();
-    QString status = json_response.object().value("status").toString();
-    int company_id = json_response.object().value("company_id").toInt();
-    QString email = json_response.object().value("email").toString();
+    QString event_type = json_response.object()["type"].toString();
+    QString status = json_response.object()["status"].toString();
+    int company_id = json_response.object()["company_id"].toInt();
+    QString email = json_response.object()["email"].toString();
     int recipient = json_response.object()["recipient"].toInt();
 
     if ((event_type == response_types[GOT_STATUS_OF_AUTHORIZATION] ||
@@ -56,9 +56,7 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
         public_keys_object["public_exponent"] = QString::fromStdString(public_key.public_exponent);
         json_response.object()["public_key"].toObject() = public_keys_object;
 
-        qDebug() << company_id;
-        
-        server->connect_to_client_handler(get_id(), email, company_id);
+        server->connect_to_client_handler(get_id(), email, company_id, keys);
     }
 
     switch (recipient) {
