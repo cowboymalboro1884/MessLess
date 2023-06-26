@@ -34,6 +34,7 @@ bool Server::start_server(qint16 port, std::string &config_file) {
 void Server::incoming_connection() {
     qDebug() << "New connection!";
     QTcpSocket *next_connection = server->nextPendingConnection();
+
     ClientSocket *connected_socket = new ClientSocket(
         next_connection->socketDescriptor(), this, next_connection, m_db
     );
@@ -45,7 +46,8 @@ void Server::incoming_connection() {
 void Server::connect_to_client_handler(
     int socket_id,
     const QString &email,
-    int company_id
+    int company_id,
+    RSAKeys keys
 ) {
     ClientSocket *connected_socket = client_handler->get_clients()[socket_id];
 
@@ -77,8 +79,7 @@ void Server::connect_to_client_handler(
         SLOT(send_message_to_company(int, const QJsonDocument &))
     );
 
-    qDebug() << company_id;
-    client_handler->move_to_companies(socket_id, email, company_id);
+    client_handler->move_to_companies(socket_id, email, company_id, keys);
 }
 
 void Server::sock_disc(ClientSocket *socket) {
