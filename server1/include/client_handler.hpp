@@ -1,78 +1,51 @@
-#include "client_handler.hpp"
+#ifndef CLIENT_HANDLER_HPP
+#define CLIENT_HANDLER_HPP
 
-QMap<int, QSet<int> > &ClientHandler::get_companies() {
-    return companies;
+#include <QHash>
+#include <QJsonDocument>
+#include <QMap>
+#include <QMutex>
+#include <QTcpServer>
+#include <QObject>
+#include <iostream>
+#include <sstream>
+#include "clientsocket_wrapper.hpp"
+
+class ClientSocket;
+
+namespace messless {
+class PrivateUserInfo;
 }
+class Server;
 
-QHash<QString, int> &ClientHandler::get_emails() {
-    return clients_emails;
-}
+class ClientHandler : public QObject {
+    Q_OBJECT
 
-void ClientHandler::move_to_companies(
-        int socket_id,
-        const QString &email,
-        int company_id,
-        RSAKeys keys
-) {
-    qDebug() << "moving to companies";
-    get_companies()[company_id].insert(socket_id);
-    qDebug() << company_id << ' ' << socket_id;
-    get_emails()[email] = socket_id;
-    get_encrypting_keys()[socket_id] = keys;
-}
+    Server *owner;
 
-QMap<int, RSAKeys> &ClientHandler::get_encrypting_keys() {
-    return encrypting_keys;
-}
+    QMap<int, QSet<int> > companies;
+    QHash<QString, int> clients_emails;
+    QMap<int, ClientSocket *> connected_sockets;
+    QMap<int, RSAKeys> encrypting_keys;
 
-void ClientHandler::send_message_to_concrete_user(
-        const QString &email,
-        const QJsonDocument &response
-) {
-    qDebug() << email;    
-    int user_id_to_send = get_emails()[email];
-    qDebug() << email;
-    std::string encrypted_message_text = Encrypting::encrypt(
-            response.object()["message_text"].toString().toStdString(), get_encrypting_keys()[user_id_to_send].PublicKey);
-    response.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-    qDebug() << email;
-    get_clients()[user_id_to_send]->write_byte_data(response.toJson());
-}
+public:
+    ClientHandler(Server *owner_) : owner(owner_){};
 
-void ClientHandler::send_message_to_project_user_list(
-        const QJsonArray &users,
-        const QJsonDocument &message
-) {
-    for (const auto &obj: users) {
-        qDebug() << obj["email"].toString();
-        int socket_id = get_emails()[obj["email"].toString()];
+    QMap<int, QSet<int> > &get_companies();
+    QHash<QString, int> &get_emails();
+    QMap<int, ClientSocket *> &get_clients();
+    QMap<int, RSAKeys> &get_encrypting_keys();
 
+    void move_to_companies(int socket_id, const QString &email, int company_id, RSAKeys keys);
 
-        std::string encrypted_message_text = Encrypting::encrypt(
-                message.object()["message_text"].toString().toStdString(), get_encrypting_keys()[socket_id].PublicKey);
-        message.object()["message_text"] = QString::fromStdString(encrypted_message_text);
+public slots:
 
-        get_clients()[socket_id]->write_byte_data(
-                message.toJson()
-        );
-    }
-    qDebug() << message.object().value("emails_of_recipients").toString();
-}
+    void send_message_to_company(int, const QJsonDocument &);
 
-void ClientHandler::send_message_to_company(
-        int company_id,
-        const QJsonDocument &message
-) {
-    qDebug() << "sending data to company" << company_id;
-    for (int socket_id: get_companies()[company_id]) {
-        qDebug() << socket_id;
-        std::string encrypted_message_text = Encrypting::encrypt(
-                message.object()["message_text"].toString().toStdString(), get_encrypting_keys()[socket_id].PublicKey);
-        message.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-        get_clients()[socket_id]->write_byte_data(message.toJson());
-    }
+    void send_message_to_concrete_user(const QString &, const QJsonDocument &);
+
+    void
+    send_message_to_project_user_list(const QJsonArray &, const QJsonDocument &);
 };
 
-QMap<int, ClientSocket *> &ClientHandler::get_clients() {
-    return connected_sockets;
-}
+#endif  // CLIENT_HANDLER_HPP
