@@ -102,7 +102,8 @@ struct SendActualGlobalConditionResponse : AbstractJSONResponse {
         main_data["email"] = user_info.email;
         main_data["password"] = user_info.password;
         main_data["user_role"] = user_info.user_role;
-
+        main_data["company_id"] = company_id;
+        
         main_data["projects_with_tasks"] = projects_with_tasks;
         main_data["company_chat"] = company_chat;
         main_data["projects_chats"] = projects_chats;
