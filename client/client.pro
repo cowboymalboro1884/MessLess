@@ -3,7 +3,7 @@ QT       += network
 QT       += sql
 QT       -= gui
 
-#LIBD += -L/Users/maksimstein/Desktop/cryptopp/cryptopp
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
