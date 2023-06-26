@@ -76,6 +76,35 @@ PrivateUserInfo DatabaseUser::login_user(
     return {"", "", ""};
 }
 
+GeneralUserInfo
+DatabaseUser::get_user_info(Database &db, const std::string &email) {
+    unsigned int user_id = worker.query_value<int>(
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+        "';"
+    );
+    GeneralUserInfo info;
+    info.name = worker.query_value<std::string>(
+        "SELECT name FROM users WHERE id='" + db.shield_string(std::to_string(user_id)) +
+        "';"
+    );
+    info.surname = worker.query_value<std::string>(
+        "SELECT surname FROM users WHERE id='" + db.shield_string(std::to_string(user_id)) +
+        "';"
+    );
+    info.email = worker.query_value<std::string>(
+        "SELECT email FROM users WHERE id='" + db.shield_string(std::to_string(user_id)) +
+        "';"
+    );
+    unsigned int role_id = worker.query_value<std::string>(
+        "SELECT employee_role_id FROM users WHERE id='" + db.shield_string(std::to_string(user_id)) +
+        "';"
+    );
+    info.user_role = worker.query_value<std::string>(
+        "SELECT role_description FROM roles WHERE id='" + db.shield_string(std::to_string(role_id)) +
+        "';"
+    );
+}
+
 unsigned int DatabaseCompany::create_company(
     Database &db,
     const std::string &company_name,
