@@ -34,7 +34,8 @@ public:
     void connect_to_client_handler(
         int socket_id,
         const QString &email,
-        int company_id
+        int company_id,
+        RSAKeys keys
     );
 
     ClientHandler *client_handler;
