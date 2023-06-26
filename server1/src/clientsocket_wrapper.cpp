@@ -65,7 +65,6 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
             break;
         }
         case TO_SENDER: {
-            qDebug() << email;
             write_byte_data(json_response.toJson());
             break;
         }
@@ -76,6 +75,8 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
             break;
         }
         case TO_CONCRETE_USER: {
+            qDebug() << email;
+            QString reciever_email = json_response.object()["reciever_email"].toString();
             emit send_message_to_concrete_user(email, json_response);
             break;
         }
