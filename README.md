@@ -16,10 +16,10 @@
 
 ### Cкриншоты 
 
-![Общий чат компании](images/chat.jpg)
+<img src="images/chat.jpg" width="500">
 
-![Доска задач в проекте](images/project.jpg)
+<img src="images/project.jpg" width="500">
 
-![Cписок проектов юзера](images/projects_list.jpg)
+<img src="images/projects_list.jpg" width="500">
 
-![Окно авторизации](images/login.jpg)
+<img src="images/login.jpg" width="500">
