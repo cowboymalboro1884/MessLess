@@ -15,6 +15,7 @@ void ClientHandler::move_to_companies(
         RSAKeys keys
 ) {
     qDebug() << "moving to companies";
+    qDebug() << company_id;
     get_companies()[company_id].insert(socket_id);
     qDebug() << company_id << ' ' << socket_id;
     get_emails()[email] = socket_id;
@@ -37,7 +38,7 @@ void ClientHandler::send_message_to_concrete_user(
                 get_encrypting_keys()[user_id_to_send].PublicKey);
         response.object()["message_text"] = QString::fromStdString(encrypted_message_text);
         qDebug() << email;
-        if(get_clients()[user_id_to_send]){                    
+        if(get_clients()[user_id_to_send]){
             get_clients()[user_id_to_send]->write_byte_data(response.toJson());
         }
     }
@@ -57,7 +58,7 @@ void ClientHandler::send_message_to_project_user_list(
                     message.object()["message_text"].toString().toStdString(),
                     get_encrypting_keys()[socket_id].PublicKey);
             message.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-            if(get_clients()[socket_id]){            
+            if(get_clients()[socket_id]){
                 get_clients()[socket_id]->write_byte_data(
                         message.toJson()
                 );
@@ -72,6 +73,7 @@ void ClientHandler::send_message_to_company(
         const QJsonDocument &message
 ) {
     qDebug() << "sending data to company" << company_id;
+    qDebug() << get_companies()[company_id].empty();
     for (int socket_id: get_companies()[company_id]) {
         qDebug() << socket_id;
         std::string encrypted_message_text = Encrypting::encrypt(
