@@ -29,7 +29,6 @@ ClientSocket::~ClientSocket() {
 void ClientSocket::read_data() {
     QByteArray data = socket->readAll();
     QJsonDocument json_response = request_holder->proccess_data(data);
-    qDebug() << json_response;
     send_json_data(json_response);
 }
 
@@ -86,8 +85,6 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
 }
 
 void ClientSocket::write_byte_data(const QByteArray &response) {
-    qDebug() << response.size();
-    qDebug() << response;
     QByteArray block_size;
     QDataStream out(&block_size, QIODevice::WriteOnly);
     out << quint32(response.size());
