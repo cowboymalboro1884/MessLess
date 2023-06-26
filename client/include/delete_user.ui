@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DeleteTask</class>
+ <widget class="QWidget" name="DeleteTask">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>120</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>120</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>350</width>
+    <height>120</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(245, 245, 245);
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(80, 108, 200);
+font: 87 10pt &quot;Arial Black&quot;;
+height: 20px;</string>
+     </property>
+     <property name="text">
+      <string>Email</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="email">
+     <property name="styleSheet">
+      <string notr="true">border: 1px solid black;
+     border-radius: 4px;
+background-color: white;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="delete_button">
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+     background-color: rgb(80, 108, 200);
+	color: white;
+border: 1px black;
+
+     border-radius: 4px;
+	font: 63 10pt &quot;Yu Gothic UI Semibold&quot;;
+width:326px;
+height:26px;
+}
+
+QPushButton:hover{
+border: 1px solid rgb(255, 255, 255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Delete user</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
