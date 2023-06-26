@@ -124,7 +124,7 @@ Encrypting::to_cryptopp_private_key(const PrivateKeys &r) {
        << r.private_exponent << ' ' << r.public_exponent;
     CryptoPP::Integer n, p, q, d, e;
     ss >> n >> p >> q >> d >> e;
-    x.Initialize(n, e, d);  // TODO maybe isn't correct
+    x.Initialize(n, e, d);
     return x;
 }
 

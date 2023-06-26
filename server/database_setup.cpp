@@ -35,7 +35,7 @@ int main() {
                         OIDS=FALSE
                         );)sql");
 
-        /*worker.exec(R"sql(INSERT INTO employee_roles
+        worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
                         VALUES (1,'admin'))sql");
         worker.exec(R"sql(INSERT INTO employee_roles
@@ -43,8 +43,7 @@ int main() {
                         VALUES (2,'moderator'))sql");
         worker.exec(R"sql(INSERT INTO employee_roles
                         (id,role_description)
-                        VALUES (3,'employee'))sql");*/
-        // TODO general_chat_id with NOT NULL, because company have chat
+                        VALUES (3,'employee'))sql");
         worker.exec(R"sql(CREATE TABLE IF NOT EXISTS companies (
                         id serial PRIMARY KEY,
                         company_name character varying(32) NOT NULL,
@@ -127,11 +126,12 @@ int main() {
                         )WITH (
                         OIDS=FALSE
                         );)sql");  // create project roles
-        /*worker.exec(R"sql(INSERT INTO roles(id,role_description)
-        VALUES(1,'admin');)sql"); worker.exec(R"sql(INSERT INTO
+        worker.exec(R"sql(INSERT INTO roles(id,role_description)
+        VALUES(1,'admin');)sql");
+        worker.exec(R"sql(INSERT INTO
         roles(id,role_description) VALUES(2,'moderator');)sql");
         worker.exec(R"sql(INSERT INTO roles(id,role_description)
-        VALUES(3,'employee');)sql");*/
+        VALUES(3,'employee');)sql");
         worker.exec(
             R"sql(INSERT INTO condition(id,condition_description) VALUES(1,'to do');)sql"
         );

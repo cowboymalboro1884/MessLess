@@ -48,7 +48,10 @@ int main() {
     for (auto x : messless::DatabaseProject::get_tasks(db, new_project)) {
         std::cout << x.task_name << '\n';
     }
-    std::cout<<messless::DatabaseProject::get_project_id(db, user_info1, "new_project")<<'\n';
+    std::cout << messless::DatabaseProject::get_project_id(
+                     db, user_info1, "new_project"
+                 )
+              << '\n';
     messless::DatabaseProject::delete_project(
         db,
         messless::DatabaseProject::get_project_id(db, user_info1, "new_project")
