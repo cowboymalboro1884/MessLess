@@ -54,7 +54,7 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
         public_keys_object["modulus"] = QString::fromStdString(public_key.modulus);
         public_keys_object["public_exponent"] = QString::fromStdString(public_key.public_exponent);
         json_response.object()["public_key"].toObject() = public_keys_object;
-
+        qDebug() << company_id;
         server->connect_to_client_handler(get_id(), email, company_id, keys);
     }
 
