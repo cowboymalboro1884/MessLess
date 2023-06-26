@@ -100,7 +100,7 @@ DatabaseUser::get_user_info(Database &db, const std::string &email) {
         ";"
     );
     info.user_role = worker.query_value<std::string>(
-        "SELECT role_description FROM roles WHERE id=" + db.shield_string(std::to_string(role_id)) +
+        "SELECT role_description FROM employee_roles WHERE id=" + db.shield_string(std::to_string(role_id)) +
         ";"
     );
     return info;
