@@ -37,7 +37,9 @@ void ClientHandler::send_message_to_concrete_user(
                 get_encrypting_keys()[user_id_to_send].PublicKey);
         response.object()["message_text"] = QString::fromStdString(encrypted_message_text);
         qDebug() << email;
-        get_clients()[user_id_to_send]->write_byte_data(response.toJson());
+        if(get_clients()[user_id_to_send]){                    
+            get_clients()[user_id_to_send]->write_byte_data(response.toJson());
+        }
     }
 }
 
@@ -55,10 +57,11 @@ void ClientHandler::send_message_to_project_user_list(
                     message.object()["message_text"].toString().toStdString(),
                     get_encrypting_keys()[socket_id].PublicKey);
             message.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-
-            get_clients()[socket_id]->write_byte_data(
-                    message.toJson()
-            );
+            if(get_clients()[socket_id]){            
+                get_clients()[socket_id]->write_byte_data(
+                        message.toJson()
+                );
+            }
         }
     }
     qDebug() << message.object().value("emails_of_recipients").toString();
@@ -74,7 +77,9 @@ void ClientHandler::send_message_to_company(
         std::string encrypted_message_text = Encrypting::encrypt(
                 message.object()["message_text"].toString().toStdString(), get_encrypting_keys()[socket_id].PublicKey);
         message.object()["message_text"] = QString::fromStdString(encrypted_message_text);
-        get_clients()[socket_id]->write_byte_data(message.toJson());
+        if(get_clients()[socket_id]){
+            get_clients()[socket_id]->write_byte_data(message.toJson());
+        }
     }
 };
 
