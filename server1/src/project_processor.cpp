@@ -111,7 +111,8 @@ QJsonDocument RequestHandler::add_or_delete_user_in_project(
 
     ProjectUserDeletedOrAdded response(project_name);
     response.set_recipient(QString::fromStdString(user_email_changed));
-
+    response.set_project_id(project_id);
+    
     return response.to_qjson_document();
 }
 
