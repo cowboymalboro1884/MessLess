@@ -78,7 +78,8 @@ void Server::connect_to_client_handler(
         client_handler,
         SLOT(send_message_to_company(int, const QJsonDocument &))
     );
-
+    
+    qDebug() << company_id << "f";
     client_handler->move_to_companies(socket_id, email, company_id, keys);
 }
 
@@ -93,8 +94,6 @@ void Server::sock_disc(ClientSocket *socket) {
             break;
         }
     }
-
-    // erase from emails
 
     delete socket;
 }
