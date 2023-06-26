@@ -26,6 +26,7 @@ class ClientHandler : public QObject {
     QMap<int, QSet<int> > companies;
     QHash<QString, int> clients_emails;
     QMap<int, ClientSocket *> connected_sockets;
+    QMap<int, RSAKeys> encrypting_keys;
 
 public:
     ClientHandler(Server *owner_) : owner(owner_){};
@@ -33,8 +34,9 @@ public:
     QMap<int, QSet<int> > &get_companies();
     QHash<QString, int> &get_emails();
     QMap<int, ClientSocket *> &get_clients();
+    QMap<int, RSAKeys> &get_encrypting_keys();
 
-    void move_to_companies(int socket_id, const QString &email, int company_id);
+    void move_to_companies(int socket_id, const QString &email, int company_id, RSAKeys keys);
 
 public slots:
 
