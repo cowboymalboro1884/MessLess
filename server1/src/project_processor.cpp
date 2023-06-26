@@ -98,13 +98,14 @@ QJsonDocument RequestHandler::add_or_delete_user_in_project(
 
     unsigned int project_id =
         DatabaseProject::get_project_id(*database, sender, project_name);
+
     QString type = request["type"].toString();
     qDebug() << type;
     if (type == "delete user from project") {
         DatabaseProject::delete_user_from_project(
             *database, user_email_changed, project_id
         );
-    } else if (type == "add user in project") {
+    } else if (type == "add user to project") {
         qDebug() << "asd";
         DatabaseProject::add_user_in_project(
             *database, user_email_changed, project_id, user_role_changed
