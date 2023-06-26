@@ -1,7 +1,9 @@
 # MessLess
-## Проект на C++
 
 <img src="images/logo.jpg" width="300">
+
+## Проект на C++
+
 
 ### Описание
 -----
