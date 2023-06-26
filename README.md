@@ -1,9 +1,6 @@
 # MessLess
 
-<img src="images/logo.jpg" width="300">
-
-## Проект на C++
-
+<img src="images/logo.jpg">
 
 ### Описание
 -----
@@ -14,6 +11,11 @@
 - Нейков Даниил
 - Штейн Максим
 
+### Зависимости
+* В проекте используется для внешнего вида и сетевого взаимодействия QT 5.12
+* На серверной части приложения используется QT для работы с сетью
+* Система управления базами данных - PostgreSQL 12
+* Для взаимодействия базы данных и серверной приложения используется libpqxx 
 ### Cкриншоты 
 
 <img src="images/chat.jpg" width="500">
@@ -22,4 +24,4 @@
 
 <img src="images/projects_list.jpg" width="500">
 
-<img src="images/login.jpg" width="500" align="center">
+<img src="images/login.jpg" width="500">
