@@ -114,12 +114,9 @@ QJsonDocument RequestHandler::delete_project(const QJsonObject &request
 
     std::string project_name =
         request.value("project_name").toString().toStdString();
-    std::string project_bio =
-        request.value("project_bio").toString().toStdString();
 
-    unsigned int project_id = DatabaseProject::create_project(
-        *database, sender, project_name, project_bio
-    );
+    unsigned int project_id = DatabaseProject::get_project_id(*database, sender, project_name);
+    DatabaseProject::delete_project(*database,project_id);
 
     ProjectIsDeleted response(project_name);
 
