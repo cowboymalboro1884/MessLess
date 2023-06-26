@@ -103,6 +103,7 @@ DatabaseUser::get_user_info(Database &db, const std::string &email) {
         "SELECT role_description FROM roles WHERE id='" + db.shield_string(std::to_string(role_id)) +
         "';"
     );
+    return info;
 }
 
 unsigned int DatabaseCompany::create_company(
