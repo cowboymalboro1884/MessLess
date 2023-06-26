@@ -25,8 +25,8 @@ class Message {
 public:
   QString name_of_sender;
   QString surname_of_sender;
-  QString message_as_it_is;
   QString user_role;
+  QString message_as_it_is;
   QString file_path;
 };
 

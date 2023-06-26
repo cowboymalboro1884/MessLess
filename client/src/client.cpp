@@ -78,6 +78,7 @@ void Client::start() {
   connect(m_network_manager->m_response_handler,
           SIGNAL(got_company_messages(const std::vector<Message> &)), this,
           SLOT(got_company_messages_slot(const std::vector<Message> &)));
+  connect(m_network_manager->m_response_handler, SIGNAL(got_company_message(Message)), this, SLOT(got_company_message_slot(Message)));
 }
 
 void Client::got_register_data() {
@@ -202,6 +203,7 @@ void Client::got_company_messages_slot(const std::vector<Message> &messages) {
 void Client::got_company_message_slot(Message message) {
   m_window->company_messages.push_back(message);
   m_window->message_counter++;
+  qDebug()<<message.message_as_it_is;
   m_window->add_new_messages();
 }
 

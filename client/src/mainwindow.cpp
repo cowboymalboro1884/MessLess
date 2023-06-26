@@ -48,9 +48,9 @@ MainWindow::MainWindow(QWidget *parent)
         lay->addWidget(user);
         lay->addWidget(user_message);
       }
-    }
+    }else{
 
-    add_new_messages();
+    add_new_messages();}
   });
   connect(ui_Main->accButton, &QPushButton::clicked, [&] {
     ui_Main->tabWidget->setCurrentIndex(0);
@@ -80,7 +80,7 @@ void MainWindow::clear_projects() {
 
 void MainWindow::add_new_messages() {
   if (current_window == "main_window_chat") {
-    for (size_t index = company_messages.size() - 1 - message_counter;
+    for (size_t index = company_messages.size() - message_counter;
          index < company_messages.size(); index++) {
       QLayout *lay = ui_Main->messages->layout();
       QPushButton *user =
