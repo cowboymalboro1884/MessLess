@@ -10,8 +10,8 @@ AddUser::AddUser(QWidget *parent, ProjectWindow *project_window)
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
   connect(ui->administrator, &QPushButton::clicked,
-          [&] { role = "administrator"; });
-  connect(ui->employer, &QPushButton::clicked, [&] { role = "employer"; });
+          [&] { role = "admin"; });
+  connect(ui->employer, &QPushButton::clicked, [&] { role = "employee"; });
   connect(ui->add_user, &QPushButton::clicked, [&] {
     if (role.isEmpty() || ui->email->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "All fields must be filled out!");

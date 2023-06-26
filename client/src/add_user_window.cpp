@@ -8,7 +8,7 @@ AddUserWindow::AddUserWindow(QWidget *parent, MainWindow *main_window)
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
   connect(ui->moderator, &QPushButton::clicked, [&] { role = "moderator"; });
-  connect(ui->employer, &QPushButton::clicked, [&] { role = "employer"; });
+  connect(ui->employer, &QPushButton::clicked, [&] { role = "employee"; });
   connect(ui->add_user_button, &QPushButton::clicked, [&] {
     if (role.isEmpty() || ui->email_->text().isEmpty() ||
         ui->name_->text().isEmpty() || ui->surname_->text().isEmpty() ||

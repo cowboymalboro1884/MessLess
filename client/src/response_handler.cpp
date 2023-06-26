@@ -143,7 +143,6 @@ void ResponseHandler::got_status_of_user_and_company_registration(
 void ResponseHandler::got_status_of_user_registration(
     const QJsonObject &request) const {
   qDebug() << "all okey =)";
-
 }
 
 void ResponseHandler::new_condition_of_projects(
@@ -214,9 +213,7 @@ void ResponseHandler::recieved_message_to_project(
   Message message{sender_name, sender_surname, sender_user_role, message_text,
                   file_link}; // message we got
 
-
   emit got_project_message(project_name, message);
-
 }
 
 void ResponseHandler::error(const QJsonObject &request) const {
@@ -224,6 +221,5 @@ void ResponseHandler::error(const QJsonObject &request) const {
   qDebug() << "error:";
   qDebug() << request["type"].toString();
   QString error = request["error_text"].toString();
-   emit got_error(error);
-
+  emit got_error(error);
 }

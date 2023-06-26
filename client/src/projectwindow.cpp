@@ -1,11 +1,12 @@
 #include "include/projectwindow.h"
-#include "include/project_settings.h"
 #include "include/project_chat.h"
+#include "include/project_settings.h"
 #include "ui_projectwindow.h"
 
 ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window,
                              QString project_name)
-    : QDialog(parent), m_project_name(project_name), ui(new Ui::ProjectWindow), m_main_window(main_window) {
+    : QDialog(parent), m_project_name(project_name), ui(new Ui::ProjectWindow),
+      m_main_window(main_window) {
   ui->setupUi(this);
   m_main_window->setEnabled(false);
   this->setAttribute(Qt::WA_DeleteOnClose);
@@ -21,10 +22,10 @@ ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window,
     project_settings_window->show();
   });
   connect(ui->project_chat, &QPushButton::clicked, [&] {
-      m_main_window->current_window=m_project_name+"_chat";
-      ProjectChat *project_chat = new ProjectChat(nullptr, this);
-      project_chat->show();
-    });
+    m_main_window->current_window = m_project_name + "_chat";
+    ProjectChat *project_chat = new ProjectChat(nullptr, this);
+    project_chat->show();
+  });
 }
 
 ProjectWindow::~ProjectWindow() {
@@ -51,7 +52,6 @@ void ProjectWindow::add_user_to_project(const QString &name,
                                         const QString &role) {
   m_main_window->add_user_to_project(name, role);
 }
-
 
 void ProjectWindow::update_tasks() {
   QLayout *to_do = ui->task_to_do_layout->layout();

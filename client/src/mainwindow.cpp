@@ -49,9 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
         lay->addWidget(user);
         lay->addWidget(user_message);
       }
-    }else{
+    } else {
 
-    add_new_messages();}
+      add_new_messages();
+    }
   });
   connect(ui_Main->accButton, &QPushButton::clicked, [&] {
     ui_Main->tabWidget->setCurrentIndex(0);
@@ -79,16 +80,17 @@ void MainWindow::clear_projects() {
   }
 }
 
-void MainWindow::send_project_message(const QString &project_name, const QString &message){
+void MainWindow::send_project_message(const QString &project_name,
+                                      const QString &message) {
   emit send_project_message_signal(project_name, message);
 }
 
-void MainWindow::update_project_chat(const QString &project_name, Message message){
-  if(current_window == (project_name + "_chat")){
-      emit got_project_message(message);
-    }
+void MainWindow::update_project_chat(const QString &project_name,
+                                     Message message) {
+  if (current_window == (project_name + "_chat")) {
+    emit got_project_message(message);
+  }
 }
-
 
 void MainWindow::add_new_messages() {
   if (current_window == "main_window_chat") {
@@ -154,7 +156,7 @@ void MainWindow::update_projects() {
       ProjectWindow *project_window =
           new ProjectWindow(nullptr, this, project_name);
       project_window->show();
-      if (user_role == "employer") {
+      if (user_role == "employee") {
         project_window->hide_settings();
       }
       current_window = project_name;

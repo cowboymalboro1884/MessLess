@@ -4,9 +4,9 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMessageBox>
 #include <QObject>
 #include <unordered_map>
-#include <QMessageBox>
 
 class PrivateUserInfo {
 public:

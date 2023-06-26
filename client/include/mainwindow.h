@@ -39,7 +39,8 @@ public:
   void update_tasks();
   void clear_projects();
   void clear_messages();
-  void send_project_message(const QString &project_name, const QString &message);
+  void send_project_message(const QString &project_name,
+                            const QString &message);
   void add_new_project(const QString &project_name,
                        const QString &project_description);
   void add_new_task(const QString &task_name, const QString &task_description,

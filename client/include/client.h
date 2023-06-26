@@ -5,8 +5,8 @@
 #include "network_manager.h"
 #include "response_types.h"
 
-#include <QObject>
 #include <QMessageBox>
+#include <QObject>
 
 namespace client {
 
@@ -34,7 +34,7 @@ public slots:
   void got_projects_to_update_slot(
       std::unordered_map<std::string, std::vector<Task>> projects_to_update);
   void somebody_updated_project_slot();
-  //передаю по ссылке, надеюсь не поломается
+  // передаю по ссылке, надеюсь не поломается
   void got_tasks_to_update_slot(const QString &project_name,
                                 const std::vector<Task> &tasks_to_update);
   void add_user_to_project(const QString &email, const QString &role);
@@ -46,9 +46,11 @@ public slots:
   void got_company_message_slot(Message message);
   void delete_project();
   void delete_user(const QString &email);
-  void send_project_message(const QString &project_name, const QString &message);
+  void send_project_message(const QString &project_name,
+                            const QString &message);
   void got_project_message_slot(const QString &project_name, Message message);
   void got_error_slot(const QString &error);
+
 private:
   QThread *network_thread;
   MainWindow *m_window;
@@ -56,7 +58,6 @@ private:
   QString m_password;
   NetworkManager *m_network_manager;
   PrivateUserInfo user;
-
 };
 } // namespace client
 #endif // CLIENT_H

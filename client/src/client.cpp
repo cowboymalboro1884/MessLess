@@ -35,8 +35,9 @@ Client::Client(QObject *parent) : m_window(new MainWindow()) {
           SLOT(delete_project()));
   connect(m_window, SIGNAL(delete_user_signal(const QString &)), this,
           SLOT(delete_user(const QString &)));
-  connect(m_window, SIGNAL(send_project_message_signal(const QString &, const QString &)), this,
-          SLOT(send_project_message(const QString &, const QString &)));
+  connect(m_window,
+          SIGNAL(send_project_message_signal(const QString &, const QString &)),
+          this, SLOT(send_project_message(const QString &, const QString &)));
 };
 
 void Client::start() {
@@ -51,8 +52,6 @@ void Client::start() {
     network_thread->start();
   } catch (...) {
     // need to delete
-
-
   }
 
   connect(
@@ -82,9 +81,15 @@ void Client::start() {
   connect(m_network_manager->m_response_handler,
           SIGNAL(got_company_messages(const std::vector<Message> &)), this,
           SLOT(got_company_messages_slot(const std::vector<Message> &)));
-  connect(m_network_manager->m_response_handler, SIGNAL(got_company_message(Message)), this, SLOT(got_company_message_slot(Message)));
-  connect(m_network_manager->m_response_handler, SIGNAL(got_project_message(const QString &, Message)), this, SLOT(got_project_message_slot(const QString &, Message)));
-  connect(m_network_manager->m_response_handler, SIGNAL(got_error(const QString &)), this, SLOT(got_error_slot(const QString &)));
+  connect(m_network_manager->m_response_handler,
+          SIGNAL(got_company_message(Message)), this,
+          SLOT(got_company_message_slot(Message)));
+  connect(m_network_manager->m_response_handler,
+          SIGNAL(got_project_message(const QString &, Message)), this,
+          SLOT(got_project_message_slot(const QString &, Message)));
+  connect(m_network_manager->m_response_handler,
+          SIGNAL(got_error(const QString &)), this,
+          SLOT(got_error_slot(const QString &)));
 }
 
 void Client::got_register_data() {
@@ -111,12 +116,14 @@ void Client::delete_project() {
   //  user.password,user.user_role,m_window->current_window, )
 }
 
-void Client::got_error_slot(const QString &error){
+void Client::got_error_slot(const QString &error) {
   QMessageBox::warning(m_window, "Warning", error);
 }
 
-void Client::send_project_message(const QString &project_name, const QString &message){
-  m_network_manager->m_query_sender->send_message_to_project(user.email,user.password,user.user_role, message, project_name);
+void Client::send_project_message(const QString &project_name,
+                                  const QString &message) {
+  m_network_manager->m_query_sender->send_message_to_project(
+      user.email, user.password, user.user_role, message, project_name);
 }
 
 void Client::delete_user(const QString &email) {
@@ -150,7 +157,7 @@ void Client::got_status_of_authorization_or_registration_slot(
   m_window->ui_Auth.close();
   m_window->ui_Reg.close();
   m_window->user_role = user.user_role;
-  if (m_window->user_role == "employer") {
+  if (m_window->user_role == "employee") {
     m_window->hide_button();
   }
   m_window->show();
@@ -170,8 +177,8 @@ void Client::somebody_updated_project_slot() {
       user.email, user.password, user.user_role);
 }
 
-void Client::got_tasks_to_update_slot(const QString &project_name,
-                                      const std::vector<Task> &tasks_to_update) {
+void Client::got_tasks_to_update_slot(
+    const QString &project_name, const std::vector<Task> &tasks_to_update) {
   m_window->all_tasks[project_name.toStdString()] = tasks_to_update;
   if (m_window->current_window == project_name) {
     m_window->update_tasks();
@@ -206,11 +213,12 @@ void Client::got_company_messages_slot(const std::vector<Message> &messages) {
 void Client::got_company_message_slot(Message message) {
   m_window->company_messages.push_back(message);
   m_window->message_counter++;
-  qDebug()<<message.message_as_it_is;
+  qDebug() << message.message_as_it_is;
   m_window->add_new_messages();
 }
 
-void Client::got_project_message_slot(const QString &project_name, Message message){
+void Client::got_project_message_slot(const QString &project_name,
+                                      Message message) {
   m_window->update_project_chat(project_name, message);
 }
 
