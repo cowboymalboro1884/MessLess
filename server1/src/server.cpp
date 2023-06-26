@@ -77,6 +77,7 @@ void Server::connect_to_client_handler(
         SLOT(send_message_to_company(int, const QJsonDocument &))
     );
 
+    qDebug() << company_id;
     client_handler->move_to_companies(socket_id, email, company_id);
 }
 
