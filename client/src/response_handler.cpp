@@ -81,8 +81,6 @@ void ResponseHandler::got_status_of_user_authorization(
 
   std::unordered_map<std::string, std::vector<Task>> projects_with_tasks =
       extract_projects_with_tasks_from_json(request); // projects
-  // for(auto i : projects_with_tasks) qDebug()<<
-  // QString::fromStdString(i.first);
   QJsonArray raw_company_chat = request["company_chat"].toArray();
   std::vector<Message> company_chat =
       extract_chat_from_json_array(raw_company_chat); // company chat
@@ -137,7 +135,6 @@ void ResponseHandler::got_status_of_user_and_company_registration(
     project_chats[project_name] = extract_chat_from_json_array(raw_chat);
   }
 
-  // emit smth (same as previous func, may be one signal)
   emit got_status_of_registration(sender);
   emit got_projects_with_tasks(projects_with_tasks);
   emit got_company_messages(std::move(company_chat));
@@ -146,20 +143,17 @@ void ResponseHandler::got_status_of_user_and_company_registration(
 void ResponseHandler::got_status_of_user_registration(
     const QJsonObject &request) const {
   qDebug() << "all okey =)";
-  // all okey ...
-  // TODO узнать, что нам нужно
+
 }
 
 void ResponseHandler::new_condition_of_projects(
     const QJsonObject &request) const {
-  // возможно что-то не то делаю, спросить потом у дани, что вообще делает эта
-  // фукнция
   emit get_new_condition_of_projects();
 }
 
 void ResponseHandler::new_condition_of_tasks(const QJsonObject &request) const {
   QString project_name = request["project_name"].toString();
-  // just emit that need to update tasks of
+
   get_new_task_of_project(std::move(project_name));
 }
 
@@ -203,9 +197,7 @@ void ResponseHandler::recieved_message_to_company(
   QString file_link = request["file_link"].toString();
 
   Message message{sender_name, sender_surname, sender_user_role, message_text,
-                  file_link}; // message we got
-                              // emit smth
-//  qDebug()<<message_text;
+                  file_link};
   emit got_company_message(message);
 }
 
@@ -222,12 +214,16 @@ void ResponseHandler::recieved_message_to_project(
   Message message{sender_name, sender_surname, sender_user_role, message_text,
                   file_link}; // message we got
 
-  got_company_message(message);
+
+  emit got_project_message(project_name, message);
+
 }
 
 void ResponseHandler::error(const QJsonObject &request) const {
   // process error
   qDebug() << "error:";
   qDebug() << request["type"].toString();
-  // emit got_error
+  QString error = request["error_text"].toString();
+   emit got_error(error);
+
 }

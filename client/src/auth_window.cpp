@@ -21,9 +21,6 @@ QString auth_window::getLogin() { return ui->loginLineEdit->text(); }
 QString auth_window::getPass() { return ui->passwordLineEdit->text(); }
 
 void auth_window::on_loginPushButton_clicked() {
-
-  // Вынести проверку в отдельную функцию
-
   if (getLogin().isEmpty() && getPass().isEmpty()) {
     ui->errorMessage->setText("Введите логин и пароль");
     ui->errorMessage->show();

@@ -4,5 +4,6 @@
         <file>img/project.png</file>
         <file>img/chat.png</file>
         <file>img/settings.png</file>
+        <file>img/MessLess.ico</file>
     </qresource>
 </RCC>

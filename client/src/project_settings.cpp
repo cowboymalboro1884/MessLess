@@ -13,8 +13,7 @@ ProjectSettings::ProjectSettings(QWidget *parent, ProjectWindow *project_window)
   setWindowTitle("MessLess");
   ui->setupUi(this);
   connect(ui->add_new_task, &QPushButton::clicked, [&] {
-    this->close(); // TODO: возможно тут будет ошибка из-за того, что окно
-                   // удаляется, надо будет исправить
+    this->close();
     AddTask *add_task_window = new AddTask(nullptr, m_project_window);
     add_task_window->show();
   });
@@ -24,8 +23,7 @@ ProjectSettings::ProjectSettings(QWidget *parent, ProjectWindow *project_window)
     project_window->close();
   });
   connect(ui->add_new_user, &QPushButton::clicked, [&] {
-    this->close(); // TODO: возможно тут будет ошибка из-за того, что окно
-                   // удаляется, надо будет исправить
+    this->close();
     AddUser *add_user_window = new AddUser(nullptr, m_project_window);
     add_user_window->show();
   });

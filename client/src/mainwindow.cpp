@@ -3,6 +3,7 @@
 #include "include/add_user_window.h"
 #include "include/projectwindow.h"
 #include "ui_mainwindow.h"
+#include <QScrollArea>
 #include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -78,6 +79,17 @@ void MainWindow::clear_projects() {
   }
 }
 
+void MainWindow::send_project_message(const QString &project_name, const QString &message){
+  emit send_project_message_signal(project_name, message);
+}
+
+void MainWindow::update_project_chat(const QString &project_name, Message message){
+  if(current_window == (project_name + "_chat")){
+      emit got_project_message(message);
+    }
+}
+
+
 void MainWindow::add_new_messages() {
   if (current_window == "main_window_chat") {
     for (size_t index = company_messages.size() - message_counter;
@@ -97,7 +109,6 @@ void MainWindow::add_new_messages() {
 
 void MainWindow::clear_messages() {
   QLayoutItem *child;
-  // возможно, что нужно до 1 цикл
   while ((child = ui_Main->messages->takeAt(0)) != nullptr) {
     delete child->widget();
     delete child;

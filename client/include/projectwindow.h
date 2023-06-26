@@ -24,6 +24,7 @@ public:
   void hide_settings();
   void delete_project();
   void delete_user(const QString &email);
+  QString m_project_name;
 
 private:
   Ui::ProjectWindow *ui;

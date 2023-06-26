@@ -28,6 +28,7 @@ public:
   QString current_window;
   std::unordered_map<std::string, std::vector<Task>> all_tasks;
   std::vector<Message> company_messages;
+  std::unordered_map<std::string, std::vector<Message>> all_message;
   bool update_company_chat_flag;
   int message_counter;
   auth_window ui_Auth;
@@ -38,6 +39,7 @@ public:
   void update_tasks();
   void clear_projects();
   void clear_messages();
+  void send_project_message(const QString &project_name, const QString &message);
   void add_new_project(const QString &project_name,
                        const QString &project_description);
   void add_new_task(const QString &task_name, const QString &task_description,
@@ -51,6 +53,7 @@ public:
   void hide_button();
   void delete_project();
   void delete_user(const QString &email);
+  void update_project_chat(const QString &project_name, Message message);
 
 private:
   Ui::MainWindow *ui_Main;
@@ -76,6 +79,8 @@ signals:
   void send_message(const QString &);
   void delete_project_signal();
   void delete_user_signal(const QString &);
+  void send_project_message_signal(const QString &, const QString &);
+  void got_project_message(Message);
 };
 
 #endif // MAINWINDOW_H

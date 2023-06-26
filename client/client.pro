@@ -3,6 +3,7 @@ QT       += network
 QT       += sql
 QT       -= gui
 
+#LIBD += -L/Users/maksimstein/Desktop/cryptopp/cryptopp
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,7 +14,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    project_chat.cpp \
     src/add_user.cpp \
     src/add_user_window.cpp \
     src/delete_user.cpp \
@@ -24,6 +24,7 @@ SOURCES += \
     src/client.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/project_chat.cpp \
     src/project_settings.cpp \
     src/projectwindow.cpp \
     src/query_handler.cpp \
@@ -50,7 +51,7 @@ HEADERS += \
     include/add_project.h \
     include/projectwindow.h \
     include/add_task.h \
-    project_chat.h
+    include/project_chat.h
 
 FORMS += \
     include/add_user_window.ui \
@@ -59,13 +60,13 @@ FORMS += \
     include/auth_window.ui \
     include/delete_user.ui \
     include/mainwindow.ui \
+    include/project_chat.ui \
     include/project_settings.ui \
     include/projectwindow.ui \
     include/reg_window.ui \
     include/add_project.ui/ \
     include/projectwindow.ui \
     include/add_task.ui \
-    project_chat.ui
 
 #win64:RC_FILE = icon.rc
 
@@ -78,4 +79,7 @@ RESOURCES += \
     images.qrc
 
 DISTFILES += \
+    img/MessLess.ico \
     img/settings.png
+
+RC_ICONS = MessLess.ico

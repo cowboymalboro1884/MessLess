@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QObject>
 #include <unordered_map>
+#include <QMessageBox>
 
 class PrivateUserInfo {
 public:
@@ -67,7 +68,8 @@ signals:
   void got_new_tasks_of_project(const QString &, std::vector<Task>) const;
   void got_company_messages(const std::vector<Message> &) const;
   void got_company_message(Message) const;
-
+  void got_project_message(const QString &, Message) const;
+  void got_error(const QString &) const;
 public slots:
   void proccess_data(const QByteArray &);
 };

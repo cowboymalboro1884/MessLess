@@ -12,7 +12,6 @@ reg_window::reg_window(QWidget *parent)
   ui->passwordLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
   connect(this, SIGNAL(pushButtonSignIn_clicked()), this,
           SLOT(on_pushButtonSignIn_clicked()));
-  //  this->setAttribute(Qt::WA_DeleteOnClose);// почему-то в нем ошибка
 }
 
 reg_window::~reg_window() {
