@@ -11,13 +11,6 @@ public:
     std::string condition;
 };
 
-class Project {
-public:
-    std::string project_name;
-    std::string project_id;
-    std::string project_bio;
-};
-
 class DatabaseProject {
 public:
     static unsigned int create_project(
@@ -92,6 +85,12 @@ public:
     static void delete_project(Database &db, unsigned int project_id);
 
     static void delete_task(Database &db, unsigned int task_id);
+
+    static void delete_user_from_task(
+        Database &db,
+        unsigned int task_id,
+        const std::string &email
+    );
 };
 }  // namespace messless
 #endif
