@@ -78,6 +78,7 @@ PrivateUserInfo DatabaseUser::login_user(
 
 GeneralUserInfo
 DatabaseUser::get_user_info(Database &db, const std::string &email) {
+    pqxx::work worker(db.connection);
     unsigned int user_id = worker.query_value<int>(
         "SELECT id FROM users WHERE email='" + db.shield_string(email) +
         "';"
