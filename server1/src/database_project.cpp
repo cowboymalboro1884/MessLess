@@ -2,7 +2,7 @@
 #define DATABASE_PROJECT_CPP
 #include "../include/database_project.hpp"
 #include <tuple>
-
+#include<iostream>
 namespace messless {
 unsigned int DatabaseProject::create_project(
     Database &db,
@@ -80,14 +80,19 @@ void DatabaseProject::add_user_in_project(
 ) {
     try {
         pqxx::work worker(db.connection);
+        std::cout<<"gone to add_user_in_project\n";
         unsigned int user_id = worker.query_value<int>(
             "SELECT id FROM users WHERE email='" + db.shield_string(email) +
             "';"
         );
+        std::cout<<"id selected\n";
+        std::cout<<user_role<<'\n';
         unsigned int user_role_id = worker.query_value<int>(
             "SELECT id FROM project_roles WHERE role_description='" +
             db.shield_string(user_role) + "';"
         );
+        std::cout<<user_id<<' '<<user_role_id<<'\n';
+        std::cout<<"id from project roles selected\n";
         worker.exec(
             "INSERT INTO users_projects_relationship "
             "(project_id,user_id,project_role_id) VALUES('" +
@@ -95,6 +100,7 @@ void DatabaseProject::add_user_in_project(
             db.shield_string(std::to_string(user_id)) + "','" +
             db.shield_string(std::to_string(user_role_id)) + "')"
         );
+        std::cout<<"inserted into users_projects_relationship\n";
         worker.commit();
     } catch (...) {
         return;
