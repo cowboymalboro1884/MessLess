@@ -65,6 +65,7 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
             break;
         }
         case TO_SENDER: {
+            qDebug() << email;
             write_byte_data(json_response.toJson());
             break;
         }
