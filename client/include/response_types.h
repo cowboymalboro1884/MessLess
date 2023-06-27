@@ -5,31 +5,30 @@
 #include <QJsonObject>
 #include <QString>
 #include <unordered_map>
-
 #include "response_handler.h"
 
 class Project {
 public:
-  QString project_name;
-  QString project_bio;
-  QString project_id;
+    QString project_name;
+    QString project_bio;
+    QString project_id;
 };
 
 enum ResponseTypes {
-  ERROR,
+    ERROR,
 
-  GOT_STATUS_OF_AUTHORIZATION_USER,
-  GOT_STATUS_OF_REGISTRATION_USER_AND_COMPANY,
-  REGISTRATION_NEW_USER_IS_SUCCESS,
+    GOT_STATUS_OF_AUTHORIZATION_USER,
+    GOT_STATUS_OF_REGISTRATION_USER_AND_COMPANY,
+    REGISTRATION_NEW_USER_IS_SUCCESS,
 
-  GOT_PROJECTS_TO_UPDATE,
-  NEW_CONDITION_OF_PROJECTS,
+    GOT_PROJECTS_TO_UPDATE,
+    NEW_CONDITION_OF_PROJECTS,
 
-  GOT_TASKS_TO_UPDATE,
-  NEW_CONDITION_OF_TASKS,
+    GOT_TASKS_TO_UPDATE,
+    NEW_CONDITION_OF_TASKS,
 
-  GOT_MESSAGE_TO_COMPANY_CHAT,
-  GOT_MESSAGE_TO_PROJECT_CHAT,
+    GOT_MESSAGE_TO_COMPANY_CHAT,
+    GOT_MESSAGE_TO_PROJECT_CHAT,
 };
 
 inline std::map<QString, ResponseTypes> response_types = {
@@ -48,29 +47,29 @@ inline std::map<QString, ResponseTypes> response_types = {
     {"got message to company chat", GOT_MESSAGE_TO_COMPANY_CHAT},
     {"got message to project chat", GOT_MESSAGE_TO_PROJECT_CHAT}};
 
-inline std::map<ResponseTypes,
-                void (ResponseHandler::*)(const QJsonObject &) const>
-    response_handlers = {
-        {ERROR, &ResponseHandler::error},
+inline std::
+    map<ResponseTypes, void (ResponseHandler::*)(const QJsonObject &) const>
+        response_handlers = {
+            {ERROR, &ResponseHandler::error},
 
-        {GOT_STATUS_OF_AUTHORIZATION_USER,
-         &ResponseHandler::got_status_of_user_authorization},
-        {GOT_STATUS_OF_REGISTRATION_USER_AND_COMPANY,
-         &ResponseHandler::got_status_of_user_and_company_registration},
-        {REGISTRATION_NEW_USER_IS_SUCCESS,
-         &ResponseHandler::got_status_of_user_registration},
+            {GOT_STATUS_OF_AUTHORIZATION_USER,
+             &ResponseHandler::got_status_of_user_authorization},
+            {GOT_STATUS_OF_REGISTRATION_USER_AND_COMPANY,
+             &ResponseHandler::got_status_of_user_and_company_registration},
+            {REGISTRATION_NEW_USER_IS_SUCCESS,
+             &ResponseHandler::got_status_of_user_registration},
 
-        {GOT_PROJECTS_TO_UPDATE, &ResponseHandler::update_projects},
-        {NEW_CONDITION_OF_PROJECTS,
-         &ResponseHandler::new_condition_of_projects},
+            {GOT_PROJECTS_TO_UPDATE, &ResponseHandler::update_projects},
+            {NEW_CONDITION_OF_PROJECTS,
+             &ResponseHandler::new_condition_of_projects},
 
-        {GOT_TASKS_TO_UPDATE, &ResponseHandler::update_tasks},
-        {NEW_CONDITION_OF_TASKS, &ResponseHandler::new_condition_of_tasks},
+            {GOT_TASKS_TO_UPDATE, &ResponseHandler::update_tasks},
+            {NEW_CONDITION_OF_TASKS, &ResponseHandler::new_condition_of_tasks},
 
-        {GOT_MESSAGE_TO_COMPANY_CHAT,
-         &ResponseHandler::recieved_message_to_company},
-        {GOT_MESSAGE_TO_PROJECT_CHAT,
-         &ResponseHandler::recieved_message_to_project},
+            {GOT_MESSAGE_TO_COMPANY_CHAT,
+             &ResponseHandler::recieved_message_to_company},
+            {GOT_MESSAGE_TO_PROJECT_CHAT,
+             &ResponseHandler::recieved_message_to_project},
 };
 
-#endif // RESPONSE_TYPES_H
+#endif  // RESPONSE_TYPES_H
