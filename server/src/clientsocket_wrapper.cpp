@@ -43,10 +43,11 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
     int company_id = json_response.object()["company_id"].toInt();
     QString email = json_response.object()["email"].toString();
     int recipient = json_response.object()["recipient"].toInt();
-
+    qDebug() << event_type;
     if ((event_type == response_types[GOT_STATUS_OF_AUTHORIZATION] ||
          event_type == response_types[GOT_STATUS_OF_REGISTRATION]) &&
         (status == "success")) {
+
         server->connect_to_client_handler(get_id(), email, company_id);
     }
 
@@ -61,14 +62,12 @@ void ClientSocket::send_json_data(const QJsonDocument &json_response) {
         }
         case TO_PROJECT_USER_LIST: {
             emit send_message_to_project_user_list(
-                json_response.object()["emails_of_recipients"].toArray(),
-                json_response
+                json_response.object()["emails_of_recipients"].toArray(), json_response
             );
             break;
         }
         case TO_CONCRETE_USER: {
-            QString reciever_email =
-                json_response.object()["reciever_email"].toString();
+            QString reciever_email = json_response.object()["reciever_email"].toString();
             emit send_message_to_concrete_user(reciever_email, json_response);
             break;
         }
