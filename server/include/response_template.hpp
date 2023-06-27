@@ -6,8 +6,8 @@
 #include <QJsonObject>
 #include <string>
 #include <vector>
-#include "database.hpp"
 #include "responses_types.hpp"
+#include "database.hpp"
 
 namespace templates::ResponseTemplate {
 
@@ -86,11 +86,11 @@ struct SendActualGlobalConditionResponse : AbstractJSONResponse {
         company_id = company_id_;
     }
 
-    void set_user_info(const messless::PrivateUserInfo &user) {
+    void set_user_info(const messless::PrivateUserInfo& user) {
         user_info = user;
     }
 
-    void set_general_info(const messless::GeneralUserInfo &user) {
+    void set_general_info(const messless::GeneralUserInfo& user) {
         general_info = user;
     }
 
@@ -199,8 +199,8 @@ struct RecievedMessageResponse : AbstractJSONResponse {
         const QJsonArray &recipients_,
         const QString &project_name_
     ) {
-        response_types[GOT_MESSAGE_TO_PROJECT_CHAT],
-            recipient = TO_PROJECT_USER_LIST;
+        event_type = response_types[GOT_MESSAGE_TO_PROJECT_CHAT];
+        recipient = TO_PROJECT_USER_LIST;
         recipients = std::move(recipients_);
         project_name = project_name_;
     }
