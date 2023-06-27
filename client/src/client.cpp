@@ -74,7 +74,8 @@ void Client::start() {
         m_network_manager->moveToThread(network_thread);
         network_thread->start();
     } catch (...) {
-        // need to delete
+        delete m_network_manager;
+        network_thread->deleteLater();
     }
 
     connect(
