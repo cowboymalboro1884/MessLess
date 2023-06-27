@@ -12,7 +12,6 @@ namespace client::network {
 
 struct SocketWrapper : public QObject {
     Q_OBJECT
-    QTcpSocket *m_socket_wrap;
     QString ip;
     qint16 port;
 
@@ -21,6 +20,7 @@ public:
     ~SocketWrapper();
 
     void connect_to_host();
+    QTcpSocket *m_socket_wrap;
 
 signals:
     void ready_to_proccess_data(const QByteArray &);
