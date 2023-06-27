@@ -80,28 +80,37 @@ GeneralUserInfo
 DatabaseUser::get_user_info(Database &db, const std::string &email) {
     pqxx::work worker(db.connection);
     unsigned int user_id = worker.query_value<int>(
-        "SELECT id FROM users WHERE email='" + db.shield_string(email) + "';"
+        "SELECT id FROM users WHERE email='" + db.shield_string(email) +
+        "';"
     );
     GeneralUserInfo info;
     info.name = worker.query_value<std::string>(
-        "SELECT first_name FROM users WHERE id=" +
-        db.shield_string(std::to_string(user_id)) + ";"
+        "SELECT first_name FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
     );
     info.surname = worker.query_value<std::string>(
-        "SELECT second_name FROM users WHERE id=" +
-        db.shield_string(std::to_string(user_id)) + ";"
+        "SELECT second_name FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
     );
     info.email = worker.query_value<std::string>(
-        "SELECT email FROM users WHERE id=" +
-        db.shield_string(std::to_string(user_id)) + ";"
+        "SELECT email FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
     );
     unsigned int role_id = worker.query_value<int>(
-        "SELECT employee_role_id FROM users WHERE id=" +
-        db.shield_string(std::to_string(user_id)) + ";"
+        "SELECT employee_role_id FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
     );
     info.user_role = worker.query_value<std::string>(
-        "SELECT role_description FROM employee_roles WHERE id=" +
-        db.shield_string(std::to_string(role_id)) + ";"
+        "SELECT role_description FROM employee_roles WHERE id=" + db.shield_string(std::to_string(role_id)) +
+        ";"
+    );
+    unsigned int company_id = worker.query_value<int>(
+        "SELECT company_id FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
+    );
+    info.company_name = worker.query_value<std::string>(
+        "SELECT company_name FROM companies WHERE id=" + db.shield_string(std::to_string(company_id)) +
+        ";"
     );
     return info;
 }
