@@ -82,4 +82,3 @@ DISTFILES += \
     img/MessLess.ico \
     img/settings.png
 
-RC_ICONS = MessLess.ico

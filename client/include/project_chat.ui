@@ -73,7 +73,7 @@ border: 0.5px solid  rgb(80, 108, 200);
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>400</height>
+           <height>600</height>
           </size>
          </property>
         </spacer>
