@@ -105,8 +105,8 @@ struct SendActualGlobalConditionResponse : AbstractJSONResponse {
         main_data["company_id"] = company_id;
 
         main_data["name"] = QString::fromStdString(general_info.name);
-        main_data["surname"] = QString::fromStdString(general_info.name);
-        main_data["company_name"] = QString::fromStdString(general_info.name);
+        main_data["surname"] = QString::fromStdString(general_info.surname);
+        main_data["company_name"] = QString::fromStdString(general_info.company_name);
 
         main_data["projects_with_tasks"] = projects_with_tasks;
         main_data["company_chat"] = company_chat;
