@@ -7,26 +7,26 @@ class auth_window;
 }
 
 class auth_window : public QWidget {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit auth_window(QWidget *parent = nullptr);
-    ~auth_window();
-    QString getLogin();
-    QString getPass();
+  explicit auth_window(QWidget *parent = nullptr);
+  ~auth_window();
+  QString getLogin();
+  QString getPass();
 
 signals:
-    void login_button_clicked();
-    void register_button_clicked();
-    void auth_check();
+  void login_button_clicked();
+  void register_button_clicked();
+  void auth_check();
 
 private slots:
-    void on_loginPushButton_clicked();
-    void on_registerPushButton_clicked();
-    void on_showPassword_clicked();
+  void on_loginPushButton_clicked();
+  void on_registerPushButton_clicked();
+  void on_showPassword_clicked();
 
 private:
-    Ui::auth_window *ui;
+  Ui::auth_window *ui;
 };
 
 #endif
