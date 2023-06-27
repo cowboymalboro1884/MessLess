@@ -26,6 +26,10 @@ void NetworkManager::run() {
         m_socket_wrap, SIGNAL(ready_to_proccess_data(const QByteArray &)),
         m_response_handler, SLOT(proccess_data(const QByteArray &))
     );
+
+    connect(m_socket_wrap->m_socket_wrap, &QTcpSocket::disconnected, []() {
+        throw "Connection is lost!";
+    });
 }
 
 NetworkManager::~NetworkManager() {
