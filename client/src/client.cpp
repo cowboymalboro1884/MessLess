@@ -113,8 +113,10 @@ void Client::got_add_project_data(const QString &project_name,
 }
 
 void Client::delete_project(const QString &project) {
+  qDebug()<<6;
     m_network_manager->m_query_sender->delete_project(user.email,
     user.password,user.user_role,project);
+    qDebug()<<7;
 }
 
 void Client::got_error_slot(const QString &error) {

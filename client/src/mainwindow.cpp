@@ -176,7 +176,9 @@ void MainWindow::update_projects() {
 
 void MainWindow::delete_project(const QString &project) {
   qDebug()<<5;
+  this->setEnabled(true);
   emit delete_project_signal(project);
+  this->setEnabled(false);
 }
 
 void MainWindow::delete_user(const QString &email) {

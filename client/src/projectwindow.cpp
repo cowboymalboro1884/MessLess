@@ -44,7 +44,9 @@ void ProjectWindow::add_new_task(const QString &task_name,
 
 void ProjectWindow::delete_project(const QString &project) {
   qDebug()<<4;
+
   m_main_window->delete_project(project);
+  this->close();
 }
 
 void ProjectWindow::delete_user(const QString &email) {

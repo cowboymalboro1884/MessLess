@@ -19,14 +19,9 @@ ProjectSettings::ProjectSettings(QWidget *parent, ProjectWindow *project_window)
   });
   connect(ui->delete_project, &QPushButton::clicked, [&] {
     this->close();
-     qDebug()<<1;
-         project_window->close();
-         qDebug()<<2;
-    project_window->delete_project(project_window->m_project_name);
+      project_window->delete_project(project_window->m_project_name);
+//         project_window->close();
 
-//    project_window->show();
-
-    qDebug()<<3;
   });
   connect(ui->add_new_user, &QPushButton::clicked, [&] {
     this->close();
