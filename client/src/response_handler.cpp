@@ -202,6 +202,7 @@ void ResponseHandler::recieved_message_to_company(
 
   Message message{sender_name, sender_surname, sender_user_role, message_text,
                   file_link};
+  qDebug()<<message.message_as_it_is;
   emit got_company_message(message);
 }
 

@@ -23,8 +23,10 @@ private:
   Ui::ProjectChat *ui;
   ProjectWindow *m_project_window;
   MainWindow *m_main_window;
-  void update_project_message(Message message);
   void clear_chat();
+
+private slots:
+    void update_project_message(Message message);
 };
 
 #endif // PROJECT_CHAT_H

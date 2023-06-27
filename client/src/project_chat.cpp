@@ -23,7 +23,6 @@ ProjectChat::ProjectChat(QWidget *parent, ProjectWindow *project_window,
     lay->addWidget(user);
     lay->addWidget(user_message);
   }
-
   connect(ui->send_button, &QPushButton::clicked, [&] {
     if (ui->message_edit->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "Enter message!");

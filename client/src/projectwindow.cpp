@@ -23,7 +23,7 @@ ProjectWindow::ProjectWindow(QWidget *parent, MainWindow *main_window,
   });
   connect(ui->project_chat, &QPushButton::clicked, [&] {
     m_main_window->current_window = m_project_name + "_chat";
-    ProjectChat *project_chat = new ProjectChat(nullptr, this);
+    ProjectChat *project_chat = new ProjectChat(nullptr, this, m_main_window);
     project_chat->show();
   });
 }
