@@ -52,7 +52,7 @@ public:
                            const QString &role);
   void add_new_messages();
   void hide_button();
-  void delete_project();
+  void delete_project(const QString &project);
   void delete_user(const QString &email);
   void update_project_chat(const QString &project_name, Message message);
 
@@ -79,7 +79,7 @@ signals:
                                const QString &, const QString &,
                                const QString &);
   void send_message(const QString &);
-  void delete_project_signal();
+  void delete_project_signal(const QString &);
   void delete_user_signal(const QString &);
   void send_project_message_signal(const QString &, const QString &);
   void got_project_message(Message);

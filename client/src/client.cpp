@@ -31,8 +31,8 @@ Client::Client(QObject *parent) : m_window(new MainWindow()) {
                                    const QString &)));
   connect(m_window, SIGNAL(send_message(const QString &)), this,
           SLOT(send_message_to_company(const QString &)));
-  connect(m_window, SIGNAL(delete_project_signal()), this,
-          SLOT(delete_project()));
+  connect(m_window, SIGNAL(delete_project_signal(const QString &)), this,
+          SLOT(delete_project(const QString &)));
   connect(m_window, SIGNAL(delete_user_signal(const QString &)), this,
           SLOT(delete_user(const QString &)));
   connect(m_window,
@@ -112,9 +112,9 @@ void Client::got_add_project_data(const QString &project_name,
       project_description);
 }
 
-void Client::delete_project() {
+void Client::delete_project(const QString &project) {
     m_network_manager->m_query_sender->delete_project(user.email,
-    user.password,user.user_role,m_window->current_window);
+    user.password,user.user_role,project);
 }
 
 void Client::got_error_slot(const QString &error) {

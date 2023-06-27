@@ -44,7 +44,7 @@ public slots:
   void send_message_to_company(const QString &message);
   void got_company_messages_slot(const std::vector<Message> &messages);
   void got_company_message_slot(Message message);
-  void delete_project();
+  void delete_project(const QString &project);
   void delete_user(const QString &email);
   void send_project_message(const QString &project_name,
                             const QString &message);

@@ -174,7 +174,10 @@ void MainWindow::update_projects() {
   }
 }
 
-void MainWindow::delete_project() { emit delete_project_signal(); }
+void MainWindow::delete_project(const QString &project) {
+  qDebug()<<5;
+  emit delete_project_signal(project);
+}
 
 void MainWindow::delete_user(const QString &email) {
   emit delete_user_signal(email);

@@ -22,7 +22,7 @@ public:
   void add_user_to_project(const QString &name, const QString &role);
   void clear_tasks();
   void hide_settings();
-  void delete_project();
+  void delete_project(const QString &project);
   void delete_user(const QString &email);
   QString m_project_name;
 
