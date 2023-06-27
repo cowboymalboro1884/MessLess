@@ -1,6 +1,6 @@
-#include "include/socketwrapper.h"
 #include <QDataStream>
 #include <sstream>
+#include "include/socketwrapper.h"
 
 namespace client::network {
 
@@ -15,6 +15,8 @@ void SocketWrapper::connect_to_host() {
     if (m_socket_wrap->waitForConnected()) {
         qDebug() << "Connected, i think...";
         connect(m_socket_wrap, SIGNAL(readyRead()), this, SLOT(update()));
+    } else {
+        throw "Couldn't connect to host";
     }
 }
 
