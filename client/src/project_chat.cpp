@@ -11,19 +11,19 @@ ProjectChat::ProjectChat(QWidget *parent, ProjectWindow *project_window,
   m_project_window->hide();
   m_project_window->setEnabled(false);
   QLayout *lay = ui->messages->layout();
-  qDebug()<<1;
-//  for (const auto &message :
-//       m_main_window
-//           ->all_message[m_project_window->m_project_name.toStdString()]) {
-//      qDebug()<<6;
-//    QPushButton *user = new QPushButton(message.name_of_sender + " " +
-//                                        message.surname_of_sender);
-//    QLabel *user_message = new QLabel(message.message_as_it_is);
-//    qDebug()<<5;
-//    lay->addWidget(user);
-//    lay->addWidget(user_message);
-//  }
-  qDebug()<<2;
+
+  for (const auto &message :
+       m_main_window
+           ->all_message[m_project_window->m_project_name.toStdString()]) {
+
+    QPushButton *user = new QPushButton(message.name_of_sender + " " +
+                                        message.surname_of_sender);
+    QLabel *user_message = new QLabel(message.message_as_it_is);
+
+    lay->addWidget(user);
+    lay->addWidget(user_message);
+  }
+
   connect(ui->send_button, &QPushButton::clicked, [&] {
     if (ui->message_edit->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "Enter message!");
@@ -33,10 +33,10 @@ ProjectChat::ProjectChat(QWidget *parent, ProjectWindow *project_window,
       ui->message_edit->clear();
     }
   });
-  qDebug()<<3;
+
   connect(m_main_window, SIGNAL(got_project_message(Message)), this,
           SLOT(update_project_message(Message)));
-  qDebug()<<4;
+
 }
 
 void ProjectChat::update_project_message(Message message) {
