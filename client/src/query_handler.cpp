@@ -156,8 +156,7 @@ void QuerySender::delete_project(const QString &sender_email,
                                  const QString &sender_password,
                                  const QString &sender_user_role,
 
-                                 const QString &project_name,
-                                 const QString &project_bio) {
+                                 const QString &project_name) {
   QJsonObject json_query;
   json_query["type"] = "delete project";
   json_query["sender_email"] = sender_email;
@@ -165,7 +164,6 @@ void QuerySender::delete_project(const QString &sender_email,
   json_query["sender_user_role"] = sender_user_role;
 
   json_query["project_name"] = project_name;
-  json_query["project_bio"] = project_bio;
 
   QJsonDocument doc_to_send(json_query);
   emit ready_to_write_data_to_socket(doc_to_send.toJson());

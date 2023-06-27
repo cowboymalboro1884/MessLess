@@ -64,6 +64,7 @@ private slots:
   void registerUser();
   void registerWindowShow();
   void authorizeWindowShow();
+  void change_user_info(const QString &email,const QString &name,const QString &surname,const QString &company,const QString &role);
 
 signals:
   void update_task_condition(const QString &, const QString &);

@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/ls1.png</file>
-        <file>img/project.png</file>
         <file>img/chat.png</file>
         <file>img/settings.png</file>
         <file>img/MessLess.ico</file>
+        <file>img/ls1.png</file>
+        <file>img/project.png</file>
     </qresource>
 </RCC>

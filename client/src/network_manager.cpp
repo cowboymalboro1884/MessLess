@@ -10,7 +10,7 @@ NetworkManager::NetworkManager(client::Client *client_, const QString &ip_,
 }
 
 void NetworkManager::run() {
-  m_socket_wrap = new SocketWrapper("194.87.210.109", 1400);
+  m_socket_wrap = new SocketWrapper("194.87.210.109", 1339);
   m_socket_wrap->connect_to_host();
 
   connect(m_query_sender,

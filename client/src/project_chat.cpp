@@ -8,18 +8,22 @@ ProjectChat::ProjectChat(QWidget *parent, ProjectWindow *project_window,
   ui->setupUi(this);
   this->setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("MessLess");
-  m_project_window->setEnabled(false);
   m_project_window->hide();
+  m_project_window->setEnabled(false);
   QLayout *lay = ui->messages->layout();
-  for (const auto &message :
-       m_main_window
-           ->all_message[m_project_window->m_project_name.toStdString()]) {
-    QPushButton *user = new QPushButton(message.name_of_sender + " " +
-                                        message.surname_of_sender);
-    QLabel *user_message = new QLabel(message.message_as_it_is);
-    lay->addWidget(user);
-    lay->addWidget(user_message);
-  }
+  qDebug()<<1;
+//  for (const auto &message :
+//       m_main_window
+//           ->all_message[m_project_window->m_project_name.toStdString()]) {
+//      qDebug()<<6;
+//    QPushButton *user = new QPushButton(message.name_of_sender + " " +
+//                                        message.surname_of_sender);
+//    QLabel *user_message = new QLabel(message.message_as_it_is);
+//    qDebug()<<5;
+//    lay->addWidget(user);
+//    lay->addWidget(user_message);
+//  }
+  qDebug()<<2;
   connect(ui->send_button, &QPushButton::clicked, [&] {
     if (ui->message_edit->text().isEmpty()) {
       QMessageBox::warning(this, "Warning", "Enter message!");
@@ -29,8 +33,10 @@ ProjectChat::ProjectChat(QWidget *parent, ProjectWindow *project_window,
       ui->message_edit->clear();
     }
   });
+  qDebug()<<3;
   connect(m_main_window, SIGNAL(got_project_message(Message)), this,
           SLOT(update_project_message(Message)));
+  qDebug()<<4;
 }
 
 void ProjectChat::update_project_message(Message message) {
@@ -53,8 +59,10 @@ void ProjectChat::clear_chat() {
 ProjectChat::~ProjectChat() {
   qDebug() << "окно чата удалилось";
   m_project_window->setEnabled(true);
+  qDebug()<<5;
   m_project_window->show();
+  qDebug()<<6;
   m_main_window->current_window = m_project_window->m_project_name;
-  clear_chat();
+//  clear_chat();
   delete ui;
 }

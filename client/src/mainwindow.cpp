@@ -80,6 +80,14 @@ void MainWindow::clear_projects() {
   }
 }
 
+void MainWindow::change_user_info(const QString &email,const QString &name,const QString &surname,const QString &company,const QString &role){
+  ui_Main->user_email_->setText(email);
+  ui_Main->user_name_->setText(name);
+  ui_Main->user_surname_->setText(surname);
+  ui_Main->user_company_->setText(company);
+  ui_Main->user_role_->setText(role);
+}
+
 void MainWindow::send_project_message(const QString &project_name,
                                       const QString &message) {
   emit send_project_message_signal(project_name, message);

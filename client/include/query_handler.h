@@ -64,11 +64,10 @@ public slots:
                               const QString &project_name);
 
   void delete_project(const QString &sender_email,
-                      const QString &sender_password,
-                      const QString &sender_user_role,
+                        const QString &sender_password,
+                        const QString &sender_user_role,
 
-                      const QString &project_name, const QString &project_bio);
-
+                        const QString &project_name);
   void create_task(const QString &sender_email, const QString &sender_password,
                    const QString &sender_user_role,
 

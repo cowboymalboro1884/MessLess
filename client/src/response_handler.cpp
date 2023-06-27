@@ -98,8 +98,13 @@ void ResponseHandler::got_status_of_user_authorization(
     project_chats[project_name.toStdString()] =
         extract_chat_from_json_array(raw_chat);
   }
+  QString name = request["name"].toString();
+    QString surname = request["surname"].toString();
+    QString company_name = request["company_name"].toString();
+
 
   emit got_status_of_authorization(sender);
+  emit got_user_info(email, name, surname, company_name, user_role);
   emit got_projects_with_tasks(projects_with_tasks);
   emit got_company_messages(std::move(company_chat));
 }

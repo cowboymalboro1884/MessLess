@@ -90,6 +90,7 @@ void Client::start() {
   connect(m_network_manager->m_response_handler,
           SIGNAL(got_error(const QString &)), this,
           SLOT(got_error_slot(const QString &)));
+  connect(m_network_manager->m_response_handler, SIGNAL(got_user_info(const QString &,const QString &,const QString &,const QString &,const QString &)), m_window, SLOT(change_user_info(const QString &,const QString &,const QString &,const QString &,const QString &)));
 }
 
 void Client::got_register_data() {
@@ -112,8 +113,8 @@ void Client::got_add_project_data(const QString &project_name,
 }
 
 void Client::delete_project() {
-  //  m_network_manager->m_query_sender->delete_project(user.email,
-  //  user.password,user.user_role,m_window->current_window, )
+    m_network_manager->m_query_sender->delete_project(user.email,
+    user.password,user.user_role,m_window->current_window);
 }
 
 void Client::got_error_slot(const QString &error) {

@@ -70,6 +70,7 @@ signals:
   void got_company_message(Message) const;
   void got_project_message(const QString &, Message) const;
   void got_error(const QString &) const;
+  void got_user_info(const QString &,const QString &,const QString &,const QString &,const QString &) const;
 public slots:
   void proccess_data(const QByteArray &);
 };
