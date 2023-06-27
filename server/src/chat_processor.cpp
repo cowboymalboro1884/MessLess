@@ -61,7 +61,7 @@ QJsonDocument RequestHandler::send_message_to_company(const QJsonObject &request
 
 QJsonDocument RequestHandler::send_message_to_project(const QJsonObject &request
 ) const {  // DONE
-    qDebug() << "----------------------------\ngot for send message";
+    qDebug() << "----------------------------\ngot for send project message";
 
     messless::PrivateUserInfo sender = extract_user_info_from_qjson(request);
 
@@ -105,9 +105,10 @@ QJsonDocument RequestHandler::send_message_to_project(const QJsonObject &request
         email["email"] = QString::fromStdString(user.email);
         recipients.append(email);
     }
+    qDebug() << response.event_type;
     response.change_to_project_chat(
         recipients, QString::fromStdString(project_name)
     );
-
+    qDebug() << response.event_type;    
     return response.to_qjson_document();
 }
