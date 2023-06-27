@@ -104,6 +104,14 @@ DatabaseUser::get_user_info(Database &db, const std::string &email) {
         "SELECT role_description FROM employee_roles WHERE id=" + db.shield_string(std::to_string(role_id)) +
         ";"
     );
+    unsigned int company_id = worker.query_value<int>(
+        "SELECT company_id FROM users WHERE id=" + db.shield_string(std::to_string(user_id)) +
+        ";"
+    );
+    info.company_name = worker.query_value<std::string>(
+        "SELECT company_name FROM companies WHERE id=" + db.shield_string(std::to_string(company_id)) +
+        ";"
+    );
     return info;
 }
 
