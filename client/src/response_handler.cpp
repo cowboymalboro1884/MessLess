@@ -109,7 +109,7 @@ void ResponseHandler::got_status_of_user_authorization(
     qDebug() << name << surname << company_name;
 
     emit got_status_of_authorization(sender);
-    emit got_user_info(email, name, surname, "MessLess", user_role);
+    emit got_user_info(email, name, surname, company_name, user_role);
     emit got_projects_with_tasks(projects_with_tasks);
     emit got_company_messages(std::move(company_chat));
 }
@@ -152,7 +152,7 @@ void ResponseHandler::got_status_of_user_and_company_registration(
     QString company_name = request["company_name"].toString();
     qDebug() << name << surname << company_name;
 
-    emit got_user_info(email, name, surname, "MessLess", user_role);
+    emit got_user_info(email, name, surname, company_name, user_role);
     emit got_status_of_registration(sender);
     emit got_projects_with_tasks(projects_with_tasks);
     emit got_company_messages(std::move(company_chat));
