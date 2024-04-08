@@ -17,12 +17,4 @@
 * Система управления базами данных - PostgreSQL 12
 * Для взаимодействия базы данных и серверной приложения используется libpqxx 7.4
 * Для шифрования используется cryptopp 8.7.0
-### Cкриншоты 
 
-<img src="images/chat.jpg" width="500">
-
-<img src="images/project.jpg" width="500">
-
-<img src="images/projects_list.jpg" width="500">
-
-<img src="images/login.jpg" width="500">
